@@ -1,0 +1,57 @@
+.ant-pro-table.autoFit-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  > .ant-pro-card:not(.ant-pro-table-search) {
+    flex: 1;
+    overflow: hidden;
+    > .ant-pro-card-body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 12px !important;
+      overflow: hidden;
+      > .ant-pro-table-list-toolbar {
+        flex-shrink: 0;
+        > .ant-pro-table-list-toolbar-container {
+          padding-top: 0;
+        }
+      }
+      > .ant-table-wrapper {
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+        > .ant-spin-nested-loading {
+          height: 100%;
+          > .ant-spin-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: hidden;
+            > .ant-table {
+              flex: 1;
+              overflow-y: hidden;
+            }
+            > .ant-pagination {
+              flex-shrink: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.s-table {
+  .ant-pagination {
+    margin-bottom: 0;
+  }
+  .ant-pro-table-search {
+    margin-bottom: 12px;
+    padding: 12px;
+    padding-bottom: 0;
+  }
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
+}
