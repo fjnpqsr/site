@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-04 11:18:09
- * @LastEditTime: 2022-08-29 15:06:50
+ * @LastEditTime: 2022-08-29 15:47:59
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\src\components\PageContainer\index.tsx
@@ -24,7 +24,7 @@ const PageContainer: FC<PageContainerProps> = (props) => {
     <div className={css["page-container"]}>
       <PageContainerHeader title={title} />
       <PageContainerViewContent>{children}</PageContainerViewContent>
-      <PageContainerFooter footerContent={footer} />
+      {footer && <PageContainerFooter footerContent={footer} />}
     </div>
   );
 };
