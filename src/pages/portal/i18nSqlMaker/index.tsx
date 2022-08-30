@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-30 11:05:36
- * @LastEditTime: 2022-08-30 14:40:29
+ * @LastEditTime: 2022-08-30 15:07:35
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\src\pages\portal\i18nSqlMaker\index.tsx
@@ -16,7 +16,7 @@ const tips = `
 // 1. 多语言词条存入Excel, 3列(key, enValue, arValue)
 // 2. 将录入后的Excel导出为htm/html格式
 // 3. 打开导出后的HTML页面, 在控制台输入一下代码后会输出多语言脚本
-// ps: 如果无法输出或者报错, 可以尝试输入document.querySelectorAll("table tbody tr")获取行数据, 如果获取不到, F12 Element洁面定位到表格后再次尝试
+// ps: 如果无法输出或者报错, 可以尝试输入document.querySelectorAll("table tbody tr")获取行数据, 如果获取不到, F12 Element面板定位到表格后再次尝试
 
 `;
 
