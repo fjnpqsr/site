@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-30 11:05:36
- * @LastEditTime: 2022-08-30 14:40:29
+ * @LastEditTime: 2022-09-05 14:40:41
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\src\pages\portal\i18nSqlMaker\index.tsx
@@ -25,9 +25,10 @@ INSERT INTO user_menu_multi_lang_cfg (user_menu_multi_lang_cfg_id, client_id, di
 INSERT INTO user_menu_multi_lang_cfg (user_menu_multi_lang_cfg_id, client_id, display_value, lang, client_type, menu ) VALUES ('{arIndex}','{key}', '{arValue}', 'ar', 'pc','{menu}');
 `;
 
-const template = `const WITH_ID_SCRIPT_TEMPLATE = \`${WITH_ID_SCRIPT_TEMPLATE}\``;
+const template = `const WITH_ID_SCRIPT_TEMPLATE = \`${WITH_ID_SCRIPT_TEMPLATE}\`;`;
 
 const code = `
+${template}
 function getSql(startIndex, menu) {
   let start = startIndex;
   let text = "";
@@ -50,15 +51,15 @@ function getSql(startIndex, menu) {
       text += "\\n";
     }
   });
-  getSql(100, "Vehicles In Whitelists");`;
+}
+getSql(100, "menu scope");`;
 
 const I18nSqlMaker: FC<I18nSqlMakerProps> = () => {
   return (
     <PageContainer>
       <pre>
-        <div>{tips}</div>
-        <code>{template}</code>
-        <code>{code}</code>
+        <pre>{tips}</pre>
+        <pre>{code}</pre>
       </pre>
     </PageContainer>
   );
