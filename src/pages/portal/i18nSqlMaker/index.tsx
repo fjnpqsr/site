@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-30 11:05:36
- * @LastEditTime: 2022-09-09 10:45:21
+ * @LastEditTime: 2022-09-09 10:49:10
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\src\pages\portal\i18nSqlMaker\index.tsx
@@ -50,8 +50,8 @@ function getSql(startIndex, menu) {
         .replaceAll("{menu}", menu);
       text += "\\n";
     }
-    console.log(text)
   });
+  console.log(text)
 }
 getSql(100, "menu scope");`;
 
