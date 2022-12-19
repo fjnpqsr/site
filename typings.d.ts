@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-03 11:22:59
- * @LastEditTime: 2022-08-03 13:42:26
+ * @LastEditTime: 2022-09-14 15:10:38
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\typings.d.ts
@@ -16,3 +16,4 @@ declare type IBabelPlugin =
         [key: string]: any;
       }
     ];
+declare module "three";
