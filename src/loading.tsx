@@ -6,7 +6,9 @@
  * @Description:
  * @FilePath: \front-end\src\loading.tsx
  */
+import React from 'react';
+
 const LoadingComponent = () => {
-  return <div>Loading... </div>;
+    return <div>Loading... </div>;
 };
 export default LoadingComponent;

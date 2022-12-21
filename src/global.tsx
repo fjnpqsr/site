@@ -6,4 +6,4 @@
  * @Description:
  * @FilePath: \front-end\src\global.tsx
  */
-console.log("do some script in ~/src/global.tsx");
+console.log('do some script in ~/src/global.tsx');

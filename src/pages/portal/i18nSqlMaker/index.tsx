@@ -1,22 +1,11 @@
-/*
- * @Author: Qiu Shao Rong
- * @Date: 2022-08-30 11:05:36
- * @LastEditTime: 2022-09-09 10:49:10
- * @LastEditors: Qiu Shao Rong
- * @Description:
- * @FilePath: \front-end\src\pages\portal\i18nSqlMaker\index.tsx
- */
-import PageContainer from "@/components/PageContainer";
-import { FC } from "react";
-
-interface I18nSqlMakerProps {}
+import PageContainer from '@/components/PageContainer';
 
 const tips = `
 // 前置条件
 // 1. 多语言词条存入Excel, 3列(key, enValue, arValue)
 // 2. 将录入后的Excel导出为htm/html格式
 // 3. 打开导出后的HTML页面, 在控制台输入一下代码后会输出多语言脚本
-// ps: 如果无法输出或者报错, 可以尝试输入document.querySelectorAll("table tbody tr")获取行数据, 如果获取不到, F12 Element洁面定位到表格后再次尝试
+// ps: 如果无法输出或者报错, 可以尝试输入document.querySelectorAll("table tbody tr")获取行数据, 如果获取不到, F12 Element界面定位到表格后再次尝试
 
 `;
 
@@ -37,11 +26,11 @@ function getSql(startIndex, menu) {
     const key = keySlot.innerText;
     const enValue = enValueSlot.innerText;
     const arValue = arValueSlot.innerText;
-    start += 1;
-    const enIndex = start;
-    start += 1;
-    const arIndex = start;
     if (key && key !== "key") {
+      start += 1;
+      const enIndex = start;
+      start += 1;
+      const arIndex = start;
       text += WITH_ID_SCRIPT_TEMPLATE.replace("{enIndex}", enIndex)
         .replace("{value}", enValue)
         .replace("{arIndex}", arIndex)
@@ -55,15 +44,15 @@ function getSql(startIndex, menu) {
 }
 getSql(100, "menu scope");`;
 
-const I18nSqlMaker: FC<I18nSqlMakerProps> = () => {
-  return (
-    <PageContainer>
-      <pre>
-        <pre>{tips}</pre>
-        <pre>{code}</pre>
-      </pre>
-    </PageContainer>
-  );
+const I18nSqlMaker = () => {
+    return (
+        <PageContainer>
+            <pre>
+                <pre>{tips}</pre>
+                <pre>{code}</pre>
+            </pre>
+        </PageContainer>
+    );
 };
 
 export default I18nSqlMaker;

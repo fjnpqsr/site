@@ -1,32 +1,21 @@
-/*
- * @Author: Qiu Shao Rong
- * @Date: 2022-08-04 11:18:09
- * @LastEditTime: 2022-08-29 15:47:59
- * @LastEditors: Qiu Shao Rong
- * @Description:
- * @FilePath: \front-end\src\components\PageContainer\index.tsx
- */
-import { FC } from "react";
-import PageContainerHeader from "./Header";
-import PageContainerViewContent from "./ViewContent";
-import PageContainerFooter from "./Footer";
+import React, { FC } from 'react';
 
-import css from "./index.less";
+import PageContainerViewContent from './ViewContent';
+
 interface PageContainerProps {
-  children?: React.ReactNode;
-  footer?: React.ReactNode;
-  title?: string;
+    children?: React.ReactNode;
+    title?: string;
+    padding?: boolean;
+    transparent?: boolean;
 }
 
 const PageContainer: FC<PageContainerProps> = (props) => {
-  const { children, title, footer } = props;
-  return (
-    <div className={css["page-container"]}>
-      <PageContainerHeader title={title} />
-      <PageContainerViewContent>{children}</PageContainerViewContent>
-      {footer && <PageContainerFooter footerContent={footer} />}
-    </div>
-  );
+    const { children, padding = true, transparent = false } = props;
+    return (
+        <PageContainerViewContent padding={padding} transparent={transparent}>
+            {children}
+        </PageContainerViewContent>
+    );
 };
 
 export default PageContainer;

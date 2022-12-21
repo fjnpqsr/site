@@ -1,33 +1,28 @@
 .basic-layout {
   display: flex;
   height: 100%;
-  .menu-wrap {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 240px;
+
+  .menu {
     height: 100%;
-    overflow-y: auto;
-    .menu-title {
-      height: 48px;
-      position: relative;
-      border-right: 1px solid #f0f0f0;
-      flex-shrink: 0;
-      &:after {
-        content: "";
-        position: absolute;
-        left: 12px;
-        right: 12px;
-        top: 8px;
-        bottom: 8px;
-        background-color: lightgray;
-      }
-    }
-    .menu {
-      flex: 1;
-    }
+    border-inline-end: none !important;
   }
+
+  .ant-layout-content {
+    background-color: transparent !important;
+  }
+
   .layout-container {
     flex: 1;
     overflow-y: hidden;
+
+    > main {
+      display: flex;
+    }
+  }
+
+  .layout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

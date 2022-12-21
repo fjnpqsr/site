@@ -1,22 +1,43 @@
-/*
- * @Author: Qiu Shao Rong
- * @Date: 2022-08-04 11:30:41
- * @LastEditTime: 2022-08-04 11:32:06
- * @LastEditors: Qiu Shao Rong
- * @Description:
- * @FilePath: \front-end\src\components\PageContainer\ViewContent\index.tsx
- */
-import { FC } from "react";
-import css from "./index.less";
+import { theme } from 'antd';
+import cns from 'classnames';
+import React, { FC } from 'react';
+
+import css from './index.less';
 
 interface PageContainerViewContentProps {
-  children?: React.ReactNode;
+    children?: React.ReactNode;
+    padding?: boolean;
+    transparent?: boolean;
 }
 
 const PageContainerViewContent: FC<PageContainerViewContentProps> = ({
-  children,
+    children,
+    padding,
+    transparent,
 }) => {
-  return <div className={css["page-container-view-content"]}>{children}</div>;
+    const className = [css['page-container-view-content']];
+    if (!padding) {
+        className.push(css['no-padding']);
+    }
+    if (transparent) {
+        className.push(css['transparent']);
+    }
+
+    const {
+        token: { colorBgContainer, colorText },
+    } = theme.useToken();
+
+    return (
+        <div
+            className={cns(className)}
+            style={{
+                backgroundColor: colorBgContainer,
+                color: colorText,
+            }}
+        >
+            {children}
+        </div>
+    );
 };
 
 export default PageContainerViewContent;

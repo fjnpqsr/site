@@ -1,37 +1,61 @@
-/*
- * @Author: Qiu Shao Rong
- * @Date: 2022-08-03 13:56:30
- * @LastEditTime: 2022-08-04 11:44:13
- * @LastEditors: Qiu Shao Rong
- * @Description:
- * @FilePath: \front-end\src\layouts\BasicLayout.tsx
- */
-import { FC } from "react";
-import { Outlet, history } from "umi";
-import { Menu } from "antd";
-import menusData from "@/constant/menu";
-import css from "./BasicLayout.less";
+import { Layout, Menu, theme } from 'antd';
+import React, { useState } from 'react';
+import { useContext } from 'react';
+import { history, Outlet } from 'umi';
 
-const BasicLayout: FC<any> = () => {
-  const handleMenuClick = (menuItem: any) => {
-    history.push(menuItem.key);
-  };
+import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch';
+import menusData from '@/constant/menu';
+import { context } from '@/context/context';
 
-  return (
-    <div className={css["basic-layout"]}>
-      <aside className={css["menu-wrap"]}>
-        <div className={css["menu-title"]}></div>
-        <Menu
-          items={menusData}
-          onClick={handleMenuClick}
-          className={css["menu"]}
-        />
-      </aside>
-      <div className={css["layout-container"]}>
-        <Outlet />
-      </div>
-    </div>
-  );
+import css from './BasicLayout.less';
+
+const { Header, Sider, Content } = Layout;
+
+const BasicLayout: React.FC = () => {
+    const [collapsed, setCollapsed] = useState(false);
+    const { state } = useContext(context);
+    const {
+        token: { colorBgBase, colorBgLayout },
+    } = theme.useToken();
+
+    const handleMenuClick = (menuItem: any) => {
+        history.push(menuItem.key);
+    };
+
+    return (
+        <Layout className={css['basic-layout']}>
+            <Sider
+                collapsible
+                collapsed={collapsed}
+                theme={state.theme}
+                onCollapse={(e) => {
+                    setCollapsed(e);
+                }}
+            >
+                <Menu
+                    items={menusData}
+                    onClick={handleMenuClick}
+                    className={css['menu']}
+                />
+            </Sider>
+            <Layout className={css['layout-container']}>
+                <Header
+                    className={css['layout-header']}
+                    style={{
+                        background: colorBgBase,
+                    }}
+                >
+                    <div className={css['layout-header-left']}></div>
+                    <div className={css['layout-header-right']}>
+                        <ThemeSwitch />
+                    </div>
+                </Header>
+                <Content style={{ backgroundColor: colorBgLayout }}>
+                    <Outlet />
+                </Content>
+            </Layout>
+        </Layout>
+    );
 };
 
 export default BasicLayout;
