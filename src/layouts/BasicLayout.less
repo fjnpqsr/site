@@ -2,11 +2,26 @@
   display: flex;
   height: 100%;
 
-  .menu {
+  &-aside {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    border-inline-end: none !important;
-  }
+    overflow: auto;
 
+    .logo {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu {
+      flex: 1;
+      border-inline-end: none !important;
+    }
+
+  }
+  
   .ant-layout-content {
     background-color: transparent !important;
   }
@@ -24,5 +39,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-inline: 20px;
   }
 }

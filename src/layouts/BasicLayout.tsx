@@ -1,3 +1,4 @@
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import React, { useState } from 'react';
 import { useContext } from 'react';
@@ -25,18 +26,25 @@ const BasicLayout: React.FC = () => {
     return (
         <Layout className={css['basic-layout']}>
             <Sider
+                trigger={null}
+                width={collapsed ? 80 : 240}
                 collapsible
                 collapsed={collapsed}
                 theme={state.theme}
-                onCollapse={(e) => {
-                    setCollapsed(e);
-                }}
             >
-                <Menu
-                    items={menusData}
-                    onClick={handleMenuClick}
-                    className={css['menu']}
-                />
+                <div className={css['basic-layout-aside']}>
+                    <div
+                        className={css['logo']}
+                        style={{
+                            background: colorBgBase,
+                        }}
+                    ></div>
+                    <Menu
+                        items={menusData}
+                        onClick={handleMenuClick}
+                        className={css['menu']}
+                    />
+                </div>
             </Sider>
             <Layout className={css['layout-container']}>
                 <Header
@@ -45,7 +53,15 @@ const BasicLayout: React.FC = () => {
                         background: colorBgBase,
                     }}
                 >
-                    <div className={css['layout-header-left']}></div>
+                    <div className={css['layout-header-left']}>
+                        {React.createElement(
+                            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                            {
+                                className: 'trigger',
+                                onClick: () => setCollapsed(!collapsed),
+                            }
+                        )}
+                    </div>
                     <div className={css['layout-header-right']}>
                         <ThemeSwitch />
                     </div>
