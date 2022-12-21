@@ -6,14 +6,4 @@
  * @Description:
  * @FilePath: \front-end\typings.d.ts
  */
-import "umi/typings";
-declare type IBabelPlugin =
-  | Function
-  | string
-  | [
-      string,
-      {
-        [key: string]: any;
-      }
-    ];
-declare module "three";
+import 'umi/typings';
