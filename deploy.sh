@@ -10,22 +10,19 @@ echo '>>> 应用构建成功'
 
 echo '>>> 清空nginx目录下文件'${target_dir}
 
-for f in `ls $target_dir`
-do
-  echo 'removing:'${target_dir}/${f} 
-	`rm ${target_dir}/${f}`
-done
+rm -rf ${target_dir:?}/*
 
 echo '>>> 拷贝dist目录下文件至nginx目录下:'${target_dir}
 
-for f in `ls $start_dir`
+for distFile in "$start_dir"/*
 do
-  echo 'coying:'${f} 
-	cp -r $start_dir/$f $target_dir
+  echo 'copying:'"${distFile}"
+	cp -r "$distFile" $target_dir
 done
 
 echo '>>> 文件拷贝完成'
 
+# shellcheck disable=SC2162
 read -n 1
 
 
