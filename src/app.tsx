@@ -6,8 +6,12 @@ import { history } from 'umi';
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
 
-function validateRouteIsNotExist(allRoutesPath: string[], pathname: 'string') {
-    if (!allRoutesPath.includes(pathname)) {
+function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
+    // 404-page path is /*
+    // not judgement 404-path will loop replace to 404
+    const isNot404Page = pathname !== '/404';
+
+    if (!allRoutesPath.includes(pathname) && isNot404Page) {
         // Switch not found page type
         if (pathname.indexOf('/portal') === 0) {
             history.replace('/portal/404');
@@ -30,9 +34,9 @@ export function onRouteChange({ routes, location }: any) {
     validateRouteIsNotExist(allRoutesPath, pathname);
 }
 
-export function rootContainer(container: React.ReactNode) {
+export function rootContainer(container: React.ReactNode, { routes }: any) {
     return (
-        <ContextProvider>
+        <ContextProvider routes={routes}>
             <Provider> {container} </Provider>
         </ContextProvider>
     );

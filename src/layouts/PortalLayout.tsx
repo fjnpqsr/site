@@ -8,11 +8,11 @@ import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch';
 import menusData from '@/constant/menu';
 import { context } from '@/context/context';
 
-import css from './BasicLayout.less';
+import css from './PortalLayout.less';
 
 const { Header, Sider, Content } = Layout;
 
-const BasicLayout: React.FC = () => {
+const PortalLayout: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { state } = useContext(context);
     const {
@@ -74,4 +74,4 @@ const BasicLayout: React.FC = () => {
     );
 };
 
-export default BasicLayout;
+export default PortalLayout;

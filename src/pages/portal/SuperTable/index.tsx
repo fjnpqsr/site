@@ -12,7 +12,10 @@ const SuperTable = () => {
 
     const columns = [
         { title: 'name', dataIndex: 'name' },
-        { title: 'age', dataIndex: 'age', hideInSearch: true },
+        { title: 'age', dataIndex: 'age' },
+        { title: 'email', dataIndex: 'email' },
+        { title: 'status', dataIndex: 'status' },
+        { title: 'country', dataIndex: 'country' },
     ];
 
     return (

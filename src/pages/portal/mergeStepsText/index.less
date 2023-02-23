@@ -1,0 +1,37 @@
+.page-build-trunk-path {
+  display: flex;
+  height: 100%;
+
+  > div {
+    flex: 1;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+
+    &:first-child {
+      margin-right: 12px;
+      width: 40%;
+    }
+
+    &:last-child {
+      width: 60%;
+    }
+  }
+
+  .result-view {
+    > pre {
+      background-color: #161d3f;
+      color: #fff;
+      flex: 1;
+      padding: 12px;
+      box-sizing: border-box;
+      margin-bottom: 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  }
+}
+
+.copy-shadow {
+  display: none;
+}

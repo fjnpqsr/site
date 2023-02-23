@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-03 14:12:09
- * @LastEditTime: 2022-10-19 09:44:44
+ * @LastEditTime: 2023-02-23 19:04:08
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\src\constant\menu.ts
@@ -23,6 +23,18 @@ const menusData = [
     {
         label: 'TestPage',
         key: '/portal/testPage',
+    },
+    {
+        label: 'x',
+        key: '/portal/x',
+    },
+    {
+        label: 'Role Design',
+        key: '/portal/RoleDesign',
+    },
+    {
+        label: 'Merge Testing Steps',
+        key: '/portal/mergeStepsText',
     },
 ];
 

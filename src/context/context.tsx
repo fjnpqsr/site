@@ -21,11 +21,15 @@ function contextReducer(state: any, { type, payload }: any) {
 }
 
 const Context = (props: any) => {
-    const [state, dispatch] = useReducer(contextReducer, defaultContext);
+    const { routes } = props;
+    const [state, dispatch] = useReducer(contextReducer, {
+        ...defaultContext,
+    });
     return (
         <ContextProvider
             value={{
                 state,
+                routes,
                 updateContext: dispatch,
             }}
         >
@@ -34,4 +38,4 @@ const Context = (props: any) => {
     );
 };
 
-export { context,Context as ContextProvider };
+export { context, Context as ContextProvider };
