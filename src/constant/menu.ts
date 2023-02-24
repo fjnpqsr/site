@@ -9,32 +9,16 @@
 
 const menusData = [
     {
-        label: '生成trunk分支文件路径',
-        key: '/portal/buildTrunkPath',
-    },
-    {
         label: '生成多语言脚本',
         key: '/portal/i18nSqlMaker',
     },
     {
-        label: 'Super Table',
-        key: '/portal/SuperTable',
+        label: 'Merge Testing Steps',
+        key: '/portal/mergeStepsText',
     },
     {
         label: 'TestPage',
         key: '/portal/testPage',
-    },
-    {
-        label: 'x',
-        key: '/portal/x',
-    },
-    {
-        label: 'Role Design',
-        key: '/portal/RoleDesign',
-    },
-    {
-        label: 'Merge Testing Steps',
-        key: '/portal/mergeStepsText',
     },
 ];
 
