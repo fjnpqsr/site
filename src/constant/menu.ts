@@ -9,8 +9,12 @@
 
 const menusData = [
     {
-        label: '生成多语言脚本',
+        label: '从EXCEL导出多语言脚本',
         key: '/portal/i18nSqlMaker',
+    },
+    {
+        label: '生成多语言脚本',
+        key: '/portal/i18nGenerator',
     },
     {
         label: 'Merge Testing Steps',
