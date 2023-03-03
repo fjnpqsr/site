@@ -1,7 +1,7 @@
 import './index.less'
 
 import { CopyOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, message, Modal,Row, Space, Table, theme } from 'antd';
+import { Button, Col, Form, Input, List,message, Modal,Row, Space, theme } from 'antd';
 import React, { useEffect,useState } from 'react';
 
 import PageContainer from '@/components/PageContainer';
@@ -113,6 +113,7 @@ const App: React.FC = () => {
     const { token } = theme.useToken();
     const cachedData = getCacheData()
     const [dataList, setDataList] = useState<any>(cachedData?.dataList || [])
+    const [detail, setDetail] = useState<any>(undefined)
     const [startIndexModalVisible, setStartIndexModalVisible] = useState<boolean>(false)
     const [generatedStr, setGeneratedStr] = useState<string>(cachedData?.generatedStr || '')
     const [form] = Form.useForm();
@@ -124,28 +125,6 @@ const App: React.FC = () => {
         setDataList(dataList.concat(values))
     };
     
-    const tableColumns = [
-        {title: 'key', dataIndex: 'key'},
-        {title: 'en value', dataIndex: 'en'},
-        {title: 'ar value', dataIndex: 'ar'},
-        {title: 'men', dataIndex: 'menu'},
-        {   
-            title: 'operation',
-            width: 120,
-            render: (value:any, record:any) => {
-                return (
-                    <Button 
-                        style={{padding: 0}} 
-                        type='link'
-                        onClick={() => {
-                            setDataList(dataList.filter((item:any) => item.key!==record.key))
-                        }}
-                    >remove</Button>  
-                )
-            }
-        },
-    ]
-
     const handleGenerate = ({key}: any) => {
         let sqlStartIndex:any = parseInt(key, 10)
         const injectedDataList = dataList.map((item:any) => {
@@ -182,6 +161,57 @@ const App: React.FC = () => {
         window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({dataList, generatedStr}))
     }, [dataList, generatedStr])
 
+    const renderItem = (dataItem: any) => {
+        const actions = [
+            <Button 
+                key={dataItem.key}
+                style={{padding: 0}} 
+                type='link'
+                onClick={() => {
+                    setDataList(dataList.filter((item:any) => item.key!==dataItem.key))
+                }}
+            >
+                remove
+            </Button>,
+            <Button 
+                key={dataItem.key}
+                style={{padding: 0}} 
+                type='link'
+                onClick={() => {
+                    setDetail(dataItem)
+                }}
+            >
+                detail
+            </Button>
+        ]
+        const detailActions = [
+            <Button 
+                key={dataItem.key}
+                style={{padding: 0}} 
+                type='link'
+                onClick={() => {
+                    setDetail(undefined)
+                }}
+            >
+                back
+            </Button>
+        ]
+
+        const desc = detail ? `En: ${dataItem.en.trim()} \nAr: ${dataItem.ar.trim()}` : dataItem.en.trim()
+
+        return (
+           <List.Item 
+                key={dataItem.key}
+                actions={detail ? detailActions : actions}
+            >
+                <List.Item.Meta
+                    title={`[${dataItem.menu}] > ${dataItem.key}`}
+                    description={desc}
+                />
+           </List.Item>
+        )
+    }
+
     return (
         <PageContainer>
            <div className='i18n-generator'>
@@ -197,16 +227,26 @@ const App: React.FC = () => {
                             setStartIndexModalVisible(true)
                         }}
                     />
-                    <div style={{flex: 1, marginTop: 12}}>
-                        <Table 
+                    <div style={{flex: 1, marginTop: 12, overflowY: 'auto'}}>
+                        <List 
                             size='small'
-                            columns={tableColumns}
-                            dataSource={dataList}
+                            dataSource={detail ? [detail] : dataList}
                             pagination={false}
+                            renderItem={renderItem}
                         />
                     </div>
                 </div>
                 <div>
+                    <div>
+                        <Button 
+                            block 
+                            type='primary' 
+                            style={{marginBottom: 12}}
+                            onClick={() => setGeneratedStr('')}
+                        >
+                            Clear Result
+                        </Button>
+                    </div>
                     <pre 
                         style={{
                             background: token.colorFillAlter,
