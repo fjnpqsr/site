@@ -1,7 +1,7 @@
 /*
  * @Author: Qiu Shao Rong
  * @Date: 2022-08-03 14:12:09
- * @LastEditTime: 2023-02-23 19:04:08
+ * @LastEditTime: 2023-04-20 09:43:15
  * @LastEditors: Qiu Shao Rong
  * @Description:
  * @FilePath: \front-end\src\constant\menu.ts
@@ -19,6 +19,14 @@ const menusData = [
     {
         label: 'Merge Testing Steps',
         key: '/portal/mergeStepsText',
+    },
+    {
+        label: '车辆伴随数据生成',
+        key: '/portal/vehicleAccompanyDataGenerator',
+    },
+    {
+        label: '动态表单组件',
+        key: '/portal/formList',
     },
     {
         label: 'TestPage',
