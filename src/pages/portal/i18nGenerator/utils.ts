@@ -3,12 +3,20 @@ import {message} from 'antd'
 const SESSION_STORAGE_KEY = 'i18n-generator'
 export const getCacheData = () => {
     const cacheData = window.localStorage.getItem(SESSION_STORAGE_KEY) || '{}'
-    const {dataList, generatedStr} = JSON.parse(cacheData)
-    return {dataList, generatedStr}
+    const {dataListMap, activeTab, tabs} = JSON.parse(cacheData)
+    return {
+        dataListMap, 
+        activeTab,
+        tabs,
+    }
 }
 
-export const saveCacheData = (dataList:any[], generatedStr: string) => {
-    window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({dataList, generatedStr}))
+export const saveCacheData = (dataListMap:any, activeTab: string, tabs: any []) => {
+    window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
+        dataListMap, 
+        activeTab,
+        tabs,
+    }))
 }
 
 export function copyResult (copyContent: any) {

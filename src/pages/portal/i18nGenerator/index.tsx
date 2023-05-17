@@ -11,29 +11,66 @@ import {
     Space,
     Table,
     theme,
+    Tabs,
 } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import PageContainer from '@/components/PageContainer';
 
 import I18nGeneratorForm from './components/generatorForm'
 import { copyResult, formatI18nData, getCacheData, saveCacheData } from './utils';
 
+
+const initialTabs = [
+    {label: 'Un Grouped', key: 'tab-0', children: null}
+]
+
+const AddTabButton = ({value, setValue, handleAdd }: any) => {
+    return (
+        <Space.Compact style={{ width: '100%' }}>
+            <Input 
+                placeholder='New tab name'
+                value={value} 
+                onChange={(e) => {
+                    setValue(e.target.value)
+                }}
+            />
+            <Button 
+                type="primary"
+                disabled={!value.trim()}
+                onClick={() => {
+                    if (value.trim()) {
+                        handleAdd()
+                    }
+                }}
+            >New Tab</Button>
+        </Space.Compact>
+    )
+}
+
 const App: React.FC = () => {
     const { token } = theme.useToken();
     const cachedData = getCacheData();
-    const [dataList, setDataList] = useState<any>(cachedData?.dataList || []);
     const [startIndexModalVisible, setStartIndexModalVisible] = useState<boolean>(false);
-    const [generatedStr, setGeneratedStr] = useState<string>(cachedData?.generatedStr || '');
+    const [generatedStr, setGeneratedStr] = useState<string>();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [tabs, setTabs] = useState<any>(cachedData?.tabs || initialTabs);
     const [form] = Form.useForm();
+    const [newTabName, setNewTabName] = useState('');
+    const [activeTab, setActiveTab] = useState(cachedData?.activeTab || 'tab-0');
+    const [dataListMap, setDataListMap] = useState<any>(cachedData?.dataListMap || {});
+    const dataList = dataListMap[activeTab] || [];
+
+    const updateCurrentTabDataList = (data: any []) => {
+        setDataListMap({ ...dataListMap, [activeTab]: data })
+    }
 
     const handleAdd = (values: any) => {
         if (dataList.some((item: any) => item.key === values.key)) {
             message.error('key is exist');
             return;
         }
-        setDataList(dataList.concat(values));
+        updateCurrentTabDataList(dataList.concat(values))
     };
 
     const handleGenerate = ({ key }: any) => {
@@ -73,10 +110,6 @@ const App: React.FC = () => {
         );
     };
 
-    useEffect(() => {
-        saveCacheData(dataList, generatedStr);
-    }, [dataList, generatedStr]);
-
     const columns = [
         { title: 'key', dataIndex: 'key' },
         { title: 'En Value', dataIndex: 'en', width: 440, ellipsis: true },
@@ -93,7 +126,7 @@ const App: React.FC = () => {
                             style={{ padding: 0 }}
                             type="link"
                             onClick={() => {
-                                setDataList(dataList.filter((item: any) => item.key !== record.key));
+                                updateCurrentTabDataList(dataList.filter((item: any) => item.key !== record.key))
                             }}
                         >
                             remove
@@ -105,6 +138,37 @@ const App: React.FC = () => {
         },
     ];
 
+    const formatTabItems = useMemo(() => {
+        return tabs.map((item: any, index: number) => {
+            if (index === 0) return {...item, closable: false}
+            return item
+        })
+    },[tabs])
+
+        
+    const handleAddTab = () => {
+        setTabs([...tabs, {label: newTabName, key: `tab-${tabs.length}`}])
+        setNewTabName('')
+        setDataListMap({
+            ...dataListMap,
+            [`tab-${tabs.length}`]: []
+        })
+    }
+
+    const onTabsEdit = (targetKey: any, action: 'add' | 'remove') => {
+        if (action === 'remove') {
+            setActiveTab('tab-0')
+            setTabs(tabs.filter((item: any) => item.key !== targetKey))
+            const newDataListMap = {...dataListMap}
+            delete newDataListMap[targetKey]
+            setDataListMap(newDataListMap)
+        }
+    }
+
+    useEffect(() => {
+        saveCacheData(dataListMap, activeTab, tabs);
+    }, [dataListMap, tabs, activeTab]);
+
     return (
         <PageContainer>
             <div className="i18n-generator">
@@ -114,14 +178,34 @@ const App: React.FC = () => {
                         enabledGenerate={dataList.length}
                         handleAdd={handleAdd}
                         handleClear={() => {
-                            setDataList([]);
                             setGeneratedStr('');
+                            updateCurrentTabDataList([])
                         }}
                         handleGenerate={() => {
                             setStartIndexModalVisible(true);
                         }}
                     />
-                    <div style={{ flex: 1, marginTop: 12, overflowY: 'auto' }}>
+                    <Tabs 
+                        activeKey={activeTab}
+                        onChange={(key: string) => {
+                            setActiveTab(key)
+                        }}
+                        style={{marginTop: 12}}
+                        type="editable-card"
+                        items={formatTabItems}
+                        onEdit={onTabsEdit}
+                        tabBarExtraContent={{
+                            right: (
+                                <AddTabButton 
+                                    value={newTabName} 
+                                    setValue={setNewTabName}
+                                    handleAdd={handleAddTab}
+                                />
+                            )
+                        }}
+                        hideAdd
+                    />
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
                         <Table
                             size="small"
                             dataSource={dataList}
