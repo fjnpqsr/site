@@ -29,6 +29,10 @@ const menusData = [
         key: '/portal/formList',
     },
     {
+        label: '生成MQ消息',
+        key: '/portal/mqGenerator',
+    },
+    {
         label: 'TestPage',
         key: '/portal/testPage',
     },
