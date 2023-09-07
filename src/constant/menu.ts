@@ -36,6 +36,14 @@ const menusData = [
         label: 'TestPage',
         key: '/portal/testPage',
     },
+    {
+        label: 'Resource Form',
+        key: '/portal/resourceParamsForm',
+    },
+    {
+        label: 'DrawableBox',
+        key: '/portal/DrawableBox',
+    },
 ];
 
 export default menusData;
