@@ -6,29 +6,49 @@
  * @Description:
  * @FilePath: \front-end\src\pages\portal\testPage\index.tsx
  */
+import {useState} from 'react'
+import {history} from 'umi'
+
 import PageContainer from '@/components/PageContainer';
-import {Select} from 'antd'
+
+
+const Content = () => {
+  const [count, setCount] = useState(0)
+  console.log({count})
+
+  return (
+   <div>
+     <p>{count}</p>
+    <hr />
+    <button 
+      type='button'
+      onClick={() => {
+        setCount((pre) => pre+1)
+      }}
+    >add</button>
+
+    <button 
+      type='button'
+      onClick={() => {
+        setCount((pre) => pre-1)
+      }}
+    >decrease</button>
+    <hr />
+    <button 
+      type='button'
+      onClick={() => {
+          history?.push('/portal/testPage/detail')
+      }}
+    >go detail</button>
+   </div>
+  )
+}
+
 const TestPage = () => {
-
-    const options: any = [];
-
-    for (let i = 0; i < 100; i++) {
-      const value = `${i.toString(36)}${i}`;
-      options.push({
-        label: value,
-        key: value,
-        value,
-        disabled: i === 10,
-      });
-    }
-
+  
     return (
         <PageContainer>
-          <Select 
-            placeholder='10000 row testing'
-            style={{width: '500px'}}
-            options={options}
-          />
+          <Content/>
         </PageContainer>
     );
 };

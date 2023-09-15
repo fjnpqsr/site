@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import {KeepAlive} from 'react-activation'
 
 import PageContainerViewContent from './ViewContent';
 
@@ -12,9 +13,11 @@ interface PageContainerProps {
 const PageContainer: FC<PageContainerProps> = (props) => {
     const { children, padding = true, transparent = false } = props;
     return (
-        <PageContainerViewContent padding={padding} transparent={transparent}>
-            {children}
-        </PageContainerViewContent>
+        <KeepAlive cacheKey={window.location.pathname}>
+            <PageContainerViewContent padding={padding} transparent={transparent}>
+                {children}
+            </PageContainerViewContent>
+        </KeepAlive>
     );
 };
 

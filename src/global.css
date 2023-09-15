@@ -5,3 +5,9 @@
 pre {
     font-size: 14px;
 }
+.ka-wrapper,
+.ka-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}

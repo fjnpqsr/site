@@ -6,9 +6,11 @@
  * @Description:
  * @FilePath: \front-end\src\pages\portal\testPage\index.tsx
  */
-import PageContainer from '@/components/PageContainer';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Col, Form, Input, Row, Space } from 'antd';
+import { Col, Form, Input, Row, Space, Table } from 'antd';
+
+import PageContainer from '@/components/PageContainer';
+
 import css from './index.less';
 
 interface FormListProps {
@@ -189,6 +191,14 @@ const I18nSqlMaker = () => {
                     rowGutter={5}
                 />
             </Form>
+            <Table 
+                columns={[
+                    {title: 'name'},
+                    {title: 'age'},
+                    {title: 'job'},
+                ]}
+                dataSource={[]}
+            />
         </PageContainer>
     );
 };

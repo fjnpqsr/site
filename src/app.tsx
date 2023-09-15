@@ -1,6 +1,9 @@
 import 'antd/dist/reset.css';
 
+import {ConfigProvider} from 'antd'
+import enUS from 'antd/es/locale/en_US';
 import React from 'react';
+import {AliveScope} from 'react-activation'
 import { history } from 'umi';
 
 import { ContextProvider } from '@/context/context';
@@ -37,7 +40,11 @@ export function onRouteChange({ routes, location }: any) {
 export function rootContainer(container: React.ReactNode, { routes }: any) {
     return (
         <ContextProvider routes={routes}>
-            <Provider> {container} </Provider>
+            <AliveScope>
+                <ConfigProvider locale={{...enUS, Empty: {description: 'no any data'}}}>
+                    <Provider>{container}</Provider>
+                </ConfigProvider>
+            </AliveScope>
         </ContextProvider>
     );
 }
