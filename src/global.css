@@ -11,3 +11,7 @@ pre {
     width: 100%;
     display: flex;
 }
+
+/* th.ant-table-cell {
+    white-space: nowrap;
+} */

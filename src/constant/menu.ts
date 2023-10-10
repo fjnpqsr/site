@@ -44,6 +44,14 @@ const menusData = [
         label: 'DrawableBox',
         key: '/portal/DrawableBox',
     },
+    {
+        label: 'TopologyMap',
+        key: '/portal/TopologyMap',
+    },
+    {
+        label: 'AutoFitActionsTable',
+        key: '/portal/autoFitActionsTable',
+    },
 ];
 
 export default menusData;

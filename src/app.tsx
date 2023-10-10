@@ -1,4 +1,5 @@
 import 'antd/dist/reset.css';
+import './global.css'
 
 import {ConfigProvider} from 'antd'
 import enUS from 'antd/es/locale/en_US';
