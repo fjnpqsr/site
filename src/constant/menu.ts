@@ -21,36 +21,22 @@ const menusData = [
         key: '/portal/mergeStepsText',
     },
     {
-        label: '车辆伴随数据生成',
-        key: '/portal/vehicleAccompanyDataGenerator',
-    },
-    {
-        label: '动态表单组件',
-        key: '/portal/formList',
-    },
-    {
-        label: '生成MQ消息',
-        key: '/portal/mqGenerator',
-    },
-    {
-        label: 'TestPage',
-        key: '/portal/testPage',
-    },
-    {
-        label: 'Resource Form',
-        key: '/portal/resourceParamsForm',
-    },
-    {
-        label: 'DrawableBox',
-        key: '/portal/DrawableBox',
-    },
-    {
-        label: 'TopologyMap',
-        key: '/portal/TopologyMap',
-    },
-    {
-        label: 'AutoFitActionsTable',
-        key: '/portal/autoFitActionsTable',
+        label: 'CCTV',
+        key: '/portal/CCT',
+        children: [
+            {
+                label: '车辆伴随数据生成',
+                key: '/portal/vehicleAccompanyDataGenerator',
+            },
+            {
+                label: 'Plate Number Input',
+                key: '/portal/plateNumberForm',
+            },
+            {
+                label: '生成MQ消息',
+                key: '/portal/mqGenerator',
+            },
+        ]
     },
 ];
 

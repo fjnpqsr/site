@@ -6,9 +6,17 @@
  * @Description:
  * @FilePath: \front-end\src\loading.tsx
  */
-import React from 'react';
+import {Spin} from 'antd'
+import React, { CSSProperties } from 'react';
 
 const LoadingComponent = () => {
-    return <div>Loading... </div>;
+    const loadingStyle: CSSProperties = {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+    return <div style={loadingStyle}><Spin /></div>;
 };
 export default LoadingComponent;

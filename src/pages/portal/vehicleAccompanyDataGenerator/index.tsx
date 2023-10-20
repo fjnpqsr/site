@@ -6,13 +6,15 @@
  * @Description: 
  * @FilePath: \front-end\src\pages\portal\vehicleAccompanyDataGenerator\index.tsx
  */
+import { Button,Form, Space, Steps }  from 'antd'
 import React, { useState } from 'react'
+
 import PageContainer from '@/components/PageContainer'
-import { Form, Steps, Space, Button }  from 'antd'
-import css from './index.module.less'
+
+import ESResult from './components/ESResult'
 import TargetVehicleTrackLine from './components/TargetVehicleTrackLine'
 import TargetVehicleTrackTable from './components/TargetVehicleTrackTable'
-import ESResult from './components/ESResult'
+import css from './index.module.less'
 
 const VehicleAccompanyDataGenerator = () => {
     const [current, setCurrent] = useState(0)
