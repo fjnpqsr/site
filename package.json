@@ -20,7 +20,7 @@
     "react-activation": "^0.12.4",
     "react-json-view": "^1.21.3",
     "three": "^0.144.0",
-    "umi": "^4.0.9"
+    "umi": "^4.0.81"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
