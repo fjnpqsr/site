@@ -29,10 +29,6 @@ const menusData = [
                 key: '/portal/vehicleAccompanyDataGenerator',
             },
             {
-                label: 'Plate Number Input',
-                key: '/portal/plateNumberForm',
-            },
-            {
                 label: '生成MQ消息',
                 key: '/portal/mqGenerator',
             },

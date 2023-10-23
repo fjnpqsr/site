@@ -1,5 +1,5 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Layout, Menu, Space, theme } from 'antd';
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { history, Outlet } from 'umi';
@@ -38,7 +38,12 @@ const PortalLayout: React.FC = () => {
                         style={{
                             background: colorBgBase,
                         }}
-                    ></div>
+                        onClick={() => {
+                            history.push('/portal')
+                        }}
+                    >
+                        Tools
+                    </div>
                     <Menu
                         items={menusData}
                         onClick={handleMenuClick}
@@ -54,13 +59,20 @@ const PortalLayout: React.FC = () => {
                     }}
                 >
                     <div className={css['layout-header-left']}>
-                        {React.createElement(
-                            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                            {
-                                className: 'trigger',
-                                onClick: () => setCollapsed(!collapsed),
-                            }
-                        )}
+                        <Space size={24}>
+                            {React.createElement(
+                                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                                {
+                                    className: 'trigger',
+                                    style: {fontSize: 20},
+                                    onClick: () => setCollapsed(!collapsed),
+                                }
+                            )}
+                            <HomeOutlined 
+                                style={{fontSize: 20}}
+                                onClick={() => history.push('/portal')}
+                            />
+                        </Space>
                     </div>
                     <div className={css['layout-header-right']}>
                         <ThemeSwitch />

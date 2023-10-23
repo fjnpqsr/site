@@ -9,10 +9,12 @@
     overflow: auto;
 
     .logo {
-      height: 64px;
+      height: 64px!important;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      font-size: 32px;
     }
 
     .menu {
@@ -40,5 +42,9 @@
     justify-content: space-between;
     align-items: center;
     padding-inline: 20px;
+    &-left {
+      display: flex;
+      align-items: center;
+    }
   }
 }
