@@ -1,14 +1,14 @@
-import { Form, Input, Space, Typography  } from 'antd';
-import React, { FC, useState } from 'react';
-const FormItem = Form.Item;
+import { Form, Input, Space, Typography } from 'antd'
+import React, { type FC, useState } from 'react'
+const FormItem = Form.Item
 
 interface PlateFormInputProps {
-    onChange?: () => void;
+  onChange?: () => void
 }
-const { Paragraph } = Typography;
-const NumberMappingTable = () => {
-    return (
-        <table border={1} style={{width: 250, height:'100%',margin: '0 12px'}} >
+const { Paragraph } = Typography
+const NumberMappingTable = (): React.ReactElement => {
+  return (
+        <table border={1} style={{ width: 250, height: '100%', margin: '0 12px' }} >
             <thead>
                 <th>english</th>
                 <th>arabic</th>
@@ -26,13 +26,12 @@ const NumberMappingTable = () => {
                 <tr><td><Paragraph copyable>٩</Paragraph></td><td>9</td></tr>
             </tbody>
         </table>
-    )
+  )
 }
 
-
-const LetterMappingTable = () => {
-    return (
-        <table border={1} style={{width: 250, height: '100%'}} >
+const LetterMappingTable = (): React.ReactElement => {
+  return (
+        <table border={1} style={{ width: 250, height: '100%' }} >
             <thead>
                 <th>english</th>
                 <th>arabic</th>
@@ -57,72 +56,75 @@ const LetterMappingTable = () => {
                 <tr><td><Paragraph copyable>ي</Paragraph></td><td>V</td></tr>
             </tbody>
         </table>
-    )
+  )
 }
 
-
 const PlateFormInput: FC<PlateFormInputProps> = (props) => {
-    console.log({ props });
-    const arabicNumberRegExp = /^[٠١٢٣٤٥٦٧٨٩]{0,4}$/;
-    const arabicPlateLetterRegExp =/^[أبحدرسصصطغقكلمنهوي]{0,1}$/;
-    const [plateString, setPlateString] = useState('')
-    return (
-        <div lang="ar" dir="rtl" style={{display: 'flex', justifyContent: 'space-between', height: '100%'}}>
-            <div style={{height: '100%'}}>
+  console.log({ props })
+  const arabicNumberRegExp = /^[٠١٢٣٤٥٦٧٨٩]{0,4}$/
+  const arabicPlateLetterRegExp = /^[أبحدرسصصطغقكلمنهوي]{0,1}$/
+  const [plateString, setPlateString] = useState('')
+  return (
+        <div lang="ar" dir="rtl" style={{ display: 'flex', justifyContent: 'space-between', height: '100%' }}>
+            <div style={{ height: '100%' }}>
             <Form onValuesChange={(value, allValues) => {
-                const {numbers, first, second, third} = allValues.plateNumber || {}
-                const fullPlateInput = [numbers, third, second, first].filter(item => !!item).join('')
-                setPlateString(fullPlateInput)
+              const { numbers, first, second, third } = allValues.plateNumber || {}
+              const fullPlateInput = [numbers, third, second, first].filter(item => !!item).join('')
+              setPlateString(fullPlateInput)
             }}>
                 <FormItem noStyle>
                     <Space>
-                    <FormItem 
+                    <FormItem
                             name={['plateNumber', 'third']}
-                            rules={[{required: true, message: ' '}]}
+                            rules={[{ required: true, message: ' ' }]}
                             normalize={(value, preValue) => {
-                                if (arabicPlateLetterRegExp.test(value)) return value
-                                return preValue || ''
+                              if (arabicPlateLetterRegExp.test(value)) return value
+                              if (preValue !== null) return preValue
+                              return ''
                             }}
                         >
                             <Input style={{ width: 40 }} maxLength={1} />
                         </FormItem>
-                        <FormItem 
+                        <FormItem
                             name={['plateNumber', 'second']}
-                            rules={[{required: true, message: ' '}]}
+                            rules={[{ required: true, message: ' ' }]}
                             normalize={(value, preValue) => {
-                                console.log(value, preValue, arabicPlateLetterRegExp.test(value))
-                                if (arabicPlateLetterRegExp.test(value))  return value
-                                return preValue || ''
+                              console.log(value, preValue, arabicPlateLetterRegExp.test(value))
+                              if (arabicPlateLetterRegExp.test(value)) return value
+                              if (preValue !== null) return preValue
+                              return ''
                             }}
                         >
                             <Input style={{ width: 40 }} maxLength={1} />
                         </FormItem>
-                        <FormItem 
+                        <FormItem
                             name={['plateNumber', 'first']}
-                            rules={[{required: true, message: ' '}]}
+                            rules={[{ required: true, message: ' ' }]}
                             normalize={(value, preValue) => {
-                                if (arabicPlateLetterRegExp.test(value))  return value
-                                return preValue || ''
+                              if (arabicPlateLetterRegExp.test(value)) return value
+                              if (preValue !== null) return preValue
+                              return ''
                             }}
                         >
-                            <Input 
-                                style={{ width: 40, padding: 4 }} maxLength={1} 
+                            <Input
+                                style={{ width: 40, padding: 4 }} maxLength={1}
                             />
                         </FormItem>
-                        <FormItem 
+                        <FormItem
                             name={['plateNumber', 'numbers']}
-                            rules={[{required: true, message: ' '}]}
+                            rules={[{ required: true, message: ' ' }]}
                             normalize={(value, preValue) => {
-                                if (arabicNumberRegExp.test(value))  return value
-                                return preValue || ''
+                              if (arabicNumberRegExp.test(value)) return value
+                              if (preValue !== null) return preValue
+                              return ''
                             }}
                         >
-                            <Input 
-                                style={{ width: 100 }} 
+                            <Input
+                                style={{ width: 100 }}
                                 maxLength={4}
                             />
                         </FormItem>
-                      
+
                     </Space>
                 </FormItem>
             </Form>
@@ -130,13 +132,13 @@ const PlateFormInput: FC<PlateFormInputProps> = (props) => {
                 {plateString}
             </div>
             </div>
-            <div style={{display: 'flex', width: 500, height: '100%'}}>
+            <div style={{ display: 'flex', width: 500, height: '100%' }}>
                 <NumberMappingTable />
                 <LetterMappingTable />
             </div>
-          
-        </div>
-    );
-};
 
-export default PlateFormInput;
+        </div>
+  )
+}
+
+export default PlateFormInput

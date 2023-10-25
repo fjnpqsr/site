@@ -1,10 +1,33 @@
-// .eslintrc.js
 module.exports = {
-    // Umi 项目
-    extends: require.resolve('umi/eslint'),
-    plugins: ['simple-import-sort'],
-    rules: {
-        'simple-import-sort/imports': 'error',
-        'simple-import-sort/exports': 'error',
+    "env": {
+        "browser": true,
+        "es2021": true
     },
-};
+    "extends": [
+        "standard-with-typescript",
+        "plugin:react/recommended"
+    ],
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-tabs": 'off'
+    }
+}

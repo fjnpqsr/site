@@ -16,7 +16,7 @@ const TargetVehicleTrackLine = (props: any) => {
             initialValues={{ plateNo: '', track: [{}] }}
             layout="vertical"
             onValuesChange={(changedValue, allValue) => {
-                console.log(allValue);
+                console.log(changedValue, allValue);
             }}
         >
             <Form.Item
