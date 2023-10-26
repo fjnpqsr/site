@@ -1,29 +1,28 @@
-import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, Menu, Space, theme } from 'antd';
-import React, { useState } from 'react';
-import { useContext } from 'react';
-import { history, Outlet } from 'umi';
+import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { Layout, Menu, Space, theme } from 'antd'
+import React, { useState, useContext } from 'react'
+import { history, Outlet } from 'umi'
 
-import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch';
-import menusData from '@/constant/menu';
-import { context } from '@/context/context';
+import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch'
+import menusData from '@/constant/menu'
+import { context } from '@/context/context'
 
-import css from './PortalLayout.less';
+import css from './PortalLayout.less'
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout
 
 const PortalLayout: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const { state } = useContext(context);
-    const {
-        token: { colorBgBase, colorBgLayout },
-    } = theme.useToken();
+  const [collapsed, setCollapsed] = useState(false)
+  const { state } = useContext(context)
+  const {
+    token: { colorBgBase, colorBgLayout }
+  } = theme.useToken()
 
-    const handleMenuClick = (menuItem: any) => {
-        history.push(menuItem.key);
-    };
+  const handleMenuClick = (menuItem: any) => {
+    history.push(menuItem.key)
+  }
 
-    return (
+  return (
         <Layout className={css['basic-layout']}>
             <Sider
                 trigger={null}
@@ -34,12 +33,12 @@ const PortalLayout: React.FC = () => {
             >
                 <div className={css['basic-layout-aside']}>
                     <div
-                        className={css['logo']}
+                        className={css.logo}
                         style={{
-                            background: colorBgBase,
+                          background: colorBgBase
                         }}
                         onClick={() => {
-                            history.push('/portal')
+                          history.push('/portal')
                         }}
                     >
                         Tools
@@ -47,7 +46,7 @@ const PortalLayout: React.FC = () => {
                     <Menu
                         items={menusData}
                         onClick={handleMenuClick}
-                        className={css['menu']}
+                        className={css.menu}
                     />
                 </div>
             </Sider>
@@ -55,22 +54,22 @@ const PortalLayout: React.FC = () => {
                 <Header
                     className={css['layout-header']}
                     style={{
-                        background: colorBgBase,
+                      background: colorBgBase
                     }}
                 >
                     <div className={css['layout-header-left']}>
                         <Space size={24}>
                             {React.createElement(
-                                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                                {
-                                    className: 'trigger',
-                                    style: {fontSize: 20},
-                                    onClick: () => setCollapsed(!collapsed),
-                                }
+                              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                              {
+                                className: 'trigger',
+                                style: { fontSize: 20 },
+                                onClick: () => { setCollapsed(!collapsed) }
+                              }
                             )}
-                            <HomeOutlined 
-                                style={{fontSize: 20}}
-                                onClick={() => history.push('/portal')}
+                            <HomeOutlined
+                                style={{ fontSize: 20 }}
+                                onClick={() => { history.push('/portal') }}
                             />
                         </Space>
                     </div>
@@ -83,7 +82,7 @@ const PortalLayout: React.FC = () => {
                 </Content>
             </Layout>
         </Layout>
-    );
-};
+  )
+}
 
-export default PortalLayout;
+export default PortalLayout

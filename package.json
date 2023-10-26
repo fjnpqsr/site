@@ -19,6 +19,8 @@
     "classnames": "^2.3.1",
     "moment": "^2.29.4",
     "react-activation": "^0.12.4",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-json-view": "^1.21.3",
     "three": "^0.144.0",
     "umi": "^4.0.81"

@@ -8,32 +8,36 @@
  */
 
 const menusData = [
-    {
-        label: '从EXCEL导出多语言脚本',
-        key: '/portal/i18nSqlMaker',
-    },
-    {
-        label: '生成多语言脚本',
-        key: '/portal/i18nGenerator',
-    },
-    {
-        label: 'Merge Testing Steps',
-        key: '/portal/mergeStepsText',
-    },
-    {
-        label: 'CCTV',
-        key: '/portal/CCT',
-        children: [
-            {
-                label: '车辆伴随数据生成',
-                key: '/portal/vehicleAccompanyDataGenerator',
-            },
-            {
-                label: '生成MQ消息',
-                key: '/portal/mqGenerator',
-            },
-        ]
-    },
-];
+  {
+    label: '从EXCEL导出多语言脚本',
+    key: '/portal/i18nSqlMaker'
+  },
+  {
+    label: '生成多语言脚本',
+    key: '/portal/i18nGenerator'
+  },
+  {
+    label: 'Merge Testing Steps',
+    key: '/portal/mergeStepsText'
+  },
+  {
+    label: 'Topology',
+    key: '/portal/TopologyTest'
+  },
+  {
+    label: 'CCTV',
+    key: '/portal/CCT',
+    children: [
+      {
+        label: '车辆伴随数据生成',
+        key: '/portal/vehicleAccompanyDataGenerator'
+      },
+      {
+        label: '生成MQ消息',
+        key: '/portal/mqGenerator'
+      }
+    ]
+  }
+]
 
-export default menusData;
+export default menusData
