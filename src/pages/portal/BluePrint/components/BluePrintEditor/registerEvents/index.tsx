@@ -1,7 +1,8 @@
 import { processParallelEdgesOnAnchorPoint } from '../registerNodes/utils';
-export const registerEvents = (graph: any, params: any) => {
+export const registerEvents = (graph: any, params: any = {}) => {
+    const { sourceAnchorIdx, targetAnchorIdx } = params;
     graph.on('aftercreateedge', (e: any) => {
-        const { sourceAnchorIdx, targetAnchorIdx } = params;
+
         // update the sourceAnchor and targetAnchor for the newly added edge
         graph.updateItem(e.edge, {
             sourceAnchor: sourceAnchorIdx,
@@ -11,7 +12,7 @@ export const registerEvents = (graph: any, params: any) => {
         // update the curveOffset for parallel edges
         const edges: any = graph.save().edges;
         processParallelEdgesOnAnchorPoint(edges);
-        graph.getEdges().forEach((edge, i) => {
+        graph.getEdges().forEach((edge: any, i: any) => {
             graph.updateItem(edge, {
                 curveOffset: edges[i].curveOffset,
                 curvePosition: edges[i].curvePosition,
@@ -20,7 +21,7 @@ export const registerEvents = (graph: any, params: any) => {
     });
 
     // after drag from the first node, the edge is created, update the sourceAnchor
-    graph.on('afteradditem', (e) => {
+    graph.on('afteradditem', (e: any) => {
         if (e.item && e.item.getType() === 'edge') {
             graph.updateItem(e.item, {
                 sourceAnchor: sourceAnchorIdx,
@@ -37,7 +38,7 @@ export const registerEvents = (graph: any, params: any) => {
                 const sourceAnchorShape = sourceNode
                     .getContainer()
                     .find(
-                        (ele) =>
+                        (ele: any) =>
                             ele.get('name') === 'anchor-point' &&
                             ele.get('anchorPointIdx') === sourceAnchor
                     );
@@ -50,7 +51,7 @@ export const registerEvents = (graph: any, params: any) => {
                 const targetAnchorShape = targetNode
                     .getContainer()
                     .find(
-                        (ele) =>
+                        (ele: any) =>
                             ele.get('name') === 'anchor-point' &&
                             ele.get('anchorPointIdx') === targetAnchor
                     );

@@ -23,7 +23,7 @@ const Topology: FC<TopologyProps> = (props) => {
         }
         let sourceAnchorIdx: any, targetAnchorIdx: any;
         registerBasicNode(G6);
-        registerEvents(G6, { sourceAnchorIdx, targetAnchorIdx });
+
         const width = container.scrollWidth;
         const height = container.scrollHeight;
         const graph = new G6.Graph({
@@ -85,6 +85,7 @@ const Topology: FC<TopologyProps> = (props) => {
         });
         graph.data(data);
         graph.render();
+        registerEvents(graph, { sourceAnchorIdx, targetAnchorIdx });
         graphRef.current = graph;
     };
 
