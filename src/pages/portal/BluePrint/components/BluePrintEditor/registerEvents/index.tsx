@@ -1,31 +1,21 @@
-import { processParallelEdgesOnAnchorPoint } from '../registerNodes/utils';
-export const registerEvents = (graph: any, params: any) => {
+import { processParallelEdgesOnAnchorPoint } from "../registerNodes/utils";
+
+export const registerEvents = (graph: any, anchorIndexRef: any) => {
     graph.on('aftercreateedge', (e: any) => {
-        const { sourceAnchorIdx, targetAnchorIdx } = params;
         // update the sourceAnchor and targetAnchor for the newly added edge
         graph.updateItem(e.edge, {
-            sourceAnchor: sourceAnchorIdx,
-            targetAnchor: targetAnchorIdx,
+            sourceAnchor: anchorIndexRef.sourceAnchorIdx,
+            targetAnchor: anchorIndexRef.targetAnchorIdx,
         });
-
         // update the curveOffset for parallel edges
         const edges: any = graph.save().edges;
         processParallelEdgesOnAnchorPoint(edges);
-        graph.getEdges().forEach((edge, i) => {
+        graph.getEdges().forEach((edge: any, i: any) => {
             graph.updateItem(edge, {
                 curveOffset: edges[i].curveOffset,
                 curvePosition: edges[i].curvePosition,
             });
         });
-    });
-
-    // after drag from the first node, the edge is created, update the sourceAnchor
-    graph.on('afteradditem', (e) => {
-        if (e.item && e.item.getType() === 'edge') {
-            graph.updateItem(e.item, {
-                sourceAnchor: sourceAnchorIdx,
-            });
-        }
     });
     // if create-edge is canceled before ending, update the 'links' on the anchor-point circles
     graph.on('afterremoveitem', (e: any) => {
@@ -37,7 +27,7 @@ export const registerEvents = (graph: any, params: any) => {
                 const sourceAnchorShape = sourceNode
                     .getContainer()
                     .find(
-                        (ele) =>
+                        (ele: any) =>
                             ele.get('name') === 'anchor-point' &&
                             ele.get('anchorPointIdx') === sourceAnchor
                     );
@@ -50,7 +40,7 @@ export const registerEvents = (graph: any, params: any) => {
                 const targetAnchorShape = targetNode
                     .getContainer()
                     .find(
-                        (ele) =>
+                        (ele: any) =>
                             ele.get('name') === 'anchor-point' &&
                             ele.get('anchorPointIdx') === targetAnchor
                     );
