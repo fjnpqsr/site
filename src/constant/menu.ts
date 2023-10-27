@@ -25,6 +25,10 @@ const menusData = [
     key: '/portal/TopologyTest'
   },
   {
+    label: 'BluePrint',
+    key: '/portal/BluePrint'
+  },
+  {
     label: 'CCTV',
     key: '/portal/CCT',
     children: [
@@ -38,6 +42,6 @@ const menusData = [
       }
     ]
   }
-]
+];
 
-export default menusData
+export default menusData;

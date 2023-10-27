@@ -1,26 +1,26 @@
-import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Layout, Menu, Space, theme } from 'antd'
-import React, { useState, useContext } from 'react'
-import { history, Outlet } from 'umi'
+import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Layout, Menu, Space, theme } from 'antd';
+import React, { useState, useContext } from 'react';
+import { history, Outlet } from 'umi';
 
-import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch'
-import menusData from '@/constant/menu'
-import { context } from '@/context/context'
+import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch';
+import menusData from '@/constant/menu';
+import { context } from '@/context/context';
 
-import css from './PortalLayout.less'
+import css from './PortalLayout.less';
 
-const { Header, Sider, Content } = Layout
+const { Header, Sider, Content } = Layout;
 
 const PortalLayout: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false)
-  const { state } = useContext(context)
+  const [collapsed, setCollapsed] = useState(true);
+  const { state } = useContext(context);
   const {
     token: { colorBgBase, colorBgLayout }
-  } = theme.useToken()
+  } = theme.useToken();
 
   const handleMenuClick = (menuItem: any) => {
-    history.push(menuItem.key)
-  }
+    history.push(menuItem.key);
+  };
 
   return (
         <Layout className={css['basic-layout']}>
@@ -38,7 +38,7 @@ const PortalLayout: React.FC = () => {
                           background: colorBgBase
                         }}
                         onClick={() => {
-                          history.push('/portal')
+                          history.push('/portal');
                         }}
                     >
                         Tools
@@ -64,12 +64,12 @@ const PortalLayout: React.FC = () => {
                               {
                                 className: 'trigger',
                                 style: { fontSize: 20 },
-                                onClick: () => { setCollapsed(!collapsed) }
+                                onClick: () => { setCollapsed(!collapsed); }
                               }
                             )}
                             <HomeOutlined
                                 style={{ fontSize: 20 }}
-                                onClick={() => { history.push('/portal') }}
+                                onClick={() => { history.push('/portal'); }}
                             />
                         </Space>
                     </div>
@@ -82,7 +82,7 @@ const PortalLayout: React.FC = () => {
                 </Content>
             </Layout>
         </Layout>
-  )
-}
+  );
+};
 
-export default PortalLayout
+export default PortalLayout;
