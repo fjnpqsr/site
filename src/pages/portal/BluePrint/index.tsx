@@ -1,7 +1,6 @@
 import PageContainer from '@/components/PageContainer';
 import ComponentCollapse from './components/ComponentCollapse';
 import css from './index.module.less';
-import EditorContainer from './components/EditorContainer';
 import { useState } from 'react';
 import BluePrintEditor from './components/BluePrintEditor';
 
