@@ -1,14 +1,12 @@
-import { processParallelEdgesOnAnchorPoint } from '../registerNodes/utils';
-export const registerEvents = (graph: any, params: any = {}) => {
-    const { sourceAnchorIdx, targetAnchorIdx } = params;
-    graph.on('aftercreateedge', (e: any) => {
+import { processParallelEdgesOnAnchorPoint } from "../registerNodes/utils";
 
+export const registerEvents = (graph: any, anchorIndexRef: any) => {
+    graph.on('aftercreateedge', (e: any) => {
         // update the sourceAnchor and targetAnchor for the newly added edge
         graph.updateItem(e.edge, {
-            sourceAnchor: sourceAnchorIdx,
-            targetAnchor: targetAnchorIdx,
+            sourceAnchor: anchorIndexRef.sourceAnchorIdx,
+            targetAnchor: anchorIndexRef.targetAnchorIdx,
         });
-
         // update the curveOffset for parallel edges
         const edges: any = graph.save().edges;
         processParallelEdgesOnAnchorPoint(edges);
@@ -18,15 +16,6 @@ export const registerEvents = (graph: any, params: any = {}) => {
                 curvePosition: edges[i].curvePosition,
             });
         });
-    });
-
-    // after drag from the first node, the edge is created, update the sourceAnchor
-    graph.on('afteradditem', (e: any) => {
-        if (e.item && e.item.getType() === 'edge') {
-            graph.updateItem(e.item, {
-                sourceAnchor: sourceAnchorIdx,
-            });
-        }
     });
     // if create-edge is canceled before ending, update the 'links' on the anchor-point circles
     graph.on('afterremoveitem', (e: any) => {
