@@ -20,6 +20,36 @@ export const componentsCategory = [
                 },
                 image: '/static/disk.png'
             },
+            {
+                name: 'SNAP',
+                type: 'VM',
+                desc: 'SNAPSHOP desc',
+                size: '4G',
+                style: {
+                    color: 'green'
+                },
+                image: '/static/island.png'
+            },
+            {
+                name: 'Image',
+                type: 'VM',
+                desc: 'Image desc',
+                size: '4G',
+                style: {
+                    color: 'orange'
+                },
+                image: '/static/SLA.png'
+            },
+            {
+                name: 'SLA',
+                type: 'VM',
+                desc: 'SLA desc',
+                size: '4G',
+                style: {
+                    color: 'blue'
+                },
+                image: '/static/tesla.png'
+            },
         ]
     },
     {

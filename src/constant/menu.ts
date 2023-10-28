@@ -21,10 +21,6 @@ const menusData = [
     key: '/portal/mergeStepsText'
   },
   {
-    label: 'Topology',
-    key: '/portal/TopologyTest'
-  },
-  {
     label: 'BluePrint',
     key: '/portal/BluePrint'
   },

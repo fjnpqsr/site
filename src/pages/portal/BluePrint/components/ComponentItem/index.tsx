@@ -26,7 +26,7 @@ const ComponentItem = (props: any) => {
     return (
         <List.Item style={{ opacity: isDragging ? 0.4 : 1 }}>
             <Space direction='vertical' align='center' style={{ width: '100%' }} ref={drag}>
-                <Avatar icon={<UserOutlined />} />
+                <Avatar src={data.image} />
                 <div>{data.name}</div>
             </Space>
         </List.Item>
