@@ -5,7 +5,6 @@ import G6 from '@antv/g6';
 export const registerVMNode = () => {
     G6.registerNode('VM', {
         jsx: (cfg) => {
-            console.log(cfg);
             return `
             <group>
             <rect 
@@ -26,7 +25,7 @@ export const registerVMNode = () => {
                 style={{
                     width: 200,
                     height: 20,
-                    fill: ${cfg.color},
+                    fill: {{style.color}},
                     radius: [4, 4, 0, 0],
                     cursor: 'move',
                     stroke: ${cfg.color},
@@ -41,7 +40,7 @@ export const registerVMNode = () => {
                     fontWeight: 'bold',
                     fill: '#fff' 
                 }}
-            >{{label}}</text>
+            >{{name}}</text>
             </rect>
             <rect 
             style={{
@@ -55,14 +54,18 @@ export const registerVMNode = () => {
             <circle
                 style={{r: 18, stroke: ${cfg.color}, marginTop: 28, marginLeft: 30}}
             >
-                <image name="img" style={{ img: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png', width: 12, height: 12,  marginLeft: 24,  marginTop: -5 }} />
+                <image 
+                    name="img" 
+                    style={{ img: '{{image}}', width: 20, height: 20,  marginLeft: 20,  marginTop: -9 }} 
+                    customevent='openModal'
+                />
             </circle>
             <rect
                 style={{width: 138,  height: 55, marginTop: -34, marginLeft: 58}}
                 
             >
-                <text style={{ marginTop: 5, marginLeft: 58, fill: '#333',  }}>描述: {{description}}</text>
-                <text style={{ marginTop: 10, marginLeft: 58, fill: '#333',  }}>创建者: {{meta.creator}}</text>
+                <text style={{ marginTop: 5, marginLeft: 58, fill: '#333',  }}>描述: {{desc}}</text>
+                <text style={{ marginTop: 10, marginLeft: 58, fill: '#333',  }}>大小: {{size}}</text>
             </rect>
             </rect>
             </rect>

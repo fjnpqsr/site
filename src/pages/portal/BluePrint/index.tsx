@@ -3,14 +3,24 @@ import ComponentCollapse from './components/ComponentCollapse';
 import css from './index.module.less';
 import { useRef, useState } from 'react';
 import BluePrintEditor from './components/BluePrintEditor';
+import NodePropsDrawer from './components/NodePropsDrawer';
+import {type G6GraphEvent, Util} from '@antv/g6'
+import {Button, Form, Input, Select, Space, message} from 'antd'
+import { getJSXNodeAttrFromEvent, getNodeDataFromEvent } from './utils/item';
+
+const FormItem = Form.Item 
 
 const BluePrintPage = () => {
     const [chartData, setChartData] = useState<any>({ nodes: [], edges: [] });
-    const [selectNode, setSelectNode] = useState<any>(undefined);
+    const [selectNode, setSelectNode] = useState<G6GraphEvent|undefined>(undefined);
     const graphRef = useRef<any>(null);
 
-    console.log({ selectNode, chartData });
-    // window.selectNode = selectNode;
+    const [form] = Form.useForm<any>()
+  
+    const onClose = () => {setSelectNode(undefined)}
+    const saveProps = () => {
+        form.submit()
+    }
     return (
         <PageContainer transparent padding={false}>
             <div className={css['blue-print-container']}>
@@ -34,49 +44,63 @@ const BluePrintPage = () => {
                             graphRef={graphRef}
                             data={chartData}
                             setChartData={setChartData}
-                            onNodeClick={(node: any) => {
-                                setSelectNode(node);
+                            onNodeClick={(event: G6GraphEvent) => {
+                                const nodeModel = getNodeDataFromEvent(event)
+                                const customEvent = getJSXNodeAttrFromEvent(event, 'customevent')
+                                switch(customEvent) {
+                                    case 'openModal':
+                                        message.destroy()
+                                        message.info('click image trigger custom event')
+                                        break
+                                    default: 
+                                        setSelectNode(event);
+                                        form.setFieldsValue(nodeModel)
+                                    break
+                                }
                             }}
                         />
                     </div>
                 </div>
-                <div
-                    className={css['blue-print-node-props']}
-                    style={
-                        selectNode
-                            ? { width: 300, marginLeft: 12 }
-                            : { width: 0, marginLeft: 0 }
-                    }
-                    onClick={() => {
-                        setSelectNode(null);
-                        if (
-                            !graphRef ||
-                            !graphRef.current ||
-                            graphRef.current.get('destroyed')
-                        )
-                            return;
-                        if (
-                            !graphRef.current?.container ||
-                            !graphRef.current.container?.scrollWidth ||
-                            !graphRef.current.container?.scrollHeight
-                        )
-                            return;
-                        console.dir(graphRef.current?.container);
-                        graphRef.current?.changeSize(
-                            graphRef.current.container?.scrollWidth + 312,
-                            graphRef.current.container?.scrollHeight
-                        );
+            </div>
+            <NodePropsDrawer 
+                open={!!selectNode}
+                node={selectNode}
+                onClose={onClose}
+                destroyOnClose
+                extra={
+                    <Space>
+                      <Button onClick={onClose}>Cancel</Button>
+                      <Button onClick={saveProps} type="primary">
+                        Save
+                      </Button>
+                    </Space>
+                  }
+            >
+                <Form 
+                    form={form} 
+                    layout='vertical' 
+                    colon={true}
+                    onFinish={(values) => {
+                        if (selectNode) {
+                            selectNode.item.update(values)
+                        }
+                        onClose()
                     }}
                 >
-                    {selectNode && (
-                        <div>
-                            <p>click to close</p> 
-                            node:
-                            {JSON.stringify(selectNode?.item?.getModel()?.data)}
-                        </div>
-                    )}
-                </div>
-            </div>
+                    <FormItem name='name' label='Name'>
+                        <Input />
+                    </FormItem>
+                    <FormItem name='size' label='Size'>
+                        <Select options={[
+                            {label: '2G', value: '2G'},
+                            {label: '4G', value: '4G'},
+                        ]}/>
+                    </FormItem>
+                    <FormItem name='desc' label='desc'>
+                        <Input.TextArea />
+                    </FormItem>
+                </Form>
+            </NodePropsDrawer>
         </PageContainer>
     );
 };

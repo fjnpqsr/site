@@ -26,7 +26,7 @@ const Topology: FC<TopologyProps> = (props) => {
     });
     const startRender = () => {
         const container = document.getElementById('topology-parent');
-        if (container === null) {
+        if (container === null || graphRef.current) {
             return;
         }
         
@@ -34,7 +34,6 @@ const Topology: FC<TopologyProps> = (props) => {
         registerVMNode();
         const width = container.scrollWidth;
         const height = container.scrollHeight;
-        const initialWidth = width;
         const graph = new G6.Graph({
             ...basicConfig,
             container: 'topology',
@@ -59,11 +58,6 @@ const Topology: FC<TopologyProps> = (props) => {
         graph.on('node:click', (e) => {
             if (onNodeClick) {
                 onNodeClick(e);
-                if (!graph || graph.get('destroyed')) return;
-                if (!container || !container.scrollWidth || !container.scrollHeight) return;
-                console.dir('trigger resize');
-                console.dir({container});
-                graph.changeSize(initialWidth - 312, container.clientHeight);
             }
           
         });
@@ -105,9 +99,9 @@ const Topology: FC<TopologyProps> = (props) => {
                     const oldData = graphRef.current.save();
                     const withPositionItem = {
                         ...transformedPosition,
+                        ...item,
                         id: `${oldData.nodes.length + 1}`,
-                        data: item,
-                        type: item.type
+                        type: item.type,
                     };
                     const newData = {
                         ...oldData,
