@@ -7,17 +7,19 @@ import { registerEvents } from './registerEvents';
 import basicConfig from './basicConfig';
 import { registerCreateEdgeBehavior } from './behaviors/createEdge';
 import { registerDragNodeBehavior } from './behaviors/dragNode';
+import { registerVMNode } from './registerNodes/VM';
 
 
 interface TopologyProps {
     className?: string;
     data?: any;
     setChartData?: any;
+    onNodeClick?: any;
+    graphRef: any
 }
 
 const Topology: FC<TopologyProps> = (props) => {
-    const { data, setChartData } = props;
-    const graphRef = useRef<any>(null);
+    const { data, setChartData, onNodeClick, graphRef } = props;
     const anchorIndexRef = useRef<any>({
         sourceAnchorIdx: undefined,
         targetAnchorIdx: undefined,
@@ -27,9 +29,12 @@ const Topology: FC<TopologyProps> = (props) => {
         if (container === null) {
             return;
         }
+        
         registerBasicNode(G6);
+        registerVMNode();
         const width = container.scrollWidth;
         const height = container.scrollHeight;
+        const initialWidth = width;
         const graph = new G6.Graph({
             ...basicConfig,
             container: 'topology',
@@ -38,7 +43,9 @@ const Topology: FC<TopologyProps> = (props) => {
             modes: {
                 default: [
                     registerDragNodeBehavior(),
-                    registerCreateEdgeBehavior(anchorIndexRef)
+                    registerCreateEdgeBehavior(anchorIndexRef),
+                    'zoom-canvas',
+                    'drag-canvas'
                 ],
             },
             defaultNode: {
@@ -49,11 +56,30 @@ const Topology: FC<TopologyProps> = (props) => {
         });
         graph.data(data);
         graph.render();
-
+        graph.on('node:click', (e) => {
+            if (onNodeClick) {
+                onNodeClick(e);
+                if (!graph || graph.get('destroyed')) return;
+                if (!container || !container.scrollWidth || !container.scrollHeight) return;
+                console.dir('trigger resize');
+                console.dir({container});
+                graph.changeSize(initialWidth - 312, container.clientHeight);
+            }
+          
+        });
         registerEvents(graph, anchorIndexRef.current);
         graphRef.current = graph;
+        graphRef.current.container = container;
+        if (typeof window !== 'undefined') {
+            window.onresize = () => {
+                if (!graph || graph.get('destroyed')) return;
+                if (!container || !container.scrollWidth || !container.scrollHeight) return;
+                graph.changeSize(container.scrollWidth, container.scrollWidth);
+              };
+        }
+        
     };
-
+   
     useEffect(() => {
         startRender();
     }, []);
@@ -64,7 +90,6 @@ const Topology: FC<TopologyProps> = (props) => {
             graphRef.current?.changeData(data);
         }
     }, [data]);
-
     //  drop event
     const [{ }, drop] = useDrop(
         () => ({
@@ -82,6 +107,7 @@ const Topology: FC<TopologyProps> = (props) => {
                         ...transformedPosition,
                         id: `${oldData.nodes.length + 1}`,
                         data: item,
+                        type: item.type
                     };
                     const newData = {
                         ...oldData,
@@ -100,11 +126,12 @@ const Topology: FC<TopologyProps> = (props) => {
 
     return (
         <div
-            style={{ height: '100%', width: '100%', flex: 1 }}
+            style={{ flex: 1, position: 'relative' }}
             id="topology-parent"
             ref={drop}
         >
             <div id="topology" />
+            <div id='topology-toolbar'></div>
         </div>
     );
 };

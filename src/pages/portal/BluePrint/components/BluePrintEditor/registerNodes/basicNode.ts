@@ -1,6 +1,6 @@
 export const registerBasicNode = (drawInstance: any) => {
     drawInstance.registerNode(
-        'basic-node',
+        'STORAGE',
         {
             afterDraw(cfg: any, group: any) {
                 const bbox = group.getBBox();
