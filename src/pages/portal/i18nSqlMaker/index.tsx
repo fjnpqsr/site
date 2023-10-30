@@ -1,4 +1,5 @@
 import PageContainer from '@/components/PageContainer';
+import React from 'react';
 
 const tips = `
 // 前置条件
@@ -45,14 +46,14 @@ function getSql(startIndex, menu) {
 getSql(100, "menu scope");`;
 
 const I18nSqlMaker = () => {
-    return (
-        <PageContainer>
-            <pre>
-                <pre>{tips}</pre>
-                <pre>{code}</pre>
-            </pre>
-        </PageContainer>
-    );
+	return (
+		<PageContainer>
+			<pre>
+				<pre>{tips}</pre>
+				<pre>{code}</pre>
+			</pre>
+		</PageContainer>
+	);
 };
 
 export default I18nSqlMaker;

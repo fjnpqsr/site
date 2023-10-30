@@ -11,14 +11,14 @@ interface PageContainerProps {
 }
 
 const PageContainer: FC<PageContainerProps> = (props) => {
-    const { children, padding = true, transparent = false } = props;
-    return (
-        // <KeepAlive cacheKey={window.location.pathname}>
-        <PageContainerViewContent padding={padding} transparent={transparent}>
-            {children}
-        </PageContainerViewContent>
-        // </KeepAlive>
-    );
+	const { children, padding = true, transparent = false } = props;
+	return (
+	// <KeepAlive cacheKey={window.location.pathname}>
+		<PageContainerViewContent padding={padding} transparent={transparent}>
+			{children}
+		</PageContainerViewContent>
+	// </KeepAlive>
+	);
 };
 
 export default PageContainer;

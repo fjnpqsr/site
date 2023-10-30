@@ -9,20 +9,20 @@ interface ComponentCollapseProps {
 }
 const ComponentCollapse:FC<ComponentCollapseProps> = () => {
 
-    return (
-        <Collapse 
-            size='small'
-            defaultActiveKey={'1'}
-        >
-            {componentsCategory.map(item => (
-                <Collapse.Panel header={item.label} key={item.key}>
-                    <ComponentItemGroup 
-                        data={item.components}
-                    />
-                </Collapse.Panel>
-            ))}
-        </Collapse>
-    );
+	return (
+		<Collapse 
+			size='small'
+			defaultActiveKey={'1'}
+		>
+			{componentsCategory.map(item => (
+				<Collapse.Panel header={item.label} key={item.key}>
+					<ComponentItemGroup 
+						data={item.components}
+					/>
+				</Collapse.Panel>
+			))}
+		</Collapse>
+	);
 };
 
 export default ComponentCollapse;

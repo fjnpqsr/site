@@ -6,8 +6,8 @@
  * @Description:
  * @FilePath: \front-end\src\pages\portal\i18nGenerator\components\generatorForm.tsx
  */
-import React, { type FC } from 'react'
-import { Button, Col, Form, Input, Row, Space, theme } from 'antd'
+import React, { type FC } from 'react';
+import { Button, Col, Form, Input, Row, Space, theme } from 'antd';
 
 interface I18nGeneratorFormProps {
   handleAdd: (values: any) => void
@@ -17,30 +17,30 @@ interface I18nGeneratorFormProps {
 }
 
 const I18nGeneratorForm: FC<I18nGeneratorFormProps> = (props): React.ReactElement => {
-  const {
-    handleAdd,
-    handleClear,
-    handleGenerate,
-    enabledGenerate = false
-  } = props
-  const { token } = theme.useToken()
-  const [form] = Form.useForm()
+	const {
+		handleAdd,
+		handleClear,
+		handleGenerate,
+		enabledGenerate = false
+	} = props;
+	const { token } = theme.useToken();
+	const [form] = Form.useForm();
 
-  const formStyle = {
-    maxWidth: 'none',
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    padding: 24
-  }
+	const formStyle = {
+		maxWidth: 'none',
+		background: token.colorFillAlter,
+		borderRadius: token.borderRadiusLG,
+		padding: 24
+	};
 
-  const formSource = [
-    { name: 'key', label: 'Key' },
-    { name: 'menu', label: 'Menu' },
-    { name: 'en', label: 'En' },
-    { name: 'ar', label: 'Ar' }
-  ]
+	const formSource = [
+		{ name: 'key', label: 'Key' },
+		{ name: 'menu', label: 'Menu' },
+		{ name: 'en', label: 'En' },
+		{ name: 'ar', label: 'Ar' }
+	];
 
-  return (
+	return (
 		<Form
 			form={form}
 			name='advanced_search'
@@ -74,7 +74,7 @@ const I18nGeneratorForm: FC<I18nGeneratorFormProps> = (props): React.ReactElemen
 				</Col>
 			</Row>
 		</Form>
-  )
-}
+	);
+};
 
-export default I18nGeneratorForm
+export default I18nGeneratorForm;

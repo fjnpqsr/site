@@ -1,5 +1,5 @@
-import { Image } from 'antd'
-import React, { type FC, useEffect, useState } from 'react'
+import { Image } from 'antd';
+import React, { type FC, useEffect, useState } from 'react';
 
 interface ImageProps {
   src: string
@@ -8,35 +8,35 @@ interface ImageProps {
 }
 
 const AuthImage: FC<ImageProps> = (props) => {
-  const { src, withToken = false, ...passProps } = props
-  const [antdImageSrc, setAntdImageSrc] = useState<any>()
+	const { src, withToken = false, ...passProps } = props;
+	const [antdImageSrc, setAntdImageSrc] = useState<any>();
 
-  const getImage = (): void => {
-    const request = new XMLHttpRequest()
-    request.responseType = 'blob'
-    request.open('get', src, true)
-    request.setRequestHeader('auth-token', 'test request token')
-    request.onreadystatechange = () => {
-      if (
-        request.readyState === XMLHttpRequest.DONE &&
+	const getImage = (): void => {
+		const request = new XMLHttpRequest();
+		request.responseType = 'blob';
+		request.open('get', src, true);
+		request.setRequestHeader('auth-token', 'test request token');
+		request.onreadystatechange = () => {
+			if (
+				request.readyState === XMLHttpRequest.DONE &&
                 request.status === 200
-      ) {
-        const src = URL.createObjectURL(request.response)
-        setAntdImageSrc(src)
-      }
-    }
-    request.send(null)
-  }
+			) {
+				const src = URL.createObjectURL(request.response);
+				setAntdImageSrc(src);
+			}
+		};
+		request.send(null);
+	};
 
-  useEffect(() => {
-    if (withToken) {
-      getImage()
-    }
-  }, [])
-  if (withToken) {
-    return <Image src={antdImageSrc} {...passProps} alt="" />
-  }
-  return <Image src={src} {...passProps} alt="" />
-}
+	useEffect(() => {
+		if (withToken) {
+			getImage();
+		}
+	}, []);
+	if (withToken) {
+		return <Image src={antdImageSrc} {...passProps} alt="" />;
+	}
+	return <Image src={src} {...passProps} alt="" />;
+};
 
-export default AuthImage
+export default AuthImage;

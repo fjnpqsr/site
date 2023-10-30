@@ -10,34 +10,34 @@ interface PageContainerViewContentProps {
 }
 
 const PageContainerViewContent: FC<PageContainerViewContentProps> = ({
-    children,
-    padding = true,
-    transparent = true,
+	children,
+	padding = true,
+	transparent = true,
 }) => {
-    const className = [css['page-container-view-content']];
-    if (!padding) {
-        className.push(css['no-padding']);
-    }
-    if (transparent) {
-        className.push(css.transparent);
-    }
+	const className = [css['page-container-view-content']];
+	if (!padding) {
+		className.push(css['no-padding']);
+	}
+	if (transparent) {
+		className.push(css.transparent);
+	}
 
-    const {
-        token: { colorBgContainer, colorText },
-    } = theme.useToken();
+	const {
+		token: { colorBgContainer, colorText },
+	} = theme.useToken();
 
-    return (
-        <div
-            className={cns(className)}
-            style={{
-                backgroundColor: colorBgContainer,
-                color: colorText,
-                overflowX: 'hidden'
-            }}
-        >
-            {children}
-        </div>
-    );
+	return (
+		<div
+			className={cns(className)}
+			style={{
+				backgroundColor: colorBgContainer,
+				color: colorText,
+				overflowX: 'hidden'
+			}}
+		>
+			{children}
+		</div>
+	);
 };
 
 export default PageContainerViewContent;
