@@ -25,6 +25,10 @@ const menusData = [
 		key: '/portal/BluePrint'
 	},
 	{
+		label: 'CustomNodeConfig',
+		key: '/portal/CustomNodeView'
+	},
+	{
 		label: 'CCTV',
 		key: '/portal/CCT',
 		children: [

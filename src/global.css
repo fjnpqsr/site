@@ -16,3 +16,6 @@ pre {
 /* th.ant-table-cell {
     white-space: nowrap;
 } */
+.g6-grid-container {
+    z-index: 0!important;
+}
