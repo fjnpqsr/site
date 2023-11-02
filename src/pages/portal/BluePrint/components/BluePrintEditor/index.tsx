@@ -1,24 +1,23 @@
-import React, { useEffect, type FC, useRef } from 'react';
 import G6 from '@antv/g6';
-import './index.less';
+import React, { useEffect, useRef } from 'react';
 import { useDrop } from 'react-dnd';
-import { registerBasicNode } from './registerNodes';
-import { registerEvents } from './registerEvents';
 import basicConfig from './basicConfig';
 import { registerCreateEdgeBehavior } from './behaviors/createEdge';
 import { registerDragNodeBehavior } from './behaviors/dragNode';
+import './index.less';
+import { registerEvents } from './registerEvents';
+import { registerBasicNode } from './registerNodes';
 import { registerVMNode } from './registerNodes/VM';
 
-
 interface TopologyProps {
-    className?: string;
-    data?: any;
-    setChartData?: any;
-    onNodeClick?: any;
-    graphRef: any
+	className?: string;
+	data?: any;
+	setChartData?: any;
+	onNodeClick?: any;
+	graphRef: any;
 }
 
-const Topology: FC<TopologyProps> = (props) => {
+const Topology: React.FC<TopologyProps> = (props) => {
 	const { data, setChartData, onNodeClick, graphRef } = props;
 	const anchorIndexRef = useRef<any>({
 		sourceAnchorIdx: undefined,
@@ -29,7 +28,7 @@ const Topology: FC<TopologyProps> = (props) => {
 		if (container === null || graphRef.current) {
 			return;
 		}
-        
+
 		registerBasicNode(G6);
 		registerVMNode();
 		const width = container.scrollWidth;
@@ -44,14 +43,13 @@ const Topology: FC<TopologyProps> = (props) => {
 					registerDragNodeBehavior(),
 					registerCreateEdgeBehavior(anchorIndexRef),
 					'zoom-canvas',
-					'drag-canvas'
+					'drag-canvas',
 				],
 			},
 			defaultNode: {
 				type: 'basic-node',
 				size: [200, 80],
 			},
-
 		});
 		graph.data(data);
 		graph.render();
@@ -59,7 +57,6 @@ const Topology: FC<TopologyProps> = (props) => {
 			if (onNodeClick) {
 				onNodeClick(e);
 			}
-          
 		});
 		registerEvents(graph, anchorIndexRef.current);
 		graphRef.current = graph;
@@ -67,13 +64,17 @@ const Topology: FC<TopologyProps> = (props) => {
 		if (typeof window !== 'undefined') {
 			window.onresize = () => {
 				if (!graph || graph.get('destroyed')) return;
-				if (!container || !container.scrollWidth || !container.scrollHeight) return;
+				if (
+					!container ||
+					!container.scrollWidth ||
+					!container.scrollHeight
+				)
+					return;
 				graph.changeSize(container.scrollWidth, container.scrollWidth);
 			};
 		}
-        
 	};
-   
+
 	useEffect(() => {
 		startRender();
 	}, []);
@@ -95,6 +96,7 @@ const Topology: FC<TopologyProps> = (props) => {
 					clientOffSet.x,
 					clientOffSet.y
 				);
+
 				setChartData(() => {
 					const oldData = graphRef.current.save();
 					const withPositionItem = {
@@ -125,7 +127,7 @@ const Topology: FC<TopologyProps> = (props) => {
 			ref={drop}
 		>
 			<div id="topology" />
-			<div id='topology-toolbar'></div>
+			<div id="topology-toolbar"></div>
 		</div>
 	);
 };

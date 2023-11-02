@@ -1,7 +1,5 @@
 import G6 from '@antv/g6';
 
-
-
 export const registerVMNode = () => {
 	G6.registerNode('VM', {
 		jsx: (cfg) => {
@@ -43,13 +41,13 @@ export const registerVMNode = () => {
             >{{name}}</text>
             </rect>
             <rect 
-            style={{
-                width: 200,
-                height: 55,
-                stroke: ${cfg.color},
-                fill: #ffffff,
-                radius: [0, 0, 4, 4],
-            }} 
+                style={{
+                    width: 200,
+                    height: 55,
+                    stroke: ${cfg.color},
+                    fill: #ffffff,
+                    radius: [0, 0, 4, 4],
+                }} 
             >
             <circle
                 style={{r: 18, stroke: ${cfg.color}, marginTop: 28, marginLeft: 30}}
@@ -106,7 +104,7 @@ export const registerVMNode = () => {
 			return (
 				cfg.anchorPoints || [
 					[1, 0.5],
-					[0,0.5]
+					[0, 0.5],
 				]
 			);
 		},
@@ -114,9 +112,7 @@ export const registerVMNode = () => {
 			if (name === 'showAnchors') {
 				const anchorPoints = item
 					.getContainer()
-					.findAll(
-						(ele: any) => ele.get('name') === 'anchor-point'
-					);
+					.findAll((ele: any) => ele.get('name') === 'anchor-point');
 				anchorPoints.forEach((point: any) => {
 					if (value || point.get('links') > 0) point.show();
 					else point.hide();
