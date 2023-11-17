@@ -5,13 +5,16 @@ import React, { useRef, useState } from 'react';
 import BluePrintEditor from './components/BluePrintEditor';
 import NodePropsDrawer from './components/NodePropsDrawer';
 import { type G6GraphEvent } from '@antv/g6';
-import { Button, Form, Input, Select, Space, message, Drawer } from 'antd';
+import { Button, Form, Input, Select, Space, message, Drawer, theme } from 'antd';
 import { getJSXNodeAttrFromEvent, getNodeDataFromEvent } from './utils/item';
-import html2canvas from 'html2canvas';
 
 const FormItem = Form.Item;
 
 const BluePrintPage = () => {
+
+	const {
+		token: {  colorBgContainer }
+	} = theme.useToken();
 	const [chartData, setChartData] = useState<any>({ nodes: [], edges: [] });
 	const [showCanvasDrawer, setShowCanvasDrawer] = useState<any>(false);
 	const [selectNode, setSelectNode] = useState<G6GraphEvent | undefined>(
@@ -30,60 +33,18 @@ const BluePrintPage = () => {
 
 	const editorRef = useRef<HTMLDivElement>(null);
 
-	// function downloadFn(href = '', defaultFileName: string) {
-	// 	if (!href) {
-	// 		return;
-	// 	}
-	// 	const a = document.createElement('a');
-	// 	a.href = href;
-	// 	a.download = defaultFileName;
-	// 	a.style.display = 'none';
-	// 	document.body.appendChild(a);
-	// 	a.click();
-	// 	document.body.removeChild(a);
-	// }
-
-	async function makeHTMLImage() {
-		if (!editorRef.current) {
-			return;
-		}
-		try {
-			const canvas = await html2canvas(editorRef.current, {
-				// height: 800,
-				// width: 1200,
-				// scale: 1,
-			});
-			// setGeneratedCanvas(canvas);
-			setShowCanvasDrawer(true);
-			setTimeout(() => {
-				if (document.getElementById('canvas')) {
-					document.getElementById('canvas').innerText = '';
-					document.getElementById('canvas')?.appendChild(canvas);
-				} 
-			});
-
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-	const handlePdf = () => {
-		makeHTMLImage();
-	};
-
 	return (
 		<PageContainer transparent padding={false}>
-			<div className={css['blue-print-container']}>
-				<div className={css['blue-print-category']}>
+			<div className={css['blue-print-container']} >
+				<div className={css['blue-print-category']} style={{backgroundColor: colorBgContainer}}>
 					<div className={css['blue-print-category-title']}>
                         Components
-						<Button onClick={handlePdf}>Generate PDF</Button>
 					</div>
 					<div className={css['blue-print-category-content']}>
 						<ComponentCollapse />
 					</div>
 				</div>
-				<div className={css['blue-print-editor']}>
+				<div className={css['blue-print-editor']} style={{backgroundColor: colorBgContainer}}>
 					<div
 						style={{
 							width: '100%',

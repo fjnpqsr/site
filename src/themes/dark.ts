@@ -7,8 +7,9 @@ export default {
 	algorithm: darkAlgorithm,
 	token: {
 		...tokenConfig,
-		colorBgContainer: '#161d3f',
-		colorBgBase: '#161d3f',
-		colorBgLayout: '#001529', // layout gutter
+		'colorPrimary': '#a0d911',
+		'colorInfo': '#a0d911',
+		
+		// colorBgLayout: '#141414', // layout gutter
 	},
 };

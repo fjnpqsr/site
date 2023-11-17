@@ -32,17 +32,6 @@ const PortalLayout: React.FC = () => {
 				theme={state.theme}
 			>
 				<div className={css['basic-layout-aside']}>
-					<div
-						className={css.logo}
-						style={{
-							background: colorBgBase
-						}}
-						onClick={() => {
-							history.push('/portal');
-						}}
-					>
-                        Tools
-					</div>
 					<Menu
 						items={menusData}
 						onClick={handleMenuClick}
