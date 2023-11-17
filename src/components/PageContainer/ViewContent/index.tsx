@@ -32,7 +32,8 @@ const PageContainerViewContent: FC<PageContainerViewContentProps> = ({
 			style={{
 				backgroundColor: colorBgContainer,
 				color: colorText,
-				overflowX: 'hidden'
+				overflowX: 'hidden',
+				borderRadius: 8
 			}}
 		>
 			{children}

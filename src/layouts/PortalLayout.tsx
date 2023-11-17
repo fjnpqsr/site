@@ -15,7 +15,7 @@ const PortalLayout: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const { state } = useContext(context);
 	const {
-		token: { colorBgBase, colorBgLayout }
+		token: {  colorBgLayout, colorBgContainer }
 	} = theme.useToken();
 
 	const handleMenuClick = (menuItem: any) => {
@@ -43,10 +43,10 @@ const PortalLayout: React.FC = () => {
 				<Header
 					className={css['layout-header']}
 					style={{
-						background: colorBgBase
+						backgroundColor: colorBgContainer
 					}}
 				>
-					<div className={css['layout-header-left']}>
+					<div className={css['layout-header-left']} >
 						<Space size={24}>
 							{React.createElement(
 								collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,

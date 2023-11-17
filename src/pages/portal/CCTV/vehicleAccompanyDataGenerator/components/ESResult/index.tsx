@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button, Space, Table} from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import { copyResult } from '@/pages/portal/i18nGenerator/utils';
+import { copyResult } from '@/pages/portal/CCTV/i18nGenerator/utils';
 
 const ESResult = (props: any) => {
 	const {data} = props;

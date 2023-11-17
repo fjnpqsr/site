@@ -10,39 +10,31 @@
 const menusData = [
 	{
 		label: '从EXCEL导出多语言脚本',
-		key: '/portal/i18nSqlMaker',
+		key: '/portal/CCTV/i18nSqlMaker',
 	},
 	{
 		label: '生成多语言脚本',
-		key: '/portal/i18nGenerator',
-	},
-	{
-		label: 'Merge Testing Steps',
-		key: '/portal/mergeStepsText',
+		key: '/portal/CCTV/i18nGenerator',
 	},
 	{
 		label: 'BluePrint',
-		key: '/portal/BluePrint',
+		key: '/portal/CMP/BluePrint',
 	},
 	{
 		label: 'ReactBluePrint',
 		key: '/portal/ReactNode',
 	},
 	{
-		label: 'html2canvasTest',
-		key: '/portal/html2canvasTest',
-	},
-	{
 		label: 'CCTV',
-		key: '/portal/CCT',
+		key: '/portal/CCTV',
 		children: [
 			{
 				label: '车辆伴随数据生成',
-				key: '/portal/vehicleAccompanyDataGenerator',
+				key: '/portal/CCTV/vehicleAccompanyDataGenerator',
 			},
 			{
 				label: '生成MQ消息',
-				key: '/portal/mqGenerator',
+				key: '/portal/CCTV/mqGenerator',
 			},
 		],
 	},
