@@ -33,6 +33,10 @@ const menusData = [
 		key: '/portal/ReactNode',
 	},
 	{
+		label: 'html2canvasTest',
+		key: '/portal/html2canvasTest',
+	},
+	{
 		label: 'CCTV',
 		key: '/portal/CCT',
 		children: [

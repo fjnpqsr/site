@@ -4,29 +4,80 @@ import css from './index.module.less';
 import React, { useRef, useState } from 'react';
 import BluePrintEditor from './components/BluePrintEditor';
 import NodePropsDrawer from './components/NodePropsDrawer';
-import {type G6GraphEvent} from '@antv/g6';
-import {Button, Form, Input, Select, Space, message} from 'antd';
+import { type G6GraphEvent } from '@antv/g6';
+import { Button, Form, Input, Select, Space, message, Drawer } from 'antd';
 import { getJSXNodeAttrFromEvent, getNodeDataFromEvent } from './utils/item';
+import html2canvas from 'html2canvas';
 
-const FormItem = Form.Item; 
+const FormItem = Form.Item;
 
 const BluePrintPage = () => {
 	const [chartData, setChartData] = useState<any>({ nodes: [], edges: [] });
-	const [selectNode, setSelectNode] = useState<G6GraphEvent|undefined>(undefined);
+	const [showCanvasDrawer, setShowCanvasDrawer] = useState<any>(false);
+	const [selectNode, setSelectNode] = useState<G6GraphEvent | undefined>(
+		undefined
+	);
 	const graphRef = useRef<any>(null);
 
 	const [form] = Form.useForm<any>();
-  
-	const onClose = () => {setSelectNode(undefined);};
+
+	const onClose = () => {
+		setSelectNode(undefined);
+	};
 	const saveProps = () => {
 		form.submit();
 	};
+
+	const editorRef = useRef<HTMLDivElement>(null);
+
+	// function downloadFn(href = '', defaultFileName: string) {
+	// 	if (!href) {
+	// 		return;
+	// 	}
+	// 	const a = document.createElement('a');
+	// 	a.href = href;
+	// 	a.download = defaultFileName;
+	// 	a.style.display = 'none';
+	// 	document.body.appendChild(a);
+	// 	a.click();
+	// 	document.body.removeChild(a);
+	// }
+
+	async function makeHTMLImage() {
+		if (!editorRef.current) {
+			return;
+		}
+		try {
+			const canvas = await html2canvas(editorRef.current, {
+				// height: 800,
+				// width: 1200,
+				// scale: 1,
+			});
+			// setGeneratedCanvas(canvas);
+			setShowCanvasDrawer(true);
+			setTimeout(() => {
+				if (document.getElementById('canvas')) {
+					document.getElementById('canvas').innerText = '';
+					document.getElementById('canvas')?.appendChild(canvas);
+				} 
+			});
+
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	const handlePdf = () => {
+		makeHTMLImage();
+	};
+
 	return (
 		<PageContainer transparent padding={false}>
 			<div className={css['blue-print-container']}>
 				<div className={css['blue-print-category']}>
 					<div className={css['blue-print-category-title']}>
                         Components
+						<Button onClick={handlePdf}>Generate PDF</Button>
 					</div>
 					<div className={css['blue-print-category-content']}>
 						<ComponentCollapse />
@@ -39,6 +90,7 @@ const BluePrintPage = () => {
 							height: '100%',
 							display: 'flex',
 						}}
+						ref={editorRef}
 					>
 						<BluePrintEditor
 							graphRef={graphRef}
@@ -46,13 +98,18 @@ const BluePrintPage = () => {
 							setChartData={setChartData}
 							onNodeClick={(event: G6GraphEvent) => {
 								const nodeModel = getNodeDataFromEvent(event);
-								const customEvent = getJSXNodeAttrFromEvent(event, 'customevent');
-								switch(customEvent) {
+								const customEvent = getJSXNodeAttrFromEvent(
+									event,
+									'customevent'
+								);
+								switch (customEvent) {
 								case 'openModal':
 									message.destroy();
-									message.info('click image trigger custom event');
+									message.info(
+										'click image trigger custom event'
+									);
 									break;
-								default: 
+								default:
 									setSelectNode(event);
 									form.setFieldsValue(nodeModel);
 									break;
@@ -62,7 +119,16 @@ const BluePrintPage = () => {
 					</div>
 				</div>
 			</div>
-			<NodePropsDrawer 
+			<Drawer 
+				open={showCanvasDrawer}
+				width={'90%'}
+				onClose={() => {
+					setShowCanvasDrawer(false);
+				}}
+			>
+				<div id='canvas'></div>				
+			</Drawer>
+			<NodePropsDrawer
 				open={!!selectNode}
 				node={selectNode}
 				onClose={onClose}
@@ -71,14 +137,14 @@ const BluePrintPage = () => {
 					<Space>
 						<Button onClick={onClose}>Cancel</Button>
 						<Button onClick={saveProps} type="primary">
-                        Save
+                            Save
 						</Button>
 					</Space>
 				}
 			>
-				<Form 
-					form={form} 
-					layout='vertical' 
+				<Form
+					form={form}
+					layout="vertical"
 					colon={true}
 					onFinish={(values) => {
 						if (selectNode) {
@@ -87,16 +153,18 @@ const BluePrintPage = () => {
 						onClose();
 					}}
 				>
-					<FormItem name='name' label='Name'>
+					<FormItem name="name" label="Name">
 						<Input />
 					</FormItem>
-					<FormItem name='size' label='Size'>
-						<Select options={[
-							{label: '2G', value: '2G'},
-							{label: '4G', value: '4G'},
-						]}/>
+					<FormItem name="size" label="Size">
+						<Select
+							options={[
+								{ label: '2G', value: '2G' },
+								{ label: '4G', value: '4G' },
+							]}
+						/>
 					</FormItem>
-					<FormItem name='desc' label='desc'>
+					<FormItem name="desc" label="desc">
 						<Input.TextArea />
 					</FormItem>
 				</Form>
