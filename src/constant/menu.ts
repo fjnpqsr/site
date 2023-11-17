@@ -25,10 +25,6 @@ const menusData = [
 		key: '/portal/BluePrint',
 	},
 	{
-		label: 'CustomNodeConfig',
-		key: '/portal/CustomNodeView',
-	},
-	{
 		label: 'ReactBluePrint',
 		key: '/portal/ReactNode',
 	},
