@@ -12,7 +12,7 @@ import css from './PortalLayout.less';
 const { Header, Sider, Content } = Layout;
 
 const PortalLayout: React.FC = () => {
-	const [collapsed, setCollapsed] = useState(true);
+	const [collapsed, setCollapsed] = useState(false);
 	const { state } = useContext(context);
 	const {
 		token: { colorBgBase, colorBgLayout }
