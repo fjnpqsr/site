@@ -4,13 +4,18 @@ import './global.css';
 import { ConfigProvider } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import React from 'react';
-import { AliveScope } from 'react-activation';
+import { AliveScope, autoFixContext  } from 'react-activation';
 import { history } from 'umi';
 
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+
+autoFixContext(
+	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
+	[require('react/jsx-dev-runtime'), 'jsx', 'jsxs', 'jsxDEV']
+);
 
 function validateRouteIsNotExist (allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
@@ -43,13 +48,13 @@ export function onRouteChange ({ routes, location }: any) {
 export function rootContainer (container: React.ReactNode, { routes }: any) {
 	return (
 		<ContextProvider routes={routes}>
-			<AliveScope>
+			<DndProvider backend={HTML5Backend}>
 				<ConfigProvider locale={{ ...enUS, Empty: { description: 'no any data' } }}>
-					<DndProvider backend={HTML5Backend}>
+					<AliveScope>
 						<Provider>{container}</Provider>
-					</DndProvider>
+					</AliveScope>
 				</ConfigProvider>
-			</AliveScope>
+			</DndProvider>
 		</ContextProvider>
 	);
 }

@@ -76,7 +76,9 @@ const Topology: React.FC<TopologyProps> = (props) => {
 	};
 
 	useEffect(() => {
-		startRender();
+		setTimeout(() => {
+			startRender();
+		});
 	}, []);
 
 	// data update
