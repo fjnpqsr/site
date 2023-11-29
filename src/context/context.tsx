@@ -3,6 +3,7 @@ import React, { useReducer } from 'react';
 const defaultContext: any = {
 	scope: 'global',
 	theme: 'light',
+	test: 'default',
 };
 
 const context = React.createContext(defaultContext);
@@ -11,12 +12,11 @@ const ContextProvider = context.Provider;
 function contextReducer(state: any, { type, payload }: any) {
 	switch (type) {
 	case 'theme':
-		return {
-			...state,
-			theme: payload,
-		};
+		return { ...state, theme: payload, };
+	case 'test':
+		return { ...state, [type]: payload, };
 	default:
-		return state;
+		return { ...state, [type]: payload, };
 	}
 }
 

@@ -1,17 +1,18 @@
 import PageContainer from '@/components/PageContainer';
 import ComponentCollapse from './components/ComponentCollapse';
 import css from './index.module.less';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import BluePrintEditor from './components/BluePrintEditor';
 import NodePropsDrawer from './components/NodePropsDrawer';
 import { type G6GraphEvent } from '@antv/g6';
 import { Button, Form, Input, Select, Space, message, Drawer, theme } from 'antd';
 import { getJSXNodeAttrFromEvent, getNodeDataFromEvent } from './utils/item';
+import { context } from '@/context/context';
 
 const FormItem = Form.Item;
 
 const BluePrintPage = () => {
-
+	const {state, updateContext} = useContext(context);
 	const {
 		token: {  colorBgContainer }
 	} = theme.useToken();
@@ -32,13 +33,18 @@ const BluePrintPage = () => {
 	};
 
 	const editorRef = useRef<HTMLDivElement>(null);
-
+	console.log({state});
 	return (
 		<PageContainer transparent padding={false}>
 			<div className={css['blue-print-container']} >
 				<div className={css['blue-print-category']} style={{backgroundColor: colorBgContainer}}>
 					<div className={css['blue-print-category-title']}>
                         Components
+						<span>
+							<Button onClick={() => {
+								updateContext({type: 'test', payload: 'newTest'});
+							}}>change context</Button>
+						</span>
 					</div>
 					<div className={css['blue-print-category-content']}>
 						<ComponentCollapse />

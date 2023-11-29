@@ -12,13 +12,15 @@ import {
 	Table,
 	theme,
 	Tabs,
+	InputRef,
 } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import PageContainer from '@/components/PageContainer';
 
 import I18nGeneratorForm from './components/generatorForm';
 import { copyResult, formatI18nData, getCacheData, saveCacheData } from './utils';
+import { context } from '@/context/context';
 
 
 const initialTabs = [
@@ -50,6 +52,7 @@ const AddTabButton = ({value, setValue, handleAdd }: any) => {
 
 const App: React.FC = () => {
 	const { token } = theme.useToken();
+	const {state} = useContext(context);
 	const cachedData = getCacheData();
 	const [startIndexModalVisible, setStartIndexModalVisible] = useState<boolean>(false);
 	const [generatedStr, setGeneratedStr] = useState<string>();
@@ -60,7 +63,8 @@ const App: React.FC = () => {
 	const [activeTab, setActiveTab] = useState(cachedData?.activeTab || 'tab-0');
 	const [dataListMap, setDataListMap] = useState<any>(cachedData?.dataListMap || {});
 	const dataList = dataListMap[activeTab] || [];
-
+	const confirmInputRef = useRef<InputRef>(null);
+	console.log({state});
 	const updateCurrentTabDataList = (data: any []) => {
 		setDataListMap({ ...dataListMap, [activeTab]: data });
 	};
@@ -103,8 +107,9 @@ const App: React.FC = () => {
 					label="Start Index"
 					name="key"
 					rules={[{ required: true }]}
+					
 				>
-					<Input />
+					<Input  ref={confirmInputRef}/>
 				</Form.Item>
 			</Form>
 		);
@@ -131,7 +136,6 @@ const App: React.FC = () => {
 						>
                             remove
 						</Button>
-                        ,
 					</Space>
 				);
 			},
@@ -169,12 +173,21 @@ const App: React.FC = () => {
 		saveCacheData(dataListMap, activeTab, tabs);
 	}, [dataListMap, tabs, activeTab]);
 
+	useEffect(() => {
+		if (startIndexModalVisible) {
+			console.log({startIndexModalVisible});
+			setTimeout(() => {
+				confirmInputRef.current && confirmInputRef.current.focus();
+			});
+		}
+	}, [startIndexModalVisible]);
+
 	return (
 		<PageContainer>
 			<div className="i18n-generator">
 				<div>
 					<I18nGeneratorForm
-						resultString={generatedStr}
+						// resultString={generatedStr}
 						enabledGenerate={dataList.length}
 						handleAdd={handleAdd}
 						handleClear={() => {
@@ -255,6 +268,7 @@ const App: React.FC = () => {
 				<pre
 					style={{
 						background: token.colorFillAlter,
+						color: token.colorTextDescription,
 						padding: 24,
 						flex: 1,
 						marginBottom: 0,

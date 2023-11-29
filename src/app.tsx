@@ -4,7 +4,7 @@ import './global.css';
 import { ConfigProvider } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import React from 'react';
-import { AliveScope, autoFixContext  } from 'react-activation';
+import { AliveScope, autoFixContext } from 'react-activation';
 import { history } from 'umi';
 
 import { ContextProvider } from '@/context/context';
@@ -17,7 +17,7 @@ autoFixContext(
 	[require('react/jsx-dev-runtime'), 'jsx', 'jsxs', 'jsxDEV']
 );
 
-function validateRouteIsNotExist (allRoutesPath: string[], pathname: string) {
+function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
 	// not judgement 404-path will loop replace to 404
 	const isNot404Page = pathname !== '/404';
@@ -32,7 +32,7 @@ function validateRouteIsNotExist (allRoutesPath: string[], pathname: string) {
 	}
 }
 
-export function onRouteChange ({ routes, location }: any) {
+export function onRouteChange({ routes, location }: any) {
 	const { pathname } = location;
 	const allRoutesPath = Object.keys(routes)
 		.filter((item) => !routes[item].isLayout)
@@ -45,16 +45,18 @@ export function onRouteChange ({ routes, location }: any) {
 	validateRouteIsNotExist(allRoutesPath, pathname);
 }
 
-export function rootContainer (container: React.ReactNode, { routes }: any) {
+export function rootContainer(container: React.ReactNode, { routes }: any) {
 	return (
-		<ContextProvider routes={routes}>
-			<DndProvider backend={HTML5Backend}>
-				<ConfigProvider locale={{ ...enUS, Empty: { description: 'no any data' } }}>
+		<DndProvider backend={HTML5Backend}>
+			<ContextProvider routes={routes}>
+				<ConfigProvider
+					locale={{ ...enUS, Empty: { description: 'no any data' } }}
+				>
 					<AliveScope>
 						<Provider>{container}</Provider>
 					</AliveScope>
 				</ConfigProvider>
-			</DndProvider>
-		</ContextProvider>
+			</ContextProvider>
+		</DndProvider>
 	);
 }

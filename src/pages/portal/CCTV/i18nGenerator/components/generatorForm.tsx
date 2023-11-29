@@ -6,7 +6,7 @@
  * @Description:
  * @FilePath: \front-end\src\pages\portal\i18nGenerator\components\generatorForm.tsx
  */
-import React, { type FC } from 'react';
+import React, {  type FC } from 'react';
 import { Button, Col, Form, Input, Row, Space, theme } from 'antd';
 
 interface I18nGeneratorFormProps {
