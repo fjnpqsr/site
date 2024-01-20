@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import type { FC } from 'react';
 import css from './index.module.less';
 
@@ -37,6 +37,10 @@ const VirtualList: FC<VirtualListProps> = (props) => {
             (startIndex - buffer < 0 ? 0 : startIndex - buffer) * itemHeight;
 		itemsContainerRef.current.style.transform = `translate3d(0, ${distance}px, 0)`;
 	};
+
+	useEffect(() => {
+		scrollHandle();
+	}, []);
 
 	return (
 		<div className={classMap.wrapper}>
