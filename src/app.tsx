@@ -48,15 +48,15 @@ export function onRouteChange({ routes, location }: any) {
 export function rootContainer(container: React.ReactNode, { routes }: any) {
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<ContextProvider routes={routes}>
-				<ConfigProvider
-					locale={{ ...enUS, Empty: { description: 'no any data' } }}
-				>
-					<AliveScope>
+			<AliveScope>
+				<ContextProvider routes={routes}>
+					<ConfigProvider
+						locale={{ ...enUS, Empty: { description: 'no any data' } }}
+					>
 						<Provider>{container}</Provider>
-					</AliveScope>
-				</ConfigProvider>
-			</ContextProvider>
+					</ConfigProvider>
+				</ContextProvider>
+			</AliveScope>
 		</DndProvider>
 	);
 }
