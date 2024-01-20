@@ -25,6 +25,10 @@ const menusData = [
 		key: '/portal/ReactNode',
 	},
 	{
+		label: '虚拟滚动',
+		key: '/portal/Comp/VirtualList'
+	},
+	{
 		label: 'CCTV',
 		key: '/portal/CCTV',
 		children: [
