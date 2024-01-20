@@ -1,0 +1,24 @@
+.virtual-list {
+    overflow: auto;
+    &-wrapper {
+        position: relative;
+        &:before, &:after {
+            content: '';
+            height: 40px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            opacity: .9;
+        }
+        &::before {
+            top: 0;
+            background-image: linear-gradient(to top, transparent, #141414);
+        }
+        &:after {
+            bottom: 0;
+            background-image: linear-gradient(to bottom, transparent, #141414);
+
+        }
+    }
+}
