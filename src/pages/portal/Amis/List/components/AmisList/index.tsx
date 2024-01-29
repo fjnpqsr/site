@@ -112,7 +112,7 @@ const ListComponent = () => {
 						'level': 'info',
 					},
 					{
-						type: 'table-header',
+						type: 'blue-print',
 						tip: 'this is table header custom component'
 					},
 				]

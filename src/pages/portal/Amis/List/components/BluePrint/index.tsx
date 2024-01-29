@@ -137,6 +137,6 @@ const BluePrintPage = () => {
 
 
 export default Renderer({
-	type: 'table-header',
+	type: 'blue-print',
 	autoVar: true
 })(BluePrintPage);

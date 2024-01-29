@@ -32,6 +32,10 @@ const menusData = [
 				label: 'List',
 				key: '/portal/Amis/List'
 			},
+			{
+				label: 'Iframe',
+				key: '/portal/Amis/Iframe'
+			},
 		]
 	},
 	{

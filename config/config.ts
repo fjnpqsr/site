@@ -19,4 +19,11 @@ export default defineConfig({
 			pathRewrite: { '^/api': '' },
 		},
 	},
+	chainWebpack(config) {
+		config.module
+			.rule('html')
+			.test(/\.(htm|html)$/)
+			.use('html-loader')
+			.loader('html-loader');
+	},
 });
