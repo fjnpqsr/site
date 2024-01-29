@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {render} from 'amis';
 import {Typography} from 'antd';
-import '../TableHeader';
+import '../BluePrint';
 
 interface mockDataItem {
     name: string;
