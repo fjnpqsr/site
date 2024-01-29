@@ -5,7 +5,7 @@ import React from 'react';
 const AmisIFrame = () => {
 	return (
 		<PageContainer   >
-			<iframe src={'/aimsPages/frame.html'} style={{width: '100%', height: '90%', border: 'none'}} />
+			<iframe src={'/aimsPages/frame.html'} style={{width: '100%', height: 'calc(100% - 40px)', border: 'none', padding: 0, overflow: 'hidden'}} />
 		</PageContainer>
 	);
 };

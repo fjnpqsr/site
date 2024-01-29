@@ -18,6 +18,11 @@ export default defineConfig({
 			changeOrigin: true,
 			pathRewrite: { '^/api': '' },
 		},
+		'/mock': {
+			target: 'https://aisuda.bce.baidu.com/',
+			changeOrigin: true,
+			pathRewrite: { '^/mock': '' },
+		},
 	},
 	chainWebpack(config) {
 		config.module
