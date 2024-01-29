@@ -25,6 +25,16 @@ const menusData = [
 		key: '/portal/ReactNode',
 	},
 	{
+		label: 'Amis',
+		key: '/portal/Amis',
+		children: [
+			{
+				label: 'List',
+				key: '/portal/Amis/List'
+			},
+		]
+	},
+	{
 		label: '组件测试',
 		key: '/portal/Comp',
 		children: [
