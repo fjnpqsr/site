@@ -38,9 +38,9 @@ const BluePrintPage = () => {
 		<div >
 			<div className={css['blue-print-container']} >
 				<div className={css['blue-print-category']} style={{backgroundColor: colorBgContainer}}>
-					<div className={css['blue-print-category-title']}>
+					{/* <div className={css['blue-print-category-title']}>
                         Components
-					</div>
+					</div> */}
 					<div className={css['blue-print-category-content']}>
 						<ComponentCollapse />
 					</div>

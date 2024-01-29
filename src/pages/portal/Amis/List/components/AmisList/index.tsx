@@ -24,67 +24,99 @@ const ListComponent = () => {
 	const removeItem = (name: string) => {
 		setData(data.filter((item) => item.name!==name));
 	};
-
-	const schemas = {
-		'type': 'page',
-		'data': {
-			'rows': data
-		},
-		'body': [
-			{
-				type: 'table-header',
-				tip: 'this is table header custom component'
-			},
-			{
-				'type': 'table',
-				'title': '表格1',
-				'name': 'table1',
-				'source': '$rows',
-				'itemActions': [
-					{
-						'label': '详情',
-						'type': 'button',
-						'actionType': 'dialog',
-						'dialog': {
-							'title': '详情',
-							actions: [],
-							'body': {
-								'type': 'form',
-								'static': true,
-								'body': [
-									{
-										'type': 'input-text',
-										'name': 'name',
-										'label': '姓名：'
-									},
-									{
-										'name': 'age',
-										'type': 'input-number',
-										'label': '年龄：'
-									}
-								],
-							}
-						}
-					},
-					{
-						children: (({data}: {data: mockDataItem}) => {
-							return (
-								<Typography.Link onClick={() => removeItem(data.name)}>删除</Typography.Link>
-							);
-						})
-					}
-				],
-				'columns': [
-					{ 'name': 'name', 'label': 'Name' },
-					{ 'name': 'age', 'label': 'Age' },
-					{ 'name': 'remark', 'label': 'Remark' }
-				]
-			}
-		]
+	const filterData = (name: string) => {
+		setData(mockData.filter((item) => item.name.indexOf(name) >= 0));
 	};
+
 	return (
 		<div>
-			{render(schemas)}
+			{render( {
+				'type': 'page',
+				'data': {
+					'rows': data
+				},
+				'body': [
+					{
+						'title': '查询条件',
+						'type': 'form',
+						'body': [
+							{
+								'type': 'input-text',
+								'name': 'name-keyword',
+								'label': '关键字：',
+								onEvent: {
+									change: {
+										actions: [
+											{
+												actionType: 'custom',
+												script: (context:any,doAction:any,event: any)=>{
+													const {value} = event.data;
+													filterData(value);
+												}
+											},
+										]
+									}
+								}
+							}
+						],
+						actions: [],
+					},
+					{
+						'type': 'table',
+						'title': '表格1',
+						'name': 'table1',
+						'source': '$rows',
+						'itemActions': [
+							{
+								'label': '详情',
+								'type': 'button',
+								'actionType': 'dialog',
+								'dialog': {
+									'title': '详情',
+									actions: [],
+									'body': {
+										'type': 'form',
+										'static': true,
+										'body': [
+											{
+												'type': 'input-text',
+												'name': 'name',
+												'label': '姓名：'
+											},
+											{
+												'name': 'age',
+												'type': 'input-number',
+												'label': '年龄：'
+											}
+										],
+									}
+								}
+							},
+							{
+								children: (({data}: {data: mockDataItem}) => {
+									return (
+										<Typography.Link onClick={() => removeItem(data.name)}>删除(临时组件)</Typography.Link>
+									);
+								})
+							}
+						],
+						'columns': [
+							{ 'name': 'name', 'label': 'Name' },
+							{ 'name': 'age', 'label': 'Age' },
+							{ 'name': 'remark', 'label': 'Remark' }
+						]
+					},
+					{
+						'type': 'alert',
+						'body': '下面是注册的自定义组件',
+						'level': 'info',
+					},
+					{
+						type: 'table-header',
+						tip: 'this is table header custom component'
+					},
+				]
+			})}
 		</div>
 	);
 };
