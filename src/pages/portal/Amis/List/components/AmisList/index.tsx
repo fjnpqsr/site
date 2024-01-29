@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {render} from 'amis';
-import {Button} from 'antd';
+import {Typography} from 'antd';
 import '../TableHeader';
 
 interface mockDataItem {
@@ -14,6 +14,10 @@ const ListComponent = () => {
 	const mockData = [
 		{name: 'qsr', age: 31, remark: 'web worker'},
 		{name: 'xj', age: 28, remark: 'teacher'},
+		{name: 'ads', age: 28, remark: 'teacher'},
+		{name: 'dxzcj', age: 28, remark: 'teacher'},
+		{name: 'xczcxxx', age: 28, remark: 'teacher'},
+		{name: 'xjsadsa', age: 28, remark: 'teacher'},
 	];
 	const [data, setData] = useState<mockDataItem[]>(mockData);
 
@@ -38,18 +42,34 @@ const ListComponent = () => {
 				'source': '$rows',
 				'itemActions': [
 					{
-						'label': '编辑',
+						'label': '详情',
 						'type': 'button',
 						'actionType': 'dialog',
 						'dialog': {
-							'title': '编辑',
-							'body': '这是个简单的编辑弹框'
+							'title': '详情',
+							actions: [],
+							'body': {
+								'type': 'form',
+								'static': true,
+								'body': [
+									{
+										'type': 'input-text',
+										'name': 'name',
+										'label': '姓名：'
+									},
+									{
+										'name': 'age',
+										'type': 'input-number',
+										'label': '年龄：'
+									}
+								],
+							}
 						}
 					},
 					{
 						children: (({data}: {data: mockDataItem}) => {
 							return (
-								<Button type="text" onClick={() => removeItem(data.name)}>删除</Button>
+								<Typography.Link onClick={() => removeItem(data.name)}>删除</Typography.Link>
 							);
 						})
 					}
