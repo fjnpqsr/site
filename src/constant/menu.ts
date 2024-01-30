@@ -8,10 +8,7 @@
  */
 
 const menusData = [
-	{
-		label: '从EXCEL导出多语言脚本',
-		key: '/portal/CCTV/i18nSqlMaker',
-	},
+
 	{
 		label: '生成多语言脚本',
 		key: '/portal/CCTV/i18nGenerator',
@@ -20,10 +17,10 @@ const menusData = [
 		label: 'BluePrint',
 		key: '/portal/CMP/BluePrint',
 	},
-	{
-		label: 'ReactBluePrint',
-		key: '/portal/ReactNode',
-	},
+	// {
+	// 	label: 'ReactBluePrint',
+	// 	key: '/portal/ReactNode',
+	// },
 	{
 		label: 'Amis',
 		key: '/portal/Amis',
@@ -63,6 +60,10 @@ const menusData = [
 			{
 				label: '生成MQ消息',
 				key: '/portal/CCTV/mqGenerator',
+			},
+			{
+				label: '从EXCEL导出多语言脚本',
+				key: '/portal/CCTV/i18nSqlMaker',
 			},
 		],
 	},
