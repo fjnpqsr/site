@@ -17,6 +17,16 @@ const menusData = [
 		label: 'BluePrint',
 		key: '/portal/CMP/BluePrint',
 	},
+	{
+		label: 'Cesium',
+		key: '/portal/Cesium',
+		children: [
+			{
+				label: 'demo',
+				key: '/portal/Cesium/demo',
+			},
+		]
+	},
 	// {
 	// 	label: 'ReactBluePrint',
 	// 	key: '/portal/ReactNode',

@@ -18,6 +18,7 @@
     "antd": "^5.0.0",
     "axios": "^0.27.2",
     "babel-plugin-import": "^1.13.5",
+    "cesium": "^1.114.0",
     "classnames": "^2.3.1",
     "html-loader": "^5.0.0",
     "html2canvas": "^1.4.1",
