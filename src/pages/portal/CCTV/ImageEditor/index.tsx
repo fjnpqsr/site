@@ -52,7 +52,7 @@ export default function ImageEditor() {
 			handleFilter(canvasPreRef.current, downloadCanvas, filterConfig, { height, width });
 			downloadCanvas.toBlob(function (blob:any) {//blob将base64编码的src 以二进制的形式存进了 Blob对象
 				const a = document.createElement('a');
-				a.download = 'tupian.png';
+				a.download = `${new Date().valueOf()}_image.png`;
 				a.href = window.URL.createObjectURL(blob);
 				a.click();
 				console.log(blob);
