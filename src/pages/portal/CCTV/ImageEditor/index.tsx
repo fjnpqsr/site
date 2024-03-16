@@ -49,10 +49,10 @@ export default function ImageEditor() {
 		downloadCanvas.width = width;
 		downloadCanvas.height = height;
 		handleFilter(canvasPreRef.current,downloadCanvas, filterConfig , canvasImageSize);
-		const base64Img = downloadCanvas.toDataURL('image/png');
+		const base64Img = downloadCanvas.toDataURL('image/jpg');
 		const a = document.createElement('a'); // 生成一个a元素
 		const event = new MouseEvent('click'); // 创建一个单击事件
-		a.download = 'test.png'; // 设置图片名称
+		a.download = 'test.jpg'; // 设置图片名称
 		a.href = base64Img; // 将生成的URL设置为a.href属性
 		a.dispatchEvent(event);
 	};
