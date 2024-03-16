@@ -1,8 +1,8 @@
+window.CESIUM_BASE_URL = '/cesium';
 import React, {useEffect, useRef} from 'react';
 import { Cartesian3, Ion, Terrain, Viewer, SceneMode , OpenStreetMapImageryProvider  } from 'cesium';
-import 'cesium/Build/Cesium/Widgets/widgets.css';
+
 import {CesiumToken} from '@/constant/token';
-window.CESIUM_BASE_URL = '/cesium';
 
 const CesiumMap  = () => {
 	const containerRef = useRef<any>();
@@ -18,7 +18,7 @@ const CesiumMap  = () => {
 		
 		const viewer  = new Viewer(containerRef.current, {
 			terrain: Terrain.fromWorldTerrain(),
-			sceneMode: SceneMode.SCENE2D, // 配置场景 3D/2.5D/2D, 默认3D
+			// sceneMode: SceneMode.SCENE2D, // 配置场景 3D/2.5D/2D, 默认3D
 			requestRenderMode: true,
 			useBrowserRecommendedResolution: true,
 			// 配置按钮显示

@@ -8,7 +8,18 @@
  */
 
 const menusData = [
-
+	{
+		label: '背包系统',
+		key: '/portal/BackPack',
+	},
+	{
+		label: '图片处理',
+		key: '/portal/CCTV/ImageEditor',
+	},
+	{
+		label: '图片处理',
+		key: '/portal/CCTV/Fabric',
+	},
 	{
 		label: '生成多语言脚本',
 		key: '/portal/CCTV/i18nGenerator',
