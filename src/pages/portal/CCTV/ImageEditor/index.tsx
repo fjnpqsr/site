@@ -1,9 +1,9 @@
 import PageContainer from '@/components/PageContainer';
-import React, {  useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Card, Flex, Space, Upload, Divider, Form, Slider } from 'antd';
 import { IOperationData, getRenderSize, handleFilter } from '@/utils/imageEditor';
 
-const BASIC_CONFIG = {light: 0, sharpen: 0};
+const BASIC_CONFIG = { light: 0, sharpen: 0 };
 export default function ImageEditor() {
 	const [uploadImage, setUploadImage] = useState<HTMLImageElement | null>(null);
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -13,7 +13,7 @@ export default function ImageEditor() {
 	const [filterConfig, setFilterConfig] = useState<IOperationData>(BASIC_CONFIG);
 	const [startFilter, setStartFilter] = useState<boolean>(false);
 	const [form] = Form.useForm();
-	const handleUpload =async ({file}:any) => {
+	const handleUpload = async ({ file }: any) => {
 		let src = file.url as string;
 		if (!src) {
 			src = await new Promise((resolve) => {
@@ -24,19 +24,19 @@ export default function ImageEditor() {
 		}
 		const image = new Image();
 		image.src = src;
-		const {width, height} = image;
+		const { width, height } = image;
 		setUploadImage(uploadImage);
-		if (!canvasRef.current || !canvasPreRef.current)  return;
+		if (!canvasRef.current || !canvasPreRef.current) return;
 		const ctx = canvasRef.current.getContext('2d');
 		const ctxPre = canvasPreRef.current.getContext('2d');
-		const {width: _width , height: _height} = getRenderSize(width, height, 400);
-		ctx?.drawImage(image, 0,0, _width, _height);
-		ctxPre?.drawImage(image, 0,0, _width, _height);
-		setCanvasImageSize({width: _width, height:_height });
+		const { width: _width, height: _height } = getRenderSize(width, height, 400);
+		ctx?.drawImage(image, 0, 0, _width, _height);
+		ctxPre?.drawImage(image, 0, 0, _width, _height);
+		setCanvasImageSize({ width: _width, height: _height });
 		setOriginImage(src);
 	};
 
-	const handleFormChange = (_:any, allValues:IOperationData) => {
+	const handleFormChange = (_: any, allValues: IOperationData) => {
 		setStartFilter(true);
 		setFilterConfig(allValues);
 	};
@@ -45,21 +45,25 @@ export default function ImageEditor() {
 		const downloadCanvas = document.createElement('canvas');
 		const image = new Image();
 		image.src = originImage;
-		const {width, height} = image;
-		downloadCanvas.width = width;
-		downloadCanvas.height = height;
-		handleFilter(canvasPreRef.current,downloadCanvas, filterConfig , canvasImageSize);
-		const base64Img = downloadCanvas.toDataURL('image/jpg');
-		const a = document.createElement('a'); // 生成一个a元素
-		const event = new MouseEvent('click'); // 创建一个单击事件
-		a.download = 'test.jpg'; // 设置图片名称
-		a.href = base64Img; // 将生成的URL设置为a.href属性
-		a.dispatchEvent(event);
+		image.onload = () => {
+			const { width, height } = image;
+			downloadCanvas.width = width;
+			downloadCanvas.height = height;
+			handleFilter(canvasPreRef.current, downloadCanvas, filterConfig, { height, width });
+			downloadCanvas.toBlob(function (blob:any) {//blob将base64编码的src 以二进制的形式存进了 Blob对象
+				const a = document.createElement('a');
+				a.download = 'tupian.png';
+				a.href = window.URL.createObjectURL(blob);
+				a.click();
+				console.log(blob);
+			}, 'image/jpg');
+		};
+
 	};
 
 	useEffect(() => {
-		if(startFilter) {
-			handleFilter(canvasPreRef.current,canvasRef.current, filterConfig , canvasImageSize);
+		if (startFilter) {
+			handleFilter(canvasPreRef.current, canvasRef.current, filterConfig, canvasImageSize);
 		}
 	}, [filterConfig, startFilter]);
 
@@ -71,9 +75,9 @@ export default function ImageEditor() {
 						<Button onClick={handleDownload}>Download</Button>
 					</Space>
 				)}>
-					<canvas ref={canvasPreRef}  width={400} height={400}></canvas>
+					<canvas ref={canvasPreRef} width={400} height={400}></canvas>
 					<h1>处理后图像</h1>
-					<canvas ref={canvasRef}  width={400} height={400}></canvas>
+					<canvas ref={canvasRef} width={400} height={400}></canvas>
 				</Card>
 				<Card title="处理" style={{ flex: 1 }}>
 					<Upload
@@ -83,10 +87,10 @@ export default function ImageEditor() {
 					>
 						Upload
 					</Upload>
-					<Divider/>
+					<Divider />
 					<Form layout='vertical' form={form} onValuesChange={handleFormChange} initialValues={filterConfig}>
 						<Form.Item label="亮度" name={'light'}>
-							<Slider  min={-50} max={50} 
+							<Slider min={-50} max={50}
 							/>
 						</Form.Item>
 						<Form.Item label="锐化" name="sharpen">
