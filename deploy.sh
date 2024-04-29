@@ -1,7 +1,7 @@
 #!/bin/bash
 
-start_dir='E:/workplace/fjnpqsr.top/front-end/dist'
-target_dir="E:/program/nginx-1.22.0/html/tools"
+start_dir='E:/self/site/dist'
+target_dir="E:/program/nginx-1.24.0/nginx-1.24.0/html/site"
 
 echo '>>> 开始构建应用'
 npm run build
