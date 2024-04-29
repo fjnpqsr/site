@@ -8,7 +8,14 @@
  */
 
 const menusData = [
-
+	{
+		label: '背包系统',
+		key: '/portal/BackPack',
+	},
+	{
+		label: '图片处理',
+		key: '/portal/CCTV/ImageEditor',
+	},
 	{
 		label: '生成多语言脚本',
 		key: '/portal/CCTV/i18nGenerator',
@@ -16,6 +23,16 @@ const menusData = [
 	{
 		label: 'BluePrint',
 		key: '/portal/CMP/BluePrint',
+	},
+	{
+		label: 'Cesium',
+		key: '/portal/Cesium',
+		children: [
+			{
+				label: 'demo',
+				key: '/portal/Cesium/demo',
+			},
+		]
 	},
 	// {
 	// 	label: 'ReactBluePrint',

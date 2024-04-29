@@ -31,4 +31,7 @@ export default defineConfig({
 			.use('html-loader')
 			.loader('html-loader');
 	},
+	links: [
+		{href: '/cesium/Widgets/widgets.css', rel: 'stylesheet'}
+	]
 });
