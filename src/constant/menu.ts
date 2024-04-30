@@ -9,10 +9,6 @@
 
 const menusData = [
 	{
-		label: '背包系统',
-		key: '/portal/BackPack',
-	},
-	{
 		label: '图片处理',
 		key: '/portal/CCTV/ImageEditor',
 	},
@@ -24,20 +20,6 @@ const menusData = [
 		label: 'BluePrint',
 		key: '/portal/CMP/BluePrint',
 	},
-	{
-		label: 'Cesium',
-		key: '/portal/Cesium',
-		children: [
-			{
-				label: 'demo',
-				key: '/portal/Cesium/demo',
-			},
-		]
-	},
-	// {
-	// 	label: 'ReactBluePrint',
-	// 	key: '/portal/ReactNode',
-	// },
 	{
 		label: 'Amis',
 		key: '/portal/Amis',
