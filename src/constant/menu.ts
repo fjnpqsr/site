@@ -21,6 +21,10 @@ const menusData = [
 		key: '/portal/CMP/BluePrint',
 	},
 	{
+		label: '颜色采集',
+		key: '/portal/CMP/ColorDefine',
+	},
+	{
 		label: 'Amis',
 		key: '/portal/Amis',
 		children: [
