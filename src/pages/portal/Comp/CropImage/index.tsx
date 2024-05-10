@@ -31,23 +31,18 @@ const App: React.FC = () => {
 	const [cropModalOpen, setCropModalOpen] = useState<boolean>(false);
 
 	const handleChange: UploadProps['onChange'] = (info) => {
-		console.log({info});
 		if (info.file.status === 'uploading') {
-			setLoading(true);
-			return;
-		}
-		if (info.file.status === 'done') {
-			// Get this url from response in real world.
 			getBase64(info.file.originFileObj as FileType, (url) => {
 				setLoading(false);
 				setImageUrl(url);
 				setCropModalOpen(true);
 			});
 		}
+	
 	};
 
 	const uploadButton = (
-		<button style={{ border: 0, background: 'none' }} type="button">
+		<button style={{ border: 0, background: 'none', width:270, height: 140 }} type="button">
 			{loading ? <LoadingOutlined /> : <PlusOutlined />}
 			<div style={{ marginTop: 8 }}>Upload</div>
 		</button>
@@ -55,17 +50,19 @@ const App: React.FC = () => {
 
 	return (
 		<PageContainer>
-			<Upload
-				name="cropped-image"
-				listType="picture-card"
-				className="avatar-uploader"
-				showUploadList={false}
-				beforeUpload={beforeUpload}
-				onChange={handleChange}
-			>
-				{croppedImageUrl ? <img src={croppedImageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-			</Upload>
-			{croppedImageUrl ? <img src={croppedImageUrl} alt="avatar" style={{ height: '40px' }} /> : uploadButton}
+			<div className="crop-upload">
+				<Upload
+					name="cropped-image"
+					action={() => Promise.resolve()}
+					listType="picture-card"
+					showUploadList={false}
+					beforeUpload={beforeUpload}
+					onChange={handleChange}
+				>
+					{croppedImageUrl ? <img src={croppedImageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+				</Upload>
+			</div>
+			{croppedImageUrl && <img src={croppedImageUrl} alt="avatar" style={{ height: '40px' }} /> }
 			<CropModal 
 				open={cropModalOpen} 
 				imageSrc={imageUrl}

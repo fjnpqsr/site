@@ -27,3 +27,11 @@ pre {
 .g6-grid-container {
     z-index: 0!important;
 }
+.crop-upload .ant-upload.ant-upload-select{
+    width: 270px!important;
+    height: 140px!important;
+    img {
+        height: 100%;
+        object-fit: contain;
+    }
+}
