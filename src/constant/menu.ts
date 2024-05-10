@@ -50,6 +50,10 @@ const menusData = [
 				label: '图片懒加载',
 				key: '/portal/Comp/LazyLoadImg',
 			},
+			{
+				label: '图片裁剪',
+				key: '/portal/Comp/CropImage',
+			},
 		],
 	},
 	{
