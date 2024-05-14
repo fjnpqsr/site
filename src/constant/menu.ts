@@ -22,6 +22,10 @@ const menusData = [
 	},
 	{
 		label: '颜色采集',
+		key: '/portal/CMP/TableColumns',
+	},
+	{
+		label: '颜色采集',
 		key: '/portal/CMP/ColorDefine',
 	},
 	{
