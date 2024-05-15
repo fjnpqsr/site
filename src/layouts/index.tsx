@@ -8,7 +8,7 @@ const basicLayoutPath = '/portal';
 export default function Layout() {
 	const location = useLocation();
 	const isPortalPage = location.pathname.indexOf(basicLayoutPath) === 0;
-	if (isPortalPage) {
+	if (isPortalPage && location.pathname !== '/portal/Comp/RglEditor') {
 		return <PortalLayout />;
 	}
 	return <Outlet />;

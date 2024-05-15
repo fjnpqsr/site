@@ -22,11 +22,11 @@ const menusData = [
 	},
 	{
 		label: '颜色采集',
-		key: '/portal/CMP/TableColumns',
+		key: '/portal/CMP/ColorDefine',
 	},
 	{
-		label: '颜色采集',
-		key: '/portal/CMP/ColorDefine',
+		label: 'RglEditor',
+		key: '/portal/Comp/RglEditor',
 	},
 	{
 		label: 'Amis',
