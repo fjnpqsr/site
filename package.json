@@ -21,6 +21,8 @@
     "cesium": "^1.114.0",
     "classnames": "^2.3.1",
     "cropperjs": "^1.6.2",
+    "datahub-proxy-middleware": "^5.0.3",
+    "express": "^4.19.2",
     "fabric": "^5.3.0",
     "html-loader": "^5.0.0",
     "html2canvas": "^1.4.1",

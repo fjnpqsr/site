@@ -25,24 +25,6 @@ const menusData = [
 		key: '/portal/CMP/ColorDefine',
 	},
 	{
-		label: 'RglEditor',
-		key: '/portal/Comp/RglEditor',
-	},
-	{
-		label: 'Amis',
-		key: '/portal/Amis',
-		children: [
-			{
-				label: 'List',
-				key: '/portal/Amis/List'
-			},
-			{
-				label: 'Iframe',
-				key: '/portal/Amis/Iframe'
-			},
-		]
-	},
-	{
 		label: '组件测试',
 		key: '/portal/Comp',
 		children: [

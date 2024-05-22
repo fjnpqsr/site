@@ -12,6 +12,7 @@ export default defineConfig({
 	npmClient: 'pnpm',
 	title: 'umi 4 learn',
 	esbuildMinifyIIFE:true,
+	mfsu:false,
 	proxy: {
 		'/api': {
 			target: 'http://http://123.56.154.83/:8082/ ',
@@ -24,6 +25,7 @@ export default defineConfig({
 			pathRewrite: { '^/mock': '' },
 		},
 	},
+	dataHub: {},
 	chainWebpack(config) {
 		config.module
 			.rule('html')

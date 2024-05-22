@@ -1,11 +1,60 @@
-/*
- * @Author: Qiu Shao Rong
- * @Date: 2022-08-04 09:16:17
- * @LastEditTime: 2022-08-04 09:17:01
- * @LastEditors: Qiu Shao Rong
- * @Description:
- * @FilePath: \front-end\plugin.ts
- */
-// import type { IApi } from "umi";
+import { getProxyMiddlewares } from 'datahub-proxy-middleware';
+import DataHub from 'macaca-datahub';
+import path from 'path';
+import { IApi } from 'umi';
 
-export default () => {};
+let init = false;
+export default (api: IApi) => {
+	const {
+		logger: { debug },
+	} = api;
+	const isBigfish = Boolean(process.env.BIGFISH_VERSION);
+	const datahubConfig = {
+		port: 5678,
+		hostname: '127.0.0.1',
+		store: path.join(__dirname, 'data'),
+		proxy: {},
+		showBoard: true,
+		...api.userConfig.dataHub,
+	};
+	const defaultDatahub = new DataHub({
+		port: datahubConfig.port,
+	});
+
+	debug('datahubConfig');
+	debug(datahubConfig);
+	api.describe({
+		key: 'dataHub',
+		config: {
+			default: {},
+			schema(joi) {
+				return joi.object();
+			},
+		},
+	});
+	if (!isBigfish && !init && process.env.NODE_ENV === 'development') {
+		// push datahub middlewares
+		api.addBeforeMiddlewares(() => getProxyMiddlewares(datahubConfig));
+		init = true;
+		// start datahub server
+		api.onStart(() => {
+			defaultDatahub.startServer(datahubConfig).then(() => {
+				debug('datahub ready');
+				console.log('datahub ready');
+				
+			});
+		});
+
+		// add debugger-board.js into template
+		if (datahubConfig.showBoard) {
+			api.addHTMLScripts(() => [
+				{ src: '/debugger-board.js' },
+				{
+					content: `
+      window._debugger_board_datahub_options = ${JSON.stringify(datahubConfig)};
+      window._debugger_board.append(document.body);`,
+				},
+			]);
+		}
+	}
+};
