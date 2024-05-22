@@ -1,0 +1,11 @@
+{
+  "protocol": "http",
+  "pathname": "mock/test",
+  "method": "GET",
+  "projectUniqId": "b17c64aa-574a-427a-9b26-14be5c78f590",
+  "description": "test",
+  "currentScene": "200",
+  "proxyConfig": {},
+  "uniqId": "cfdc1032-155c-44ae-b219-33d2ef974f17",
+  "groupUniqId": "afeb7393-2e76-4b57-ace4-af12be961db3"
+}

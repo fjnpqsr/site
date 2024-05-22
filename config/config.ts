@@ -19,13 +19,12 @@ export default defineConfig({
 			changeOrigin: true,
 			pathRewrite: { '^/api': '' },
 		},
-		'/mock': {
-			target: 'https://aisuda.bce.baidu.com/',
-			changeOrigin: true,
-			pathRewrite: { '^/mock': '' },
-		},
 	},
-	dataHub: {},
+	dataHub: {
+		proxy: {
+			'/mock': {hub: 'umi-datahub-test'}
+		}
+	},
 	chainWebpack(config) {
 		config.module
 			.rule('html')

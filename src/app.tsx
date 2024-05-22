@@ -12,10 +12,6 @@ import Provider from '@/context/Provider';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
-import 'amis/lib/themes/cxd.css';
-import 'amis/lib/helper.css';
-import 'amis/sdk/iconfont.css';
-
 autoFixContext(
 	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
 	[require('react/jsx-dev-runtime'), 'jsx', 'jsxs', 'jsxDEV']

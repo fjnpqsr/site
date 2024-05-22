@@ -1,0 +1,13 @@
+{
+  "sceneName": "空态",
+  "data": {
+    "data": [],
+    "success": true
+  },
+  "interfaceUniqId": "cfdc1032-155c-44ae-b219-33d2ef974f17",
+  "contextConfig": {
+    "responseHeaders": {}
+  },
+  "uniqId": "9d66dc2c-dd29-4060-94be-f24d228c08bf",
+  "format": "json"
+}

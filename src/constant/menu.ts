@@ -25,6 +25,10 @@ const menusData = [
 		key: '/portal/CMP/ColorDefine',
 	},
 	{
+		label: '测试',
+		key: '/portal/Test/DatahubTest',
+	},
+	{
 		label: '组件测试',
 		key: '/portal/Comp',
 		children: [

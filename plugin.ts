@@ -3,7 +3,6 @@ import DataHub from 'macaca-datahub';
 import path from 'path';
 import { IApi } from 'umi';
 
-let init = false;
 export default (api: IApi) => {
 	const {
 		logger: { debug },
@@ -32,10 +31,9 @@ export default (api: IApi) => {
 			},
 		},
 	});
-	if (!isBigfish && !init && process.env.NODE_ENV === 'development') {
+	if (!isBigfish && process.env.NODE_ENV === 'development') {
 		// push datahub middlewares
 		api.addBeforeMiddlewares(() => getProxyMiddlewares(datahubConfig));
-		init = true;
 		// start datahub server
 		api.onStart(() => {
 			defaultDatahub.startServer(datahubConfig).then(() => {
