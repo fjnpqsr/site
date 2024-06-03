@@ -25,6 +25,10 @@ export default defineConfig({
 			'/mock': {hub: 'umi-datahub-test'}
 		}
 	},
+	scripts: ['/aliplayer/aliplayer-min.js'],
+	links: [
+		{href: '/aliplayer/skins/default/aliplayer-min.css',rel:'stylesheet'}
+	],
 	chainWebpack(config) {
 		config.module
 			.rule('html')

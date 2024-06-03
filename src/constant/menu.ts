@@ -55,6 +55,10 @@ const menusData = [
 				key: '/portal/CCTV/vehicleAccompanyDataGenerator',
 			},
 			{
+				label: 'Player',
+				key: '/portal/CCTV/PlayerTest',
+			},
+			{
 				label: '生成MQ消息',
 				key: '/portal/CCTV/mqGenerator',
 			},
