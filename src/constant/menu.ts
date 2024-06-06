@@ -26,7 +26,7 @@ const menusData = [
 	},
 	{
 		label: '测试',
-		key: '/portal/Test/DatahubTest',
+		key: '/portal/CCTV/leafletMap',
 	},
 	{
 		label: '组件测试',
