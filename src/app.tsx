@@ -9,8 +9,6 @@ import { history } from 'umi';
 
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 
 import 'amis/lib/themes/cxd.css';
 import 'amis/lib/helper.css';
@@ -51,16 +49,15 @@ export function onRouteChange({ routes, location }: any) {
 
 export function rootContainer(container: React.ReactNode, { routes }: any) {
 	return (
-		<DndProvider backend={HTML5Backend}>
-			<AliveScope>
-				<ContextProvider routes={routes}>
-					<ConfigProvider
-						locale={{ ...enUS, Empty: { description: 'no any data' } }}
-					>
-						<Provider>{container}</Provider>
-					</ConfigProvider>
-				</ContextProvider>
-			</AliveScope>
-		</DndProvider>
+
+		<AliveScope>
+			<ContextProvider routes={routes}>
+				<ConfigProvider
+					locale={{ ...enUS, Empty: { description: 'no any data' } }}
+				>
+					<Provider>{container}</Provider>
+				</ConfigProvider>
+			</ContextProvider>
+		</AliveScope>
 	);
 }

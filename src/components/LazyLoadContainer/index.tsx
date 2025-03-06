@@ -12,7 +12,7 @@ const LazyLoadImgContainer:FC<LazyLoadImgContainerProps> = (props) => {
 	function  lazyLoadingImg () {
 		if (containerRef.current) {
 			const allImages = containerRef.current.getElementsByTagName('img');
-			Array.from(allImages).forEach(item => {
+			Array.from(allImages).forEach((item:any) => {
 				// 获取浏览器可视区的高度
 				const { top } = item.getBoundingClientRect();
 				if (top < document.documentElement.clientHeight) {

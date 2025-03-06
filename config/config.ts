@@ -13,16 +13,7 @@ export default defineConfig({
 	title: 'umi 4 learn',
 	esbuildMinifyIIFE:true,
 	proxy: {
-		'/api': {
-			target: 'http://http://123.56.154.83/:8082/ ',
-			changeOrigin: true,
-			pathRewrite: { '^/api': '' },
-		},
-		'/mock': {
-			target: 'https://aisuda.bce.baidu.com/',
-			changeOrigin: true,
-			pathRewrite: { '^/mock': '' },
-		},
+		
 	},
 	chainWebpack(config) {
 		config.module
