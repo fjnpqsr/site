@@ -6,25 +6,23 @@ pre {
     font-size: 14px;
 }
 
-.ka-wrapper,
+/* .ka-wrapper,
 .ka-content {
     height: 100%;
     width: 100%;
     display: flex;
-}
+} */
 
 ::-webkit-scrollbar{
     width: 8px;
     height: 8px;
     background-color: transparent;
   }
-  ::-webkit-scrollbar-thumb{
-    background-color: lightcoral;
-  }
+
 /* th.ant-table-cell {
     white-space: nowrap;
 } */
-.g6-grid-container {
+/* .g6-grid-container {
     z-index: 0!important;
 }
 .crop-upload .ant-upload.ant-upload-select{
@@ -34,4 +32,4 @@ pre {
         height: 100%;
         object-fit: contain;
     }
-}
+} */
