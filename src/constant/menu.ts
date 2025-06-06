@@ -11,6 +11,10 @@ const menusData = [
 	{
 		label: 'Banner管理',
 		key: '/portal/Banners',
+	},
+	{
+		label: '站内信',
+		key: '/portal/Message',
 	}
 ];
 

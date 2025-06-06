@@ -10,9 +10,6 @@ import { history } from 'umi';
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
 
-import 'amis/lib/themes/cxd.css';
-import 'amis/lib/helper.css';
-import 'amis/sdk/iconfont.css';
 
 autoFixContext(
 	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
