@@ -29,7 +29,7 @@ export default function BannersPage() {
 				>
 					<Flex style={{ height: '100%' }} vertical>
 						<BannerPreview />
-						<Divider size="middle" />
+						<Divider  />
 						<BannerList selected={selected} onClick={setSelected} />
 					</Flex>
 				</Container>

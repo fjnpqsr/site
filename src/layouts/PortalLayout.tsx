@@ -1,4 +1,7 @@
-import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {
+	MenuFoldOutlined,
+	MenuUnfoldOutlined,
+} from '@ant-design/icons';
 import { Layout, Menu, Space, theme } from 'antd';
 import React, { useState, useContext } from 'react';
 import { history, Outlet } from 'umi';
@@ -15,7 +18,7 @@ const PortalLayout: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const { state } = useContext(context);
 	const {
-		token: {  colorBgLayout, colorBgContainer }
+		token: { colorBgLayout, colorBgContainer },
 	} = theme.useToken();
 
 	const handleMenuClick = (menuItem: any) => {
@@ -43,23 +46,23 @@ const PortalLayout: React.FC = () => {
 				<Header
 					className={css['layout-header']}
 					style={{
-						backgroundColor: colorBgContainer
+						backgroundColor: colorBgContainer,
 					}}
 				>
-					<div className={css['layout-header-left']} >
+					<div className={css['layout-header-left']}>
 						<Space size={24}>
 							{React.createElement(
-								collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+								collapsed
+									? MenuUnfoldOutlined
+									: MenuFoldOutlined,
 								{
 									className: 'trigger',
 									style: { fontSize: 20 },
-									onClick: () => { setCollapsed(!collapsed); }
+									onClick: () => {
+										setCollapsed(!collapsed);
+									},
 								}
 							)}
-							<HomeOutlined
-								style={{ fontSize: 20 }}
-								onClick={() => { history.push('/portal'); }}
-							/>
 						</Space>
 					</div>
 					<div className={css['layout-header-right']}>

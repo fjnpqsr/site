@@ -9,13 +9,34 @@
 
 const menusData = [
 	{
-		label: 'Banner管理',
-		key: '/portal/Banners',
+		label: '首页',
+		key: '/portal',
 	},
 	{
 		label: '站内信',
 		key: '/portal/Message',
-	}
+	},
+	{
+		label: 'Banner管理',
+		key: '/portal/Banners',
+	},
+	{
+		label: '新闻管理',
+		key: '/portal/News',
+	},
+	{
+		label: '服务管理',
+		key: '/portal/Services',
+	},
+	{
+		label: '案例管理',
+		key: '/portal/Cases',
+	},
+	{
+		label: '招聘管理',
+		key: '/portal/Jobs',
+	},
+
 ];
 
 export default menusData;

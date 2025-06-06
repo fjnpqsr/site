@@ -2,10 +2,10 @@ import 'antd/dist/reset.css';
 import './global.css';
 
 import { ConfigProvider } from 'antd';
-import enUS from 'antd/es/locale/en_US';
 import React from 'react';
 import { AliveScope, autoFixContext } from 'react-activation';
-import { history } from 'umi';
+import { history, matchPath } from 'umi';
+
 
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
@@ -20,8 +20,9 @@ function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
 	// not judgement 404-path will loop replace to 404
 	const isNot404Page = pathname !== '/404';
-
-	if (!allRoutesPath.includes(pathname) && isNot404Page) {
+	const updateCenter = '/portal/UpdateCenter/:type/:id';
+	const isUpdateCenter = matchPath(updateCenter, pathname);
+	if (!allRoutesPath.includes(pathname) && isNot404Page && !isUpdateCenter) {
 		// Switch not found page type
 		if (pathname.indexOf('/portal') === 0) {
 			history.replace('/portal/404');
@@ -40,6 +41,8 @@ export function onRouteChange({ routes, location }: any) {
 				? routes[item].path
 				: `/${routes[item].path}`
 		);
+
+	console.log(allRoutesPath);
 	// check pathname is exists or not
 	validateRouteIsNotExist(allRoutesPath, pathname);
 }
@@ -50,7 +53,6 @@ export function rootContainer(container: React.ReactNode, { routes }: any) {
 		<AliveScope>
 			<ContextProvider routes={routes}>
 				<ConfigProvider
-					locale={{ ...enUS, Empty: { description: 'no any data' } }}
 				>
 					<Provider>{container}</Provider>
 				</ConfigProvider>

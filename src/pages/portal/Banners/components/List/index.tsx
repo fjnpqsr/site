@@ -34,14 +34,14 @@ export default function BannerList(props: {selected: any, onClick: any}) {
 			renderItem={(item) => (
 				<List.Item
 					className={item.key === selected?.key? css.selected: ''}
-					style={{borderLeftColor: colorPrimary}}
+					style={{borderLeftColor: colorPrimary,cursor: 'pointer'}}
 					key={item.title}
 					onClick={() => {
 						onClick({...item, type: 'edit'});
 					}}
 					extra={
 						<Image
-							width={128}
+							width={124}
 							alt="logo"
 							src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
 						/>
