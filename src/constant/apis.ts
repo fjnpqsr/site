@@ -1,11 +1,11 @@
 export const apis = {
 	banners: {
-		list: '/api/banner/list',
-		create: '/api/banner/add',
-		delete: '/api/banner/delete',
-		disable: '/api/banner/disable',
-		enable: '/api/banner/enable',
-		update: '/api/banner/update',
+		list: '/official-website/banner/list',
+		create: '/official-website/banner/add',
+		delete: '/official-website/banner/delete',
+		disable: '/official-website/banner/disable',
+		enable: '/official-website/banner/enable',
+		update: '/official-website/banner/update',
 	}
-	
+
 };

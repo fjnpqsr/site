@@ -13,10 +13,9 @@ export default defineConfig({
 	title: 'umi 4 learn',
 	esbuildMinifyIIFE: true,
 	proxy: {
-		'/api': {
-			target: 'http://106.55.59.145:8080/official-website/',
+		'/official-website': {
+			target: 'http://106.55.59.145:8080/',
 			changeOrigin: true,
-			pathRewrite: { '^/api': '' },
 		},
 	},
 	chainWebpack(config) {

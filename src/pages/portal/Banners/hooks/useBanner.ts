@@ -101,7 +101,7 @@ const userBannerList = () => {
 		setAdding(false);
 		if (code === '200') {
 			message.destroy();
-			message.success('启用Banner成功!');
+			message.success('编辑Banner成功!');
 			fetchBanners(params.id);
 		} else {
 			message.destroy();
