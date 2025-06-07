@@ -42,18 +42,19 @@ const App: React.FC = () => {
 	return (
 		<Form
 			name="basic"
-			style={{ maxWidth: 400 }}
+			style={{ width: 300,  }}
 			initialValues={{ remember: true }}
 			onFinish={onFinish}
 			layout='vertical'
 			autoComplete="off"
+			size='large'
 		>
 			<Form.Item<FieldType>
 				label="用户名"
 				name="account"
 				rules={[{ required: true, message: 'Please input your username!' }]}
 			>
-				<Input placeholder='请输入用户名' style={{}}/>
+				<Input placeholder='请输入用户名' style={{}} width={300}/>
 			</Form.Item>
 
 			<Form.Item<FieldType>
@@ -61,7 +62,7 @@ const App: React.FC = () => {
 				name="password"
 				rules={[{ required: true, message: 'Please input your password!' }]}
 			>
-				<Input.Password placeholder='请输入密码'/>
+				<Input.Password placeholder='请输入密码' width={300}/>
 			</Form.Item>
 
 			<Button type="primary" htmlType="submit" block>
