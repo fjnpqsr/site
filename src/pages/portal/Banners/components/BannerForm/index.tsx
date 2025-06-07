@@ -120,7 +120,6 @@ export default function BannerForm(props: BannerFormProps) {
 			<span style={{ display: 'inline-flex', alignItems: 'center' }}>
 				{type === 'edit' && (
 					<Switch
-						size="small"
 						checkedChildren="启用"
 						unCheckedChildren="禁用"
 						checked={selected?.status === '1'}

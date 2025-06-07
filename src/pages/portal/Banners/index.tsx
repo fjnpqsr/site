@@ -37,7 +37,7 @@ export default function BannersPage() {
 					style={{ minWidth: 448, overflowY: 'auto' }}
 					title={'Banner 列表'}
 					extra={(
-						<Button onClick={() => {setSelected({type: 'new'});}}>新增</Button>
+						<Button type="primary" onClick={() => {setSelected({type: 'new'});}}>新增</Button>
 					)}
 				>
 					<Flex style={{ height: '100%' }} vertical>
