@@ -9,11 +9,12 @@ function useRequest () {
 	const {  state } = useContext(context);
 	const request = extend({
 		headers: {
-			'Authorization': state.token,
+			'Authorization': state.token || sessionStorage.getItem('token'),
 		},
 		responseInterceptors: [
 			function (response:any) {
-				if (response.data.code === 0){
+				console.log({response});
+				if (response.data.code === '200'){
 					return Promise.resolve(response.data);
 				}
 				if (response.data.code === '404') {
@@ -34,6 +35,28 @@ function useRequest () {
 			}
 
 		]
+	});
+	request.interceptors.response.use(async (response): Promise<any> => {
+ 
+		const data = await response.clone().json();
+		if (data.code === '200'){
+			return response;
+		}
+		if (data.code === '404') {
+			message.error('请先登录');
+			history.replace({
+				pathname: '/404',
+			});
+			return Promise.reject(new Error('未登录'));
+		} else if (data.code === '401') {
+			message.error('请先登录');
+			history.replace({
+				pathname: '/login',
+			});
+			return Promise.reject(new Error('未登录'));
+		} else {
+			return Promise.reject(new Error(data.description || '请求出错'));
+		}
 	});
 	return {request};
 }

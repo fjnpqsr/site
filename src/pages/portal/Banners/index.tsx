@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Container from '@/components/Container';
 import PageContainer from '@/components/PageContainer';
 import { Button, Divider, Flex,  } from 'antd';
 import BannerPreview from './components/Preview';
 import BannerForm from './components/BannerForm';
 import BannerList from './components/List';
-import userBannerList, { IBanner } from './hooks/useBannerList';
+import useBanner, { IBanner } from './hooks/useBanner';
 
 export interface ISelectedBanner extends IBanner {
 	type: 'new' | 'edit'
 }
 
 export default function BannersPage() {
-	const [selected, setSelected] = useState<ISelectedBanner|null>(null);
-	const {loading, banners} = userBannerList();
+	const {
+		loading,
+		banners, 
+		adding, 
+		selected, 
+		setSelected, 
+		addBanner, 
+		deleteBanner,
+		enabledBanner,
+		disableBanner,
+		updateBanner
+	} = useBanner();
 
 	return (
 		<PageContainer padding={false} transparent>
@@ -40,6 +50,12 @@ export default function BannersPage() {
 				</Container>
 				<BannerForm 
 					selected={selected}
+					addBanner={addBanner}
+					deleteBanner={deleteBanner}
+					enabledBanner={enabledBanner}
+					disableBanner={disableBanner}
+					updateBanner={updateBanner}
+					adding={adding}
 					onCancel={() => {
 						setSelected(null);
 					}}

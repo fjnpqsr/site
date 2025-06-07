@@ -1,7 +1,7 @@
 import { List, Image, theme } from 'antd';
 import React, { useState } from 'react';
 import css from './index.module.less';
-import { IBanner } from '../../hooks/useBannerList';
+import { IBanner } from '../../hooks/useBanner';
 
 
 interface IBannerList {
@@ -44,7 +44,7 @@ export default function BannerList(props: IBannerList) {
 						<Image
 							width={124}
 							height={70}
-							src={item.image}
+							src={item.url}
 						/>
 					}
 				>
@@ -52,7 +52,7 @@ export default function BannerList(props: IBannerList) {
 						title={item.title}
 					/>
 					<span style={{whiteSpace: 'nowrap',width: '100%', display: 'inline-block', overflow:'hidden', textOverflow: 'ellipsis'}}>
-						{item.subTitle}
+						{item.subtitle}
 					</span>
 				</List.Item>
 			)}

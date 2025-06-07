@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -28,14 +29,30 @@ const titleMapping: any = {
 };
 interface BannerFormProps {
     onCancel?: () => void;
+    adding?: boolean;
     selected: ISelectedBanner | null;
+    addBanner?: any;
+    deleteBanner?: any;
+    disableBanner?: any;
+    enabledBanner?: any;
+    updateBanner?: any;
 }
 export default function BannerForm(props: BannerFormProps) {
-	const { onCancel, selected } = props;
+	const {
+		onCancel,
+		selected,
+		adding,
+		addBanner,
+		deleteBanner,
+		enabledBanner,
+		disableBanner,
+		updateBanner,
+	} = props;
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [uploading, setUploading] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [imageUrl, setImageUrl] = useState('');
+	const [fileList, setFileList] = useState<any>([]);
 	const [form] = Form.useForm();
 
 	const isNullSelected = !selected;
@@ -57,7 +74,6 @@ export default function BannerForm(props: BannerFormProps) {
 			reader.onload = () => resolve(reader.result as string);
 			reader.onerror = (error) => reject(error);
 		});
-
 	const handlePreview = async (file: UploadFile) => {
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj as FileType);
@@ -67,7 +83,21 @@ export default function BannerForm(props: BannerFormProps) {
 	};
 
 	const handleFinish = (values: any) => {
-		console.log({ values });
+		const { image, ...submitValues } = values;
+		if (selected?.type === 'new') {
+			addBanner({
+				...submitValues,
+				url: imageUrl,
+				status: '1',
+			});
+		} else if (selected?.type === 'edit') {
+			updateBanner({
+				...submitValues,
+				url: imageUrl,
+				status: selected?.status,
+				id: selected?.id
+			});
+		}
 	};
 
 	const handleDelete = () => {
@@ -80,19 +110,31 @@ export default function BannerForm(props: BannerFormProps) {
 				type: 'primary',
 			},
 			onOk: () => {
-				message.success('删除成功');
+				return deleteBanner({ id: selected?.id });
 			},
 		});
 	};
 
 	const DetailTitle = ({ type }: { type: 'new' | 'edit' }) => {
 		return (
-			<Space>
+			<span style={{ display: 'inline-flex', alignItems: 'center' }}>
 				{type === 'edit' && (
-					<Switch checkedChildren="启用" unCheckedChildren="禁用" />
+					<Switch
+						size="small"
+						checkedChildren="启用"
+						unCheckedChildren="禁用"
+						checked={selected?.status === '1'}
+						onChange={(value) => {
+							if (!value) {
+								disableBanner({ id: selected?.id });
+							} else {
+								enabledBanner({ id: selected?.id });
+							}
+						}}
+					/>
 				)}
-				{titleMapping[type]}
-			</Space>
+				<span style={{ marginLeft: 12 }}>{titleMapping[type]}</span>
+			</span>
 		);
 	};
 
@@ -116,19 +158,21 @@ export default function BannerForm(props: BannerFormProps) {
 		if (selected && selected.type === 'edit') {
 			form.setFieldsValue({
 				title: selected?.title,
-				subTitle: selected?.subTitle,
-				href: selected?.href,
-				image: {
-					url: selected?.image,
-				},
+				subtitle: selected?.subtitle,
+				link: selected?.link,
+				url: selected?.url
 			});
+			setImageUrl(selected?.url || '');
+			setFileList([{ uid: '-1', url: selected?.url }]);
 		} else if (selected && selected?.type === 'new') {
 			form.resetFields();
 			setImageUrl('');
+			setFileList([]);
 		}
 	}, [selected]);
 
 	const handleChange: UploadProps['onChange'] = (info) => {
+		setFileList(info.fileList);
 		if (info.file.status === 'uploading') {
 			setUploading(true);
 			return;
@@ -137,10 +181,11 @@ export default function BannerForm(props: BannerFormProps) {
 			setImageUrl(`${IMAGE_PREFIX}${info.file.response.data}`);
 			setUploading(false);
 		}
-		console.log({ info });
 	};
+
 	return (
 		<Container
+			spinning={adding}
 			extra={
 				isNullSelected ? null : <DetailExtra type={selected?.type} />
 			}
@@ -157,18 +202,23 @@ export default function BannerForm(props: BannerFormProps) {
 				</Flex>
 			)}
 			{!isNullSelected && (
-				<Form layout="vertical" form={form} onFinish={handleFinish}>
+				<Form
+					layout="vertical"
+					form={form}
+					onFinish={handleFinish}
+					disabled={adding}
+				>
 					<Form.Item name="title" label="标题">
 						<Input placeholder="请输入标题" />
 					</Form.Item>
-					<Form.Item name="subTitle" label="副标题">
+					<Form.Item name="subtitle" label="副标题">
 						<Input.TextArea placeholder="请输入副标题" />
 					</Form.Item>
-					<Form.Item name="href" label="超链接">
+					<Form.Item name="link" label="超链接">
 						<Input placeholder="请输入超链接地址" />
 					</Form.Item>
 					<Form.Item
-						name="image"
+						name="url"
 						label="Banner图片上传"
 						rules={[
 							{ required: true, message: '请上传Banner图片' },
@@ -180,6 +230,7 @@ export default function BannerForm(props: BannerFormProps) {
 							action={'/api/upload/uploadFile'}
 							className={css.bannerUploader}
 							onPreview={handlePreview}
+							fileList={fileList}
 							onRemove={() => {
 								setImageUrl('');
 							}}

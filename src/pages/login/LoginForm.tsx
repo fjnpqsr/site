@@ -27,6 +27,7 @@ const App: React.FC = () => {
 			message.success('登录成功');
 			updateContext({type: 'token', payload: data?.accessToken?.value} );
 			updateContext({type: 'userInfo', payload: {username: values.account}} );
+			sessionStorage.setItem('token', data?.accessToken?.value);
 			history.push('/portal');
 		} else {
 			message.destroy();
@@ -41,34 +42,31 @@ const App: React.FC = () => {
 	return (
 		<Form
 			name="basic"
-			labelCol={{ span: 8 }}
-			wrapperCol={{ span: 16 }}
-			style={{ maxWidth: 600 }}
+			style={{ maxWidth: 400 }}
 			initialValues={{ remember: true }}
 			onFinish={onFinish}
+			layout='vertical'
 			autoComplete="off"
 		>
 			<Form.Item<FieldType>
-				label="Username"
+				label="用户名"
 				name="account"
 				rules={[{ required: true, message: 'Please input your username!' }]}
 			>
-				<Input />
+				<Input placeholder='请输入用户名' style={{}}/>
 			</Form.Item>
 
 			<Form.Item<FieldType>
-				label="Password"
+				label="密码"
 				name="password"
 				rules={[{ required: true, message: 'Please input your password!' }]}
 			>
-				<Input.Password />
+				<Input.Password placeholder='请输入密码'/>
 			</Form.Item>
 
-			<Form.Item label={null}>
-				<Button type="primary" htmlType="submit">
+			<Button type="primary" htmlType="submit" block>
                 Submit
-				</Button>
-			</Form.Item>
+			</Button>
 		</Form>
 	);
 };

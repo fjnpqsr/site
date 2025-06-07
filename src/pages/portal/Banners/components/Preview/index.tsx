@@ -1,7 +1,7 @@
 import { Carousel } from 'antd';
 import React from 'react';
 import css from './index.module.less';
-import { IBanner } from '../../hooks/useBannerList';
+import { IBanner } from '../../hooks/useBanner';
 
 
 interface IBannerPreviewProps {
@@ -27,11 +27,10 @@ export default function BannerPreview(props: IBannerPreviewProps) {
 			
 				{data.map(item => (
 					<div key={item.id} >
-						<h3 style={{...contentStyle, backgroundImage: `url(${item.image})`}}>
-							{' '}
+						<h3 style={{...contentStyle, backgroundImage: `url(${item.url})`}}>
 							<dl style={{position: 'absolute', left: 12, bottom: 12, zIndex: 10, textAlign: 'left', marginBottom: 0}}>
 								<dt style={{fontSize: 12}}>{item.title}</dt>
-								<dd style={{fontSize: 10, color: 'lightgray'}}>{item.subTitle}</dd>
+								<dd style={{fontSize: 10, color: 'lightgray'}}>{item.subtitle}</dd>
 							</dl>
 						</h3>
 					

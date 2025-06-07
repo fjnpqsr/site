@@ -1,3 +1,11 @@
 export const apis = {
-	banners: 'https://m1.apifoxmock.com/m1/6528613-6230250-default/banners'
+	banners: {
+		list: '/api/banner/list',
+		create: '/api/banner/add',
+		delete: '/api/banner/delete',
+		disable: '/api/banner/disable',
+		enable: '/api/banner/enable',
+		update: '/api/banner/update',
+	}
+	
 };
