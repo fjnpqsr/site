@@ -2,9 +2,10 @@ import {
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import {  Button, Layout, Menu, message, Modal, Space, theme } from 'antd';
+import {  Button, Divider, Layout, Menu, message, Modal, Space, theme } from 'antd';
 import React, { useState, useContext } from 'react';
 import { history, Outlet } from 'umi';
+import logo from '@/assets/logo.gif';
 
 import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch';
 import menusData from '@/constant/menu';
@@ -17,7 +18,7 @@ const { Header, Sider, Content } = Layout;
 
 const PortalLayout: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
-	const { state } = useContext(context);
+	const { state, updateContext } = useContext(context);
 	const {request} = useRequest();
 	console.log(state);
 	const {
@@ -37,6 +38,9 @@ const PortalLayout: React.FC = () => {
 			message.destroy();
 			message.success('登出成功!');
 			history.replace('/login');
+			updateContext({type: 'theme', payload: 'light'});
+			updateContext({type: 'token', payload: undefined});
+			sessionStorage.removeItem('token');
 		} else {
 			message.destroy();
 			message.error(msg);
@@ -55,6 +59,7 @@ const PortalLayout: React.FC = () => {
 	};
 	return (
 		<Layout className={css['basic-layout']}>
+			
 			<Sider
 				trigger={null}
 				width={collapsed ? 80 : 240}
@@ -63,6 +68,13 @@ const PortalLayout: React.FC = () => {
 				theme={state.theme}
 			>
 				<div className={css['basic-layout-aside']}>
+					<div style={{display: 'flex', height: 63,alignItems: 'center', justifyContent: 'center',backgroundColor: colorBgContainer }}>
+						<img src={logo} height={48} width={collapsed ? 48: 'auto'}/>
+					</div>
+					<div style={{backgroundColor: colorBgContainer}}>
+						<Divider size="small" style={{marginTop: 0}}/>
+						
+					</div>
 					<Menu
 						items={menusData}
 						onClick={handleMenuClick}
