@@ -1,0 +1,1 @@
+export const IMAGE_PREFIX = 'http://106.55.59.145:8080/official-website/upload/getFile?path=';

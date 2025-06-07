@@ -19,6 +19,7 @@ import {
 import css from './index.module.less';
 import Container from '@/components/Container';
 import { ISelectedBanner } from '../..';
+import { IMAGE_PREFIX } from '@/constant';
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const titleMapping: any = {
@@ -27,21 +28,24 @@ const titleMapping: any = {
 };
 interface BannerFormProps {
     onCancel?: () => void;
-    selected: ISelectedBanner|null
+    selected: ISelectedBanner | null;
 }
 export default function BannerForm(props: BannerFormProps) {
 	const { onCancel, selected } = props;
 	const [previewOpen, setPreviewOpen] = useState(false);
+	const [uploading, setUploading] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
-	const [fileList, setFileList] = useState<any>([]);
+	const [imageUrl, setImageUrl] = useState('');
 	const [form] = Form.useForm();
-	const imageValue = Form.useWatch('image', form);
 
 	const isNullSelected = !selected;
 
 	const uploadButton = (
 		<button style={{ border: 0, background: 'none' }} type="button">
-			<PlusOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+			<PlusOutlined
+				onPointerEnterCapture={undefined}
+				onPointerLeaveCapture={undefined}
+			/>
 			<div style={{ marginTop: 8 }}>Upload</div>
 		</button>
 	);
@@ -62,8 +66,7 @@ export default function BannerForm(props: BannerFormProps) {
 		setPreviewOpen(true);
 	};
 
-
-	const handleFinish = (values:any) => {
+	const handleFinish = (values: any) => {
 		console.log({ values });
 	};
 
@@ -74,14 +77,13 @@ export default function BannerForm(props: BannerFormProps) {
 			content: '你确定要删除这条Banner配置吗',
 			okType: 'danger',
 			okButtonProps: {
-				type: 'primary'
+				type: 'primary',
 			},
 			onOk: () => {
 				message.success('删除成功');
-			}
+			},
 		});
 	};
-
 
 	const DetailTitle = ({ type }: { type: 'new' | 'edit' }) => {
 		return (
@@ -117,18 +119,26 @@ export default function BannerForm(props: BannerFormProps) {
 				subTitle: selected?.subTitle,
 				href: selected?.href,
 				image: {
-					url: selected?.image
-				}
+					url: selected?.image,
+				},
 			});
-			setFileList([
-				{url: selected?.image, stats: 'done', uid: '-1'}
-			]);
-		} else if (selected && selected?.type=== 'new') {
+		} else if (selected && selected?.type === 'new') {
 			form.resetFields();
-			setFileList([]);
+			setImageUrl('');
 		}
 	}, [selected]);
-	console.log({imageValue});
+
+	const handleChange: UploadProps['onChange'] = (info) => {
+		if (info.file.status === 'uploading') {
+			setUploading(true);
+			return;
+		}
+		if (info.file.status === 'done') {
+			setImageUrl(`${IMAGE_PREFIX}${info.file.response.data}`);
+			setUploading(false);
+		}
+		console.log({ info });
+	};
 	return (
 		<Container
 			extra={
@@ -157,22 +167,25 @@ export default function BannerForm(props: BannerFormProps) {
 					<Form.Item name="href" label="超链接">
 						<Input placeholder="请输入超链接地址" />
 					</Form.Item>
-					<Form.Item name="image" label="Banner图片上传" rules={[{required: true, message: '请上传Banner图片'}]}>
+					<Form.Item
+						name="image"
+						label="Banner图片上传"
+						rules={[
+							{ required: true, message: '请上传Banner图片' },
+						]}
+					>
 						<Upload
+							disabled={uploading}
 							listType="picture-card"
+							action={'/api/upload/uploadFile'}
 							className={css.bannerUploader}
 							onPreview={handlePreview}
-							fileList={fileList}
 							onRemove={() => {
-								setFileList([]);
+								setImageUrl('');
 							}}
-							beforeUpload={(file, fileList) => {
-								setFileList(fileList);
-							}}
+							onChange={handleChange}
 						>
-							{fileList?.length >= 1
-								? null
-								: uploadButton}
+							{imageUrl ? null : uploadButton}
 						</Upload>
 					</Form.Item>
 					{previewImage && (
