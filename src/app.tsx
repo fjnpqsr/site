@@ -42,7 +42,6 @@ export function onRouteChange({ routes, location }: any) {
 				: `/${routes[item].path}`
 		);
 
-	console.log(allRoutesPath);
 	// check pathname is exists or not
 	validateRouteIsNotExist(allRoutesPath, pathname);
 }

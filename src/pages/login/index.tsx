@@ -1,17 +1,9 @@
-import {Button} from 'antd';
+import LoginForm from './LoginForm';
 import React from 'react';
-import {history} from 'umi';
 
 const LoginPage = () => (
 	<div>
-            Login page
-		<Button
-			onClick={() => {
-				history.back();
-			}}
-		>
-                back
-		</Button>
+		<LoginForm/>
 	</div>
 );
 

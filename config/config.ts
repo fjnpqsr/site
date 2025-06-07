@@ -11,9 +11,13 @@ import { defineConfig } from 'umi';
 export default defineConfig({
 	npmClient: 'pnpm',
 	title: 'umi 4 learn',
-	esbuildMinifyIIFE:true,
+	esbuildMinifyIIFE: true,
 	proxy: {
-		
+		'/api': {
+			target: 'http://106.55.59.145:8080/official-website/',
+			changeOrigin: true,
+			pathRewrite: { '^/api': '' },
+		},
 	},
 	chainWebpack(config) {
 		config.module
@@ -21,5 +25,5 @@ export default defineConfig({
 			.test(/\.(htm|html)$/)
 			.use('html-loader')
 			.loader('html-loader');
-	}
+	},
 });

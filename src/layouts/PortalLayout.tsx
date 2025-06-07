@@ -2,7 +2,7 @@ import {
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Space, theme } from 'antd';
+import {  Button, Layout, Menu, message, Modal, Space, theme } from 'antd';
 import React, { useState, useContext } from 'react';
 import { history, Outlet } from 'umi';
 
@@ -11,12 +11,15 @@ import menusData from '@/constant/menu';
 import { context } from '@/context/context';
 
 import css from './PortalLayout.less';
+import useRequest from '@/utils/useRequest';
 
 const { Header, Sider, Content } = Layout;
 
 const PortalLayout: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const { state } = useContext(context);
+	const {request} = useRequest();
+	console.log(state);
 	const {
 		token: { colorBgLayout, colorBgContainer },
 	} = theme.useToken();
@@ -25,6 +28,31 @@ const PortalLayout: React.FC = () => {
 		history.push(menuItem.key);
 	};
 
+	async function doLogout() {
+		const res = await request('/api/logout', {
+			method: 'post'
+		});
+		const {code, msg} = res;
+		if (code === '200') {
+			message.destroy();
+			message.success('登出成功!');
+			history.replace('/login');
+		} else {
+			message.destroy();
+			message.error(msg);
+		}
+	}
+
+	const logout = () => {
+		Modal.confirm({
+			type: 'warning',
+			title: '提示',
+			content: '你确定要退出登录吗?',
+			onOk: () => {
+				return doLogout();
+			}
+		});
+	};
 	return (
 		<Layout className={css['basic-layout']}>
 			<Sider
@@ -66,7 +94,12 @@ const PortalLayout: React.FC = () => {
 						</Space>
 					</div>
 					<div className={css['layout-header-right']}>
-						<ThemeSwitch />
+						<Space size={'large'}>
+							<ThemeSwitch />
+							<Button type='text' 
+								onClick={logout}
+							>登出</Button>
+						</Space>
 					</div>
 				</Header>
 				<Content style={{ backgroundColor: colorBgLayout }}>

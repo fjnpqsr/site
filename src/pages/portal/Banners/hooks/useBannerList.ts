@@ -1,6 +1,6 @@
 import { apis } from '@/constant/apis';
 import { useEffect, useState } from 'react';
-import request from 'umi-request';
+import useRequest from '@/utils/useRequest';
 
 
 export interface IBanner {
@@ -15,7 +15,7 @@ const userBannerList = () => {
 
 	const [loading, setLoading] = useState(false);
 	const [banners, setBanners] = useState<IBanner[]>([]);
-
+	const {request} = useRequest();
 	async function fetchBanners () {
 		setLoading(true);
 		const res = await request(apis.banners);

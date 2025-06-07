@@ -3,7 +3,8 @@ import React, { useReducer } from 'react';
 const defaultContext: any = {
 	scope: 'global',
 	theme: 'light',
-	test: 'default',
+	token: '',
+	userInfo: undefined
 };
 
 const context = React.createContext(defaultContext);
@@ -13,7 +14,9 @@ function contextReducer(state: any, { type, payload }: any) {
 	switch (type) {
 	case 'theme':
 		return { ...state, theme: payload, };
-	case 'test':
+	case 'token':
+		return { ...state, [type]: payload, };
+	case 'userInfo':
 		return { ...state, [type]: payload, };
 	default:
 		return { ...state, [type]: payload, };
