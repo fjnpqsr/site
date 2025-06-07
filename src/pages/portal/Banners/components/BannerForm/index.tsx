@@ -227,7 +227,7 @@ export default function BannerForm(props: BannerFormProps) {
 						<Upload
 							disabled={uploading}
 							listType="picture-card"
-							action={'/api/upload/uploadFile'}
+							action={'/official-website/upload/uploadFile'}
 							className={css.bannerUploader}
 							onPreview={handlePreview}
 							fileList={fileList}

@@ -14,7 +14,7 @@ type FieldType = {
 const App: React.FC = () => {
 	const {  updateContext } = useContext(context);
 	async function login(values: FieldType) {
-		const { code, msg, data } = await request('/api/login', {
+		const { code, msg, data } = await request('/official-website/login', {
 			method: 'post',
 			data: {
 				account: values.account,

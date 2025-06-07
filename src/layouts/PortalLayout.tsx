@@ -29,7 +29,7 @@ const PortalLayout: React.FC = () => {
 	};
 
 	async function doLogout() {
-		const res = await request('/api/logout', {
+		const res = await request('/official-website/logout', {
 			method: 'post'
 		});
 		const {code, msg} = res;
