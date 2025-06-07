@@ -5,7 +5,9 @@ import { ProTable } from '@ant-design/pro-components';
 import { Descriptions, DescriptionsProps, Drawer } from 'antd';
 import { useRef } from 'react';
 import PageContainer from '@/components/PageContainer';
-import request from 'umi-request';
+
+import { apis } from '@/constant/apis';
+import useRequest from '@/utils/useRequest';
 export const waitTimePromise = async (time: number = 100) => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -38,6 +40,8 @@ type GithubIssueItem = {
 const MessagePage = () => {
 	const actionRef = useRef<ActionType>();
 	const [detail, setDetail] = useState<any>(null);
+	const {request} = useRequest();
+
 	const columns: ProColumns<GithubIssueItem>[] = [
 		{
 			dataIndex: 'index',
@@ -46,7 +50,7 @@ const MessagePage = () => {
 		},
 		{
 			title: '姓名',
-			dataIndex: 'title',
+			dataIndex: 'name',
 			copyable: true,
 			ellipsis: true,
 			formItemProps: {
@@ -60,13 +64,13 @@ const MessagePage = () => {
 		},
 		{
 			title: '联系方式',
-			key: 'showTime',
-			dataIndex: 'created_at',
+			key: 'phone',
+			dataIndex: 'phone',
 		},
 		{
 			title: '联系时间',
 			key: 'showTime',
-			dataIndex: 'created_at',
+			dataIndex: 'createTime',
 			valueType: 'date',
 			hideInSearch: true,
 		},
@@ -92,23 +96,23 @@ const MessagePage = () => {
 	const items: DescriptionsProps['items'] = [
 		{
 			label: '姓名',
-			children: detail?.title,
-			span: 3, // span will be 3 and warning for span is not align to the end
+			children: detail?.name,
+			span: 3, 
 		},
 		{
 			label: '联系方式',
-			span: 3, // span will be 3 and warning for span is not align to the end
-			children: '18695685913',
+			span: 3, 
+			children: detail?.phone,
 		},
 		{
 			label: '联系时间',
-			span: 3, // span will be 3 and warning for span is not align to the end
-			children: '18695685913',
+			span: 3, 
+			children: detail?.createTime,
 		},
 		{
 			label: '留言',
-			span: 3, // span will be 3 and warning for span is not align to the end
-			children: 'span will be 3 and warning for span is not align to the endspan will be 3 and warning for span is not align to the endspan will be 3 and warning for span is not align to the endspan will be 3 and warning for span is not align to the end',
+			span: 3, 
+			children: detail?.message
 		},
 	];
 	return (
@@ -117,13 +121,13 @@ const MessagePage = () => {
 				columns={columns}
 				actionRef={actionRef}
 				cardBordered
-				request={async (params, sort, filter) => {
-					console.log(sort, filter);
+				request={async (params) => {
 					await waitTime(2000);
 					return request<{
                         data: GithubIssueItem[];
-                    }>('https://proapi.azurewebsites.net/github/issues', {
-                    	params,
+                    }>(apis.message.list, {
+                    	method: 'post',
+                    	data: params
                     });
 				}}
 				columnsState={{

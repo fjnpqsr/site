@@ -6,6 +6,9 @@ export const apis = {
 		disable: '/official-website/banner/disable',
 		enable: '/official-website/banner/enable',
 		update: '/official-website/banner/update',
+	},
+	message: {
+		list: '/official-website/contact-us/list'
 	}
 
 };
