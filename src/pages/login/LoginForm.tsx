@@ -52,7 +52,7 @@ const App: React.FC = () => {
 			<Form.Item<FieldType>
 				label="用户名"
 				name="account"
-				rules={[{ required: true, message: 'Please input your username!' }]}
+				rules={[{ required: true, message: '请输入用户名!' }]}
 			>
 				<Input placeholder='请输入用户名' style={{}} width={300}/>
 			</Form.Item>
@@ -60,7 +60,7 @@ const App: React.FC = () => {
 			<Form.Item<FieldType>
 				label="密码"
 				name="password"
-				rules={[{ required: true, message: 'Please input your password!' }]}
+				rules={[{ required: true, message: '请输入密码!' }]}
 			>
 				<Input.Password placeholder='请输入密码' width={300}/>
 			</Form.Item>
