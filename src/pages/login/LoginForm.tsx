@@ -66,7 +66,7 @@ const App: React.FC = () => {
 			</Form.Item>
 
 			<Button type="primary" htmlType="submit" block>
-                Submit
+                登录
 			</Button>
 		</Form>
 	);
