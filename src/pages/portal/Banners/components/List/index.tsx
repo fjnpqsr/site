@@ -1,23 +1,24 @@
 import { List, Image, theme } from 'antd';
 import React, { useState } from 'react';
 import css from './index.module.less';
-export default function BannerList(props: {selected: any, onClick: any}) {
-	const {selected, onClick} = props;
+import { IBanner } from '../../hooks/useBannerList';
+
+
+interface IBannerList {
+	data?:IBanner[];
+	selected: IBanner | null;
+	onClick: any;
+	loading?: boolean
+}
+
+export default function BannerList(props: IBannerList) {
+	const {selected, onClick, data, loading} = props;
 	const [pageSize, setPageSize] = useState<any>(4);
 	const {token: {colorPrimary}} = theme.useToken();
-	const data = Array.from({ length: 23 }).map((_, i) => ({
-		href: 'https://ant.design',
-		title: `ant design part ${i}`,
-		key: `key-${i}`,
-		avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
-		description:
-    'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-		content:
-    'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-	}));
     
 	return (
 		<List
+			loading={loading}
 			itemLayout="vertical"
 			className={css.bannerList}
 			size="small"
@@ -33,7 +34,7 @@ export default function BannerList(props: {selected: any, onClick: any}) {
 			dataSource={data}
 			renderItem={(item) => (
 				<List.Item
-					className={item.key === selected?.key? css.selected: ''}
+					className={item.id === selected?.id? css.selected: ''}
 					style={{borderLeftColor: colorPrimary,cursor: 'pointer'}}
 					key={item.title}
 					onClick={() => {
@@ -42,15 +43,17 @@ export default function BannerList(props: {selected: any, onClick: any}) {
 					extra={
 						<Image
 							width={124}
-							alt="logo"
-							src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+							height={70}
+							src={item.image}
 						/>
 					}
 				>
 					<List.Item.Meta
 						title={item.title}
 					/>
-					<span style={{whiteSpace: 'nowrap',width: '100%', display: 'inline-block', overflow:'hidden', textOverflow: 'ellipsis'}}>{item.content}</span>
+					<span style={{whiteSpace: 'nowrap',width: '100%', display: 'inline-block', overflow:'hidden', textOverflow: 'ellipsis'}}>
+						{item.subTitle}
+					</span>
 				</List.Item>
 			)}
 		/>

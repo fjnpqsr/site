@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import {
 	Form,
@@ -15,9 +16,9 @@ import {
 	Modal,
 	message,
 } from 'antd';
-import React, { useState } from 'react';
 import css from './index.module.less';
 import Container from '@/components/Container';
+import { ISelectedBanner } from '../..';
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const titleMapping: any = {
@@ -26,12 +27,13 @@ const titleMapping: any = {
 };
 interface BannerFormProps {
     onCancel?: () => void;
-    selected: any;
+    selected: ISelectedBanner|null
 }
 export default function BannerForm(props: BannerFormProps) {
 	const { onCancel, selected } = props;
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
+	const [fileList, setFileList] = useState<any>([]);
 	const [form] = Form.useForm();
 	const imageValue = Form.useWatch('image', form);
 
@@ -39,7 +41,7 @@ export default function BannerForm(props: BannerFormProps) {
 
 	const uploadButton = (
 		<button style={{ border: 0, background: 'none' }} type="button">
-			<PlusOutlined />
+			<PlusOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
 			<div style={{ marginTop: 8 }}>Upload</div>
 		</button>
 	);
@@ -51,11 +53,11 @@ export default function BannerForm(props: BannerFormProps) {
 			reader.onload = () => resolve(reader.result as string);
 			reader.onerror = (error) => reject(error);
 		});
+
 	const handlePreview = async (file: UploadFile) => {
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj as FileType);
 		}
-
 		setPreviewImage(file.url || (file.preview as string));
 		setPreviewOpen(true);
 	};
@@ -108,6 +110,25 @@ export default function BannerForm(props: BannerFormProps) {
 		);
 	};
 
+	useEffect(() => {
+		if (selected && selected.type === 'edit') {
+			form.setFieldsValue({
+				title: selected?.title,
+				subTitle: selected?.subTitle,
+				href: selected?.href,
+				image: {
+					url: selected?.image
+				}
+			});
+			setFileList([
+				{url: selected?.image, stats: 'done', uid: '-1'}
+			]);
+		} else if (selected && selected?.type=== 'new') {
+			form.resetFields();
+			setFileList([]);
+		}
+	}, [selected]);
+	console.log({imageValue});
 	return (
 		<Container
 			extra={
@@ -141,11 +162,15 @@ export default function BannerForm(props: BannerFormProps) {
 							listType="picture-card"
 							className={css.bannerUploader}
 							onPreview={handlePreview}
+							fileList={fileList}
 							onRemove={() => {
-								form.setFieldValue('image', undefined);
+								setFileList([]);
+							}}
+							beforeUpload={(file, fileList) => {
+								setFileList(fileList);
 							}}
 						>
-							{imageValue?.fileList.length >= 1
+							{fileList?.length >= 1
 								? null
 								: uploadButton}
 						</Upload>

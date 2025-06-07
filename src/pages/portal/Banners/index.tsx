@@ -5,12 +5,15 @@ import { Button, Divider, Flex,  } from 'antd';
 import BannerPreview from './components/Preview';
 import BannerForm from './components/BannerForm';
 import BannerList from './components/List';
+import userBannerList, { IBanner } from './hooks/useBannerList';
+
+export interface ISelectedBanner extends IBanner {
+	type: 'new' | 'edit'
+}
+
 export default function BannersPage() {
-	const [selected, setSelected] = useState<any>(null);
-
-
-
-
+	const [selected, setSelected] = useState<ISelectedBanner|null>(null);
+	const {loading, banners} = userBannerList();
 
 	return (
 		<PageContainer padding={false} transparent>
@@ -28,9 +31,11 @@ export default function BannersPage() {
 					)}
 				>
 					<Flex style={{ height: '100%' }} vertical>
-						<BannerPreview />
+						<BannerPreview data={banners}/>
 						<Divider  />
-						<BannerList selected={selected} onClick={setSelected} />
+						<BannerList 
+							data={banners}
+							selected={selected} onClick={setSelected} loading={loading}/>
 					</Flex>
 				</Container>
 				<BannerForm 
