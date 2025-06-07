@@ -105,7 +105,7 @@ export default function UpdateCenter() {
 						<div className={css.previewContainer}>
 							<h1 className={css.title}>{detail?.title}</h1>
 							{detail?.title && (
-								<Divider size='small'/>
+								<Divider size='small' style={{background: '#ccc'}}/>
 							)}
 							<p className={css.subtitle}>{detail?.subtitle}</p>
 							<div dangerouslySetInnerHTML={{__html: detail?.description}}/>
