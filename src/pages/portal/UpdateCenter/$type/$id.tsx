@@ -63,7 +63,7 @@ export default function UpdateCenter() {
 				items={[
 					{title: '首页'},
 					parents[type],
-					{title: '详情'},
+					{title: id!=='create'?'详情':'新增'},
 				]}
 			/>
 			<Flex style={{height: '95%'}}>
@@ -72,7 +72,7 @@ export default function UpdateCenter() {
 						spinning={fetching}
 						title={(
 							<div>
-								{`${parents?.[type]?.title}详情`}
+								{`${parents?.[type]?.title}${id!=='create'?'详情':'新增'}`}
 							</div>
 						)}
 						extra={(
