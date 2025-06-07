@@ -13,23 +13,20 @@ pre {
     display: flex;
 } */
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 8px;
     height: 8px;
     background-color: transparent;
-  }
-
-/* th.ant-table-cell {
-    white-space: nowrap;
-} */
-/* .g6-grid-container {
-    z-index: 0!important;
 }
-.crop-upload .ant-upload.ant-upload-select{
-    width: 270px!important;
-    height: 140px!important;
-    img {
-        height: 100%;
-        object-fit: contain;
-    }
-} */
+#editor—wrapper {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 100; /* 按需定义 */
+}
+#toolbar-container {
+    border-bottom: 1px solid #ccc;
+}
+#editor-container {
+    height: 350px;
+}

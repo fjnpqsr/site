@@ -41,7 +41,7 @@ export default function BannersPage() {
 					)}
 				>
 					<Flex style={{ height: '100%' }} vertical>
-						<BannerPreview data={banners}/>
+						<BannerPreview data={banners.filter(item => item.status === '1')}/>
 						<Divider  />
 						<BannerList 
 							data={banners}

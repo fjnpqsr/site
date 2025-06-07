@@ -87,7 +87,7 @@ const MessagePage = () => {
 					rel="noopener noreferrer"
 					key="view"
 				>
-                View
+                详情
 				</a>,
 			
 			],

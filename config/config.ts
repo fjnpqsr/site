@@ -25,4 +25,6 @@ export default defineConfig({
 			.use('html-loader')
 			.loader('html-loader');
 	},
+	links: [{ href: 'https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css', rel: 'stylesheet' }],
+	scripts: ['https://unpkg.com/@wangeditor/editor@latest/dist/index.js'],
 });

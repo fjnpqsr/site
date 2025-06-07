@@ -3,7 +3,6 @@ import './global.css';
 
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { AliveScope, autoFixContext } from 'react-activation';
 import { history, matchPath } from 'umi';
 
 
@@ -11,10 +10,10 @@ import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
 
 
-autoFixContext(
-	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
-	[require('react/jsx-dev-runtime'), 'jsx', 'jsxs', 'jsxDEV']
-);
+// autoFixContext(
+// 	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
+// 	[require('react/jsx-dev-runtime'), 'jsx', 'jsxs', 'jsxDEV']
+// );
 
 function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
@@ -49,13 +48,11 @@ export function onRouteChange({ routes, location }: any) {
 export function rootContainer(container: React.ReactNode, { routes }: any) {
 	return (
 
-		<AliveScope>
-			<ContextProvider routes={routes}>
-				<ConfigProvider
-				>
-					<Provider>{container}</Provider>
-				</ConfigProvider>
-			</ContextProvider>
-		</AliveScope>
+		<ContextProvider routes={routes}>
+			<ConfigProvider
+			>
+				<Provider>{container}</Provider>
+			</ConfigProvider>
+		</ContextProvider>
 	);
 }

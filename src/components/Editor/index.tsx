@@ -1,65 +1,47 @@
-import '@wangeditor/editor/dist/css/style.css'; // 引入 css
+import React, { useEffect } from 'react';
 
-import React, { useState, useEffect } from 'react';
-import { Editor, Toolbar } from '@wangeditor/editor-for-react';
-import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor';
+export default function MediaEditor(props:any) {
 
-function MyEditor() {
-	// editor 实例
-	const [editor, setEditor] = useState<IDomEditor | null>(null); // TS 语法
-	// const [editor, setEditor] = useState(null)                   // JS 语法
-
-	// 编辑器内容
-	const [html, setHtml] = useState('<p>hello</p>');
-
-	// 模拟 ajax 请求，异步设置 html
+	const {editorRef, setEditorRef}= props;
 	useEffect(() => {
-		setTimeout(() => {
-			setHtml('<p>hello world</p>');
-		}, 1500);
-	}, []);
-
-	// 工具栏配置
-	const toolbarConfig: Partial<IToolbarConfig> = {}; // TS 语法
-	// const toolbarConfig = { }                        // JS 语法
-
-	// 编辑器配置
-	const editorConfig: Partial<IEditorConfig> = {
-		// TS 语法
-		// const editorConfig = {                         // JS 语法
-		placeholder: '请输入内容...',
-	};
-
-	// 及时销毁 editor ，重要！
-	useEffect(() => {
-		return () => {
-			if (editor == null) return;
-			editor.destroy();
-			setEditor(null);
+		if (editorRef) {
+			return;
+		}
+		const { createEditor, createToolbar } = window.wangEditor;
+		
+		const editorConfig = {
+			placeholder: 'Type here...',
+			onChange(editor) {
+				const html = editor.getHtml();
+				console.log('editor content', html);
+				props.onChange(html);
+			},
 		};
-	}, [editor]);
+
+		const editor = createEditor({
+			selector: '#editor-container',
+			html: '<p><br></p>',
+			config: editorConfig,
+			mode: 'default', // or 'simple'
+		});
+
+		const toolbarConfig = {};
+
+		createToolbar({
+			editor,
+			selector: '#toolbar-container',
+			config: toolbarConfig,
+			mode: 'default', // or 'simple'
+		});
+		setEditorRef(editor);
+	}, [editorRef]);
 
 	return (
-		<>
-			<div style={{ border: '1px solid #ccc', zIndex: 100 }}>
-				<Toolbar
-					editor={editor}
-					defaultConfig={toolbarConfig}
-					mode="default"
-					style={{ borderBottom: '1px solid #ccc' }}
-				/>
-				<Editor
-					defaultConfig={editorConfig}
-					value={html}
-					onCreated={setEditor}
-					onChange={(editor) => setHtml(editor.getHtml())}
-					mode="default"
-					style={{ height: '500px', overflowY: 'hidden' }}
-				/>
+		<div>
+			<div id="editor—wrapper">
+				<div id="toolbar-container"></div>
+				<div id="editor-container"></div>
 			</div>
-			<div style={{ marginTop: '15px' }}>{html}</div>
-		</>
+		</div>
 	);
 }
-
-export default MyEditor;
