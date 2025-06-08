@@ -6,6 +6,7 @@ import {  Button, Divider, Layout, Menu, message, Modal, Space, theme } from 'an
 import React, { useState, useContext } from 'react';
 import { history, Outlet } from 'umi';
 import logo from '@/assets/logo.gif';
+import logoSmall from '@/assets/logo-small.png';
 
 import ThemeSwitch from '@/components/ThemeControls/ThemeSwitch';
 import menusData from '@/constant/menu';
@@ -69,7 +70,7 @@ const PortalLayout: React.FC = () => {
 			>
 				<div className={css['basic-layout-aside']}>
 					<div style={{display: 'flex', height: 63,alignItems: 'center', justifyContent: 'center',backgroundColor: colorBgContainer }}>
-						<img src={logo} height={48} width={collapsed ? 48: 'auto'}/>
+						<img src={collapsed ? logoSmall: logo} height={48} width={collapsed ? 48: 'auto'}/>
 					</div>
 					<div style={{backgroundColor: colorBgContainer}}>
 						<Divider size="small" style={{marginTop: 0}}/>
