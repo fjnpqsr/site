@@ -19,7 +19,7 @@ const userBannerList = () => {
 	const [banners, setBanners] = useState<IBanner[]>([]);
 	const { request } = useRequest();
 	const [selected, setSelected] = useState<ISelectedBanner|null>(null);
-	async function fetchBanners(id?:string) {
+	async function fetchBanners(id?:string, set:boolean = true) {
 		if (!id) {
 			setLoading(true);
 			setSelected(null);
@@ -30,7 +30,7 @@ const userBannerList = () => {
 
 		if (code === '200') {
 			setBanners(data || []);
-			if (id) {
+			if (id && set) {
 				setSelected({...data.filter((item: any)=> item.id === id )[0], type: 'edit'});
 			}
 		} else {
@@ -74,7 +74,7 @@ const userBannerList = () => {
 		if (code === '200') {
 			message.destroy();
 			message.success('禁用Banner成功!');
-			fetchBanners(params.id);
+			fetchBanners(params.id, false);
 		} else {
 			message.destroy();
 			message.error(msg);
@@ -88,7 +88,7 @@ const userBannerList = () => {
 		if (code === '200') {
 			message.destroy();
 			message.success('启用Banner成功!');
-			fetchBanners(params.id);
+			fetchBanners(params.id, false);
 		} else {
 			message.destroy();
 			message.error(msg);

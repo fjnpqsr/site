@@ -10,12 +10,9 @@ import {
 	GetProp,
 	UploadFile,
 	Space,
-	Switch,
 	Button,
 	Result,
 	Flex,
-	Modal,
-	message,
 } from 'antd';
 import css from './index.module.less';
 import Container from '@/components/Container';
@@ -100,40 +97,10 @@ export default function BannerForm(props: BannerFormProps) {
 		}
 	};
 
-	const handleDelete = () => {
-		Modal.confirm({
-			type: 'error',
-			title: '提示',
-			content: '你确定要删除这条Banner配置吗',
-			okType: 'danger',
-			okButtonProps: {
-				type: 'primary',
-			},
-			onOk: () => {
-				return deleteBanner({ id: selected?.id });
-			},
-		});
-	};
 
 	const DetailTitle = ({ type }: { type: 'new' | 'edit' }) => {
 		return (
-			<span style={{ display: 'inline-flex', alignItems: 'center' }}>
-				{type === 'edit' && (
-					<Switch
-						checkedChildren="启用"
-						unCheckedChildren="禁用"
-						checked={selected?.status === '1'}
-						onChange={(value) => {
-							if (!value) {
-								disableBanner({ id: selected?.id });
-							} else {
-								enabledBanner({ id: selected?.id });
-							}
-						}}
-					/>
-				)}
-				<span style={{ marginLeft: 12 }}>{titleMapping[type]}</span>
-			</span>
+			<span >{titleMapping[type]}</span>
 		);
 	};
 
@@ -144,11 +111,6 @@ export default function BannerForm(props: BannerFormProps) {
                     保存
 				</Button>
 				<Button onClick={onCancel}>取消</Button>
-				{type === 'edit' && (
-					<Button type="primary" danger onClick={handleDelete}>
-                        删除
-					</Button>
-				)}
 			</Space>
 		);
 	};

@@ -1,28 +1,28 @@
 import React from 'react';
 import Container from '@/components/Container';
 import PageContainer from '@/components/PageContainer';
-import { Button, Divider, Flex,  } from 'antd';
+import { Button, Divider, Flex } from 'antd';
 import BannerPreview from './components/Preview';
 import BannerForm from './components/BannerForm';
-import BannerList from './components/List';
+// import BannerList from './components/List';
+import BannerList from './components/CardList';
 import useBanner, { IBanner } from './hooks/useBanner';
 
 export interface ISelectedBanner extends IBanner {
-	type: 'new' | 'edit'
+    type: 'new' | 'edit';
 }
 
 export default function BannersPage() {
 	const {
-		loading,
-		banners, 
-		adding, 
-		selected, 
-		setSelected, 
-		addBanner, 
+		banners,
+		adding,
+		selected,
+		setSelected,
+		addBanner,
 		deleteBanner,
 		enabledBanner,
 		disableBanner,
-		updateBanner
+		updateBanner,
 	} = useBanner();
 
 	return (
@@ -36,19 +36,32 @@ export default function BannersPage() {
 				<Container
 					style={{ minWidth: 448, overflowY: 'auto' }}
 					title={'Banner 列表'}
-					extra={(
-						<Button type="primary" onClick={() => {setSelected({type: 'new'});}}>新增</Button>
-					)}
+					extra={
+						<Button
+							type="primary"
+							onClick={() => {
+								setSelected({ type: 'new' });
+							}}
+						>
+                            新增
+						</Button>
+					}
 				>
 					<Flex style={{ height: '100%' }} vertical>
-						<BannerPreview data={banners.filter(item => item.status === '1')}/>
-						<Divider  />
-						<BannerList 
+						<BannerPreview
+							data={banners.filter((item) => item.status === '1')}
+						/>
+						<Divider />
+						<BannerList
 							data={banners}
-							selected={selected} onClick={setSelected} loading={loading}/>
+							enabledBanner={enabledBanner}
+							disableBanner={disableBanner}
+							onClick={setSelected}
+							deleteBanner={deleteBanner}
+						/>
 					</Flex>
 				</Container>
-				<BannerForm 
+				<BannerForm
 					selected={selected}
 					addBanner={addBanner}
 					deleteBanner={deleteBanner}
@@ -59,7 +72,7 @@ export default function BannersPage() {
 					onCancel={() => {
 						setSelected(null);
 					}}
-				/>	
+				/>
 			</Flex>
 		</PageContainer>
 	);
