@@ -45,12 +45,11 @@ export default function BannerPreview(props: IBannerPreviewProps) {
 				style={{ minWidth: 400 }}
 			/>
 
-			<div style={{ flex: 1 }}>
-				<Carousel
-					arrows={data?.length > 1}
-					infinite
-					className={css.bannerPreview}
-				>
+			<div
+				style={{ flex: 1, height: '100%' }}
+				className={css.bannerPreview}
+			>
+				<Carousel arrows={data?.length > 1} infinite>
 					{data.map((item) => (
 						<div key={item.id} style={{ height: '100%' }}>
 							<h3
