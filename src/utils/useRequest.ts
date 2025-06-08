@@ -22,13 +22,13 @@ function useRequest () {
 					history.replace({
 						pathname: '/404',
 					});
-					return;
+					return Promise.resolve();
 				} else if (response.data.code === '401') {
 					message.error('请先登录');
 					history.replace({
 						pathname: '/login',
 					});
-					return; 
+					return Promise.resolve(); 
 				} else {
 					return Promise.reject(new Error(response.data.description || '请求出错'));
 				}
