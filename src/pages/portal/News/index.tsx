@@ -48,7 +48,7 @@ const MessagePage = () => {
 			hideInSearch: true,
 		},
 		{
-			title: 'Actions',
+			title: '操作',
 			valueType: 'option',
 			key: 'option',
 			render: (text, record) => [
