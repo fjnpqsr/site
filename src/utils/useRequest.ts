@@ -30,7 +30,7 @@ function useRequest () {
 					});
 					return Promise.resolve(); 
 				} else {
-					return Promise.reject(new Error(response.data.description || '请求出错'));
+					return Promise.reject(response.data.description || '请求出错');
 				}
 			}
 
