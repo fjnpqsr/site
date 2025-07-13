@@ -3,7 +3,7 @@ import {
 	MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import {  Button, Divider, Layout, Menu, message, Modal, Space, theme } from 'antd';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { history, Outlet } from 'umi';
 import logo from '@/assets/logo.gif';
 import logoSmall from '@/assets/logo-small.png';
@@ -28,7 +28,12 @@ const PortalLayout: React.FC = () => {
 	const handleMenuClick = (menuItem: any) => {
 		history.push(menuItem.key);
 	};
+	useEffect(() => {
+		if (!sessionStorage.getItem('token') && location.pathname !== '/login') {
 
+			history.replace('/login');
+		}
+	});
 	async function doLogout() {
 		const res = await request('/official-website/logout', {
 			method: 'post'

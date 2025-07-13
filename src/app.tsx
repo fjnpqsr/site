@@ -33,6 +33,7 @@ function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 
 export function onRouteChange({ routes, location }: any) {
 	const { pathname } = location;
+
 	const allRoutesPath = Object.keys(routes)
 		.filter((item) => !routes[item].isLayout)
 		.map((item) =>
