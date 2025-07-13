@@ -112,7 +112,6 @@ export default function UpdateCenter() {
 	};
 	useEffect(() => {
 		if (detail) {
-			console.log({detail});
 			const {img} = JSON.parse(detail.json || '{}');
 			form.setFieldsValue(detail);
 			

@@ -64,8 +64,8 @@ const useMediaForm = (init = true) => {
 		const { code, msg, data } = await request(`${apis.rich.detail}/${id}`);
 		setFetching(false);
 		if (code === '200') {
-			const { projectContent} = JSON.parse(data.json || '{}');
-			setDetail({...data, projectContent});
+			const { projectContent, position, workingYears, qualification} = JSON.parse(data.json || '{}');
+			setDetail({...data, projectContent, position, workingYears, qualification});
 		} else {
 			message.destroy();
 			message.error(msg);
