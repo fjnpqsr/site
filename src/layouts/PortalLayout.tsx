@@ -21,7 +21,6 @@ const PortalLayout: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const { state, updateContext } = useContext(context);
 	const {request} = useRequest();
-	console.log(state);
 	const {
 		token: { colorBgLayout, colorBgContainer },
 	} = theme.useToken();

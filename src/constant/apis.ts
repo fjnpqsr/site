@@ -1,6 +1,6 @@
 export const apis = {
 	banners: {
-		list: '/official-website/banner/list',
+		list: '/official-website/banner/list?type=BANNER',
 		create: '/official-website/banner/add',
 		delete: '/official-website/banner/delete',
 		disable: '/official-website/banner/disable',

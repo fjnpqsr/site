@@ -40,7 +40,7 @@ const userBannerList = () => {
 	}
 	async function addBanner(params: any) {
 		setAdding(true);
-		const {code, msg} = await request(apis.banners.create, { method: 'post', data: params });
+		const {code, msg} = await request(apis.banners.create, { method: 'post', data: {...params, type: 'BANNER'} });
 		setAdding(false);
 		if (code === '200') {
 			message.destroy();
@@ -97,7 +97,7 @@ const userBannerList = () => {
 
 	async function updateBanner(params: any) {
 		setAdding(true);
-		const {code, msg} = await request(apis.banners.update, { method: 'put', data: params });
+		const {code, msg} = await request(apis.banners.update, { method: 'put', data: {...params, type: 'BANNER'} });
 		setAdding(false);
 		if (code === '200') {
 			message.destroy();

@@ -10,11 +10,11 @@ import React from 'react';
 import {
 	CommentOutlined,
 	FileDoneOutlined,
-	FileTextOutlined,
+	// FileTextOutlined,
 	HomeOutlined,
 	LaptopOutlined,
 	NotificationOutlined,
-	ProjectOutlined,
+	// ProjectOutlined,
 } from '@ant-design/icons';
 
 const menusData = [
@@ -48,16 +48,16 @@ const menusData = [
 			/>
 		),
 	},
-	{
-		label: '新闻管理',
-		key: '/portal/News',
-		icon: <FileTextOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-	},
-	{
-		label: '服务管理',
-		key: '/portal/Services',
-		icon: <ProjectOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-	},
+	// {
+	// 	label: '新闻管理',
+	// 	key: '/portal/News',
+	// 	icon: <FileTextOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+	// },
+	// {
+	// 	label: '服务管理',
+	// 	key: '/portal/Services',
+	// 	icon: <ProjectOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+	// },
 	{
 		label: '案例管理',
 		key: '/portal/Cases',

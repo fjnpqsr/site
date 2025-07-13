@@ -40,9 +40,6 @@ export default function BannerForm(props: BannerFormProps) {
 		selected,
 		adding,
 		addBanner,
-		deleteBanner,
-		enabledBanner,
-		disableBanner,
 		updateBanner,
 	} = props;
 	const [previewOpen, setPreviewOpen] = useState(false);
