@@ -5,10 +5,8 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { history, matchPath } from 'umi';
 
-
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
-
 
 // autoFixContext(
 // 	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
@@ -18,8 +16,8 @@ import Provider from '@/context/Provider';
 function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
 	// not judgement 404-path will loop replace to 404
-	const isNot404Page = pathname !== '/404';
-	const updateCenter = '/portal/UpdateCenter/:type/:id';
+	const isNot404Page = !pathname.indexOf('/404');
+	const updateCenter = '/admin/portal/UpdateCenter/:type/:id';
 	const isUpdateCenter = matchPath(updateCenter, pathname);
 	if (!allRoutesPath.includes(pathname) && isNot404Page && !isUpdateCenter) {
 		// Switch not found page type
@@ -33,7 +31,7 @@ function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 
 export function onRouteChange({ routes, location }: any) {
 	const { pathname } = location;
-
+	console.log({ routes });
 	const allRoutesPath = Object.keys(routes)
 		.filter((item) => !routes[item].isLayout)
 		.map((item) =>
@@ -41,17 +39,15 @@ export function onRouteChange({ routes, location }: any) {
 				? routes[item].path
 				: `/${routes[item].path}`
 		);
-
+	console.log(allRoutesPath);
 	// check pathname is exists or not
 	validateRouteIsNotExist(allRoutesPath, pathname);
 }
 
 export function rootContainer(container: React.ReactNode, { routes }: any) {
 	return (
-
 		<ContextProvider routes={routes}>
-			<ConfigProvider
-			>
+			<ConfigProvider>
 				<Provider>{container}</Provider>
 			</ConfigProvider>
 		</ContextProvider>

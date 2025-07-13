@@ -9,6 +9,7 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
+	base:'/admin',
 	npmClient: 'pnpm',
 	title: 'umi 4 learn',
 	esbuildMinifyIIFE: true,

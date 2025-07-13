@@ -29,7 +29,7 @@ const PortalLayout: React.FC = () => {
 		history.push(menuItem.key);
 	};
 	useEffect(() => {
-		if (!sessionStorage.getItem('token') && location.pathname !== '/login') {
+		if (!sessionStorage.getItem('token') && location.pathname !== '/admin/login') {
 
 			history.replace('/login');
 		}

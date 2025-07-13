@@ -9,7 +9,7 @@ export default function Layout() {
 
 	useEffect(() => {
 		if(!sessionStorage.getItem('token')) {
-			history.replace('login');
+			history.replace('/login');
 		}
 	}, []);
 
