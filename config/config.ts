@@ -9,7 +9,6 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
-	base:'/admin',
 	npmClient: 'pnpm',
 	title: '聚实新能源',
 	esbuildMinifyIIFE: true,

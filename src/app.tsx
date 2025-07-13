@@ -14,7 +14,7 @@ function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
 	// not judgement 404-path will loop replace to 404
 	const isNot404Page = !pathname.indexOf('/404');
-	const updateCenter = '/admin/portal/UpdateCenter/:type/:id';
+	const updateCenter = '/portal/UpdateCenter/:type/:id';
 	const isUpdateCenter = matchPath(updateCenter, pathname);
 	if (!allRoutesPath.includes(pathname) && isNot404Page && !isUpdateCenter) {
 		// Switch not found page type
