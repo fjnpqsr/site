@@ -11,7 +11,7 @@ import { defineConfig } from 'umi';
 export default defineConfig({
 	base:'/admin',
 	npmClient: 'pnpm',
-	title: 'umi 4 learn',
+	title: '聚实新能源',
 	esbuildMinifyIIFE: true,
 	proxy: {
 		'/official-website': {
@@ -28,4 +28,5 @@ export default defineConfig({
 	},
 	links: [{ href: 'https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css', rel: 'stylesheet' }],
 	scripts: ['https://unpkg.com/@wangeditor/editor@latest/dist/index.js'],
+	favicons: ['ic_logo.ico'],
 });

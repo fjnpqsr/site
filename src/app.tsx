@@ -8,10 +8,7 @@ import { history, matchPath } from 'umi';
 import { ContextProvider } from '@/context/context';
 import Provider from '@/context/Provider';
 
-// autoFixContext(
-// 	[require('react/jsx-runtime'), 'jsx', 'jsxs', 'jsxDEV'],
-// 	[require('react/jsx-dev-runtime'), 'jsx', 'jsxs', 'jsxDEV']
-// );
+
 
 function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 	// 404-page path is /*
@@ -31,7 +28,6 @@ function validateRouteIsNotExist(allRoutesPath: string[], pathname: string) {
 
 export function onRouteChange({ routes, location }: any) {
 	const { pathname } = location;
-	console.log({ routes });
 	const allRoutesPath = Object.keys(routes)
 		.filter((item) => !routes[item].isLayout)
 		.map((item) =>
@@ -39,7 +35,6 @@ export function onRouteChange({ routes, location }: any) {
 				? routes[item].path
 				: `/${routes[item].path}`
 		);
-	console.log(allRoutesPath);
 	// check pathname is exists or not
 	validateRouteIsNotExist(allRoutesPath, pathname);
 }
