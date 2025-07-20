@@ -83,13 +83,15 @@ export default function BannerForm(props: BannerFormProps) {
 				...submitValues,
 				url: imageUrl,
 				status: '1',
+				title: submitValues.title || 'N/A',
 			});
 		} else if (selected?.type === 'edit') {
 			updateBanner({
 				...submitValues,
 				url: imageUrl,
 				status: selected?.status,
-				id: selected?.id
+				id: selected?.id,
+				title: selected?.title || 'N/A',
 			});
 		}
 	};
@@ -130,6 +132,7 @@ export default function BannerForm(props: BannerFormProps) {
 	}, [selected]);
 
 	const handleChange: UploadProps['onChange'] = (info) => {
+		console.log(info);
 		setFileList(info.fileList);
 		if (info.file.status === 'uploading') {
 			setUploading(true);
