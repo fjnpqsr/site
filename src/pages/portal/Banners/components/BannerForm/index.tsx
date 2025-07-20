@@ -13,6 +13,7 @@ import {
 	Button,
 	Result,
 	Flex,
+	message,
 } from 'antd';
 import css from './index.module.less';
 import Container from '@/components/Container';
@@ -136,6 +137,12 @@ export default function BannerForm(props: BannerFormProps) {
 		setFileList(info.fileList);
 		if (info.file.status === 'uploading') {
 			setUploading(true);
+			return;
+		}
+		if (info.file.status === 'error') {
+			setUploading(false);
+			message.destroy();
+			message.error(info.file.response?.message || '上传失败');
 			return;
 		}
 		if (info.file.status === 'done') {
